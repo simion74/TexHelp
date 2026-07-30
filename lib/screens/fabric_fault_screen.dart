@@ -43,9 +43,19 @@ class _FabricFaultScreenState extends State<FabricFaultScreen> {
       _aiFault = null;
     });
 
+    final languageInstruction = _isEnglish
+        ? 'Respond entirely in simple, clear English.'
+        : 'মূল বাক্য গঠন স্বাভাবিক, সহজ বাংলায় লিখুন। তবে টেক্সটাইল/গার্মেন্টস '
+          'ইন্ডাস্ট্রির প্রচলিত টেকনিক্যাল শব্দ (যেমন GSM, Shrinkage, Barré, '
+          'Pilling, Dyeing, Finishing, ইত্যাদি প্রফেশনাল টার্ম) ইংরেজিতেই '
+          'রাখুন — জোর করে এগুলোর বাংলা অনুবাদ করবেন না, কারণ ইন্ডাস্ট্রিতে '
+          'এই শব্দগুলো ইংরেজিতেই ব্যবহৃত হয়।';
+
     final prompt = '''
 You are a Textile & Garments Quality Control (QC) expert. Provide details
 about the fabric/garments fault: "$query".
+
+$languageInstruction
 
 Respond ONLY with a JSON object in exactly this structure, no markdown, no extra text:
 {
@@ -55,6 +65,8 @@ Respond ONLY with a JSON object in exactly this structure, no markdown, no extra
   "root_causes": ["Cause 1", "Cause 2", "Cause 3"],
   "remedies": ["Solution 1", "Solution 2", "Solution 3"]
 }
+All text values inside the JSON (fault_name, process_stage, description,
+root_causes, remedies) must follow the language instruction above.
 If the fault name is unclear, make the best reasonable guess based on the
 closest matching real textile fault.
 ''';
@@ -267,7 +279,7 @@ closest matching real textile fault.
                 description: _aiFault!['description'] as String?,
                 sections: [
                   AiInfoSection(
-                    heading: 'Root Causes (কারণসমূহ)',
+                    heading: _isEnglish ? 'Root Causes' : 'কারণসমূহ',
                     icon: Icons.report_problem_rounded,
                     items: ((_aiFault!['root_causes'] as List?)
                             ?.map((e) => e.toString())
@@ -275,7 +287,7 @@ closest matching real textile fault.
                         const [],
                   ),
                   AiInfoSection(
-                    heading: 'Remedies (সমাধান)',
+                    heading: _isEnglish ? 'Remedies' : 'সমাধান',
                     icon: Icons.build_circle_rounded,
                     iconColor: Colors.green,
                     items: ((_aiFault!['remedies'] as List?)
