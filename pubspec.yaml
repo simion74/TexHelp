@@ -1,0 +1,47 @@
+name: texhelp
+description: "TexHelp - Smart Textile Solution (4 Point, Fabric, Shrinkage, Stripe, Yarn, GSM etc.)"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  # Google AdMob ব্যানার বিজ্ঞাপন দেখানোর জন্য। flutter pub get দিলে ইনস্টল হবে।
+  google_mobile_ads: ^5.2.0
+  # নিচের প্যাকেজটি ঐচ্ছিক (Share App বাটনের জন্য)।
+  # আপনার নেটওয়ার্কে pub.dev এক্সেস থাকলে আনকমেন্ট করে flutter pub get দিন।
+  # share_plus: ^7.2.1
+
+  # 📸 GSM Scanner ফিচারের ইন-অ্যাপ ক্যামেরার জন্য
+  camera: ^0.10.5+9
+  # 🔍 GSM Scanner-এ ট্যাগের সংখ্যা পড়ার জন্য গুগলের OCR প্যাকেজ
+  google_mlkit_text_recognition: ^0.13.0
+
+  # 🤖 AI ফিচারের জন্য (AI Color Finder, Machine Library, Fabric Fault, Fabric Type)
+  # Gemini API-তে কল করার জন্য
+  http: ^1.2.0
+  # API Key স্থায়ীভাবে (ডিভাইসে) সেভ রাখার জন্য
+  shared_preferences: ^2.2.2
+  # AI Settings থেকে Google AI Studio ব্রাউজারে ওপেন করার জন্য
+  url_launcher: ^6.2.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/images/fabrics/
+    - assets/images/machines/
+    - assets/icon/
+    - assets/data/
+    - assets/homeicon/
+    - assets/Fabric_fault_image/
+    - assets/Ready_garments_fault_image/

@@ -1,0 +1,40 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- AdMob বিজ্ঞাপনের জন্য ইন্টারনেট পারমিশন (কালার ডাটাবেজ এখন অ্যাপের
+         ভেতরেই permanently বান্ডল করা, তাই এর জন্য ইন্টারনেট লাগে না) -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- GSM Scanner ফিচারের ইন-অ্যাপ ক্যামেরার জন্য -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <application
+        android:label="TexHelp"
+        android:name="${applicationName}"
+        android:icon="@mipmap/ic_launcher">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize">
+            <meta-data
+              android:name="io.flutter.embedding.android.NormalTheme"
+              android:resource="@style/NormalTheme"
+              />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
+
+        <!-- Google AdMob App ID — এখানে Google-এর অফিসিয়াল টেস্ট App ID বসানো আছে।
+             প্লে স্টোরে প্রকাশ করার আগে অবশ্যই এটি আপনার নিজের AdMob অ্যাকাউন্টের
+             আসল App ID দিয়ে পরিবর্তন করে নিন, নাহলে রিয়েল অ্যাড দেখাবে না। -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713"/>
+    </application>
+</manifest>
