@@ -41,7 +41,6 @@ flutter:
     - assets/images/fabrics/
     - assets/images/machines/
     - assets/icon/
-    - assets/data/
     - assets/homeicon/
     - assets/Fabric_fault_image/
     - assets/Ready_garments_fault_image/
