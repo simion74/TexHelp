@@ -222,7 +222,7 @@ class GeminiService {
     }
     if (response.statusCode != 200) {
       throw AiException(
-        'তথ্য আনতে সমস্যা হয়েছে। আবার চেষ্টা করুন। (Code: ${response.statusCode})',
+        'তথ্য আনতে সমস্যা হয়েছে। মডেল: $model, কোড: ${response.statusCode}, বার্তা: ${response.body.length > 150 ? response.body.substring(0, 150) : response.body}',
       );
     }
 
