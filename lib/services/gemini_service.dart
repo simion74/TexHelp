@@ -14,7 +14,7 @@ class GeminiService {
   static const String _apiKeyPref = 'gemini_api_key';
 
   // 🔧 Google-এর অফিসিয়াল "সবসময় লেটেস্ট Flash" alias
-  static const String _model = 'gemini-2.5-flash-lite';
+  static const String _model = 'gemini-3.5-flash-lite';
 
   static Uri _generateEndpoint(String apiKey) => Uri.parse(
         'https://generativelanguage.googleapis.com/v1beta/models/$_model:generateContent?key=$apiKey',
