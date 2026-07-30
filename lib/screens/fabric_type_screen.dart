@@ -39,8 +39,17 @@ class _FabricTypeScreenState extends State<FabricTypeScreen> {
       _aiFabric = null;
     });
 
+    final languageInstruction = _isEnglish
+        ? 'Respond entirely in simple, clear English.'
+        : 'মূল বাক্য গঠন স্বাভাবিক, সহজ বাংলায় লিখুন। তবে টেক্সটাইল/গার্মেন্টস '
+          'ইন্ডাস্ট্রির প্রচলিত টেকনিক্যাল শব্দ (ফেব্রিকের নাম, প্রযুক্তিগত '
+          'টার্ম) ইংরেজিতেই রাখুন — জোর করে এগুলোর বাংলা অনুবাদ করবেন না, '
+          'কারণ ইন্ডাস্ট্রিতে এই শব্দগুলো ইংরেজিতেই ব্যবহৃত হয়।';
+
     final prompt = '''
 You are a Textile Fabric expert. Provide details about the fabric type: "$query".
+
+$languageInstruction
 
 Respond ONLY with a JSON object in exactly this structure, no markdown, no extra text:
 {
@@ -50,6 +59,8 @@ Respond ONLY with a JSON object in exactly this structure, no markdown, no extra
   "properties": ["Property 1", "Property 2", "Property 3"],
   "common_uses": ["Use 1", "Use 2", "Use 3"]
 }
+All text values inside the JSON (fabric_name, category, description,
+properties, common_uses) must follow the language instruction above.
 If the fabric name is unclear, make the best reasonable guess based on the
 closest matching real textile fabric.
 ''';
@@ -110,7 +121,7 @@ closest matching real textile fabric.
                 description: _aiFabric!['description'] as String?,
                 sections: [
                   AiInfoSection(
-                    heading: 'Properties',
+                    heading: _isEnglish ? 'Properties' : 'বৈশিষ্ট্য',
                     icon: Icons.checklist_rounded,
                     items: ((_aiFabric!['properties'] as List?)
                             ?.map((e) => e.toString())
@@ -118,7 +129,7 @@ closest matching real textile fabric.
                         const [],
                   ),
                   AiInfoSection(
-                    heading: 'Common Uses',
+                    heading: _isEnglish ? 'Common Uses' : 'ব্যবহারসমূহ',
                     icon: Icons.shopping_bag_rounded,
                     iconColor: AppColors.orange,
                     items: ((_aiFabric!['common_uses'] as List?)
