@@ -45,9 +45,18 @@ class _MachineLibraryScreenState extends State<MachineLibraryScreen> {
       _aiMachine = null;
     });
 
+    final languageInstruction = _isEnglish
+        ? 'Respond entirely in simple, clear English.'
+        : 'মূল বাক্য গঠন স্বাভাবিক, সহজ বাংলায় লিখুন। তবে টেক্সটাইল/গার্মেন্টস '
+          'ইন্ডাস্ট্রির প্রচলিত টেকনিক্যাল শব্দ (মেশিনের নাম, প্রযুক্তিগত '
+          'টার্ম) ইংরেজিতেই রাখুন — জোর করে এগুলোর বাংলা অনুবাদ করবেন না, '
+          'কারণ ইন্ডাস্ট্রিতে এই শব্দগুলো ইংরেজিতেই ব্যবহৃত হয়।';
+
     final prompt = '''
 You are an expert Textile & Garments Machinery Engineer. Provide technical
 details for the machine: "$query".
+
+$languageInstruction
 
 Respond ONLY with a JSON object in exactly this structure, no markdown, no extra text:
 {
@@ -58,6 +67,8 @@ Respond ONLY with a JSON object in exactly this structure, no markdown, no extra
   "outputs": "Final output produced by this machine",
   "safety_and_maintenance": ["Tip 1", "Tip 2", "Tip 3"]
 }
+All text values inside the JSON (machine_name, category, primary_function,
+inputs, outputs, safety_and_maintenance) must follow the language instruction above.
 If the machine name is unrecognized or unclear, make the best reasonable guess
 based on the closest matching real textile/garments machine.
 ''';
@@ -128,7 +139,15 @@ based on the closest matching real textile/garments machine.
                     ],
                   ),
                   AiInfoSection(
-                    heading: 'Safety & Maintenance',
+                    heading: _isEnglish ? 'Input / Output' : 'ইনপুট / আউটপুট',
+                    icon: Icons.compare_arrows_rounded,
+                    items: [
+                      '${_isEnglish ? 'Input' : 'ইনপুট'}: ${_aiMachine!['inputs'] ?? '—'}',
+                      '${_isEnglish ? 'Output' : 'আউটপুট'}: ${_aiMachine!['outputs'] ?? '—'}',
+                    ],
+                  ),
+                  AiInfoSection(
+                    heading: _isEnglish ? 'Safety & Maintenance' : 'সেফটি ও রক্ষণাবেক্ষণ',
                     icon: Icons.shield_rounded,
                     iconColor: Colors.deepOrange,
                     items: ((_aiMachine!['safety_and_maintenance'] as List?)
