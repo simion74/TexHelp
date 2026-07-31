@@ -438,7 +438,7 @@ answer in that case.
   Widget _detailRow(String label, String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 3),
-      : Row(
+      child: Row(
         children: [
           SizedBox(
             width: 78,
