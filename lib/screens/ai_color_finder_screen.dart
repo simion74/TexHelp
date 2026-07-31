@@ -10,6 +10,13 @@ import '../widgets/ai_result_card.dart';
 /// আগে অ্যাপের ভেতরে বান্ডল করা ২৬০০+ কালার ডাটাবেজ থেকে আসতো, এখন
 /// প্রতিটা সার্চেই সরাসরি Gemini AI থেকে রিয়েল-টাইমে আসে। তাই এই ফিচার
 /// ব্যবহার করতে ইন্টারনেট (মোবাইল ডাটা/Wi-Fi) থাকা আবশ্যক।
+///
+/// 🔧 স্কোপ: কালার কোড (সংখ্যা-ভিত্তিক) শুধু Pantone TCX-এ সীমাবদ্ধ —
+/// ব্র্যান্ডের প্রাইভেট নাম্বার কোড (H&M/Zara-এর নিজস্ব সংখ্যা) সাপোর্ট
+/// করা হয় না কারণ AI-এর সেই প্রাইভেট ডাটাবেজে এক্সেস নেই। কিন্তু কালারের
+/// "নাম" (যেমন TNF Black, Forest Green) যেকোনো টেক্সটাইল ব্র্যান্ডের
+/// জন্য গ্রহণযোগ্য, কারণ ব্র্যান্ডের নামকরণ করা রঙ সাধারণত পাবলিকলি
+/// প্রকাশিত (মার্কেটিং/ওয়েবসাইটে) থাকে।
 class AiColorFinderScreen extends StatefulWidget {
   const AiColorFinderScreen({super.key});
 
@@ -55,34 +62,38 @@ class _AiColorFinderScreenState extends State<AiColorFinderScreen> {
     });
 
     final prompt = '''
-You are a strict textile color database expert (Pantone TCX and major buyer
-color reference systems only — TPX/paper codes are not relevant here).
-The user will give you a color name, Pantone TCX code, or a buyer-specific
-color code/reference (e.g. H&M, Zara, Nike).
+You are a strict textile color expert. The user query can be either:
+1. A COLOR CODE (numeric/alphanumeric, e.g. "18-1550", "18-1550 TCX") —
+   ONLY answer this using the official Pantone TCX (Fashion, Home + Interiors)
+   database. Do NOT attempt to answer buyer-private numeric codes (e.g. a
+   random internal H&M/Zara/Nike numeric reference) since that data is not
+   publicly known to you.
+2. A COLOR NAME (words, e.g. "Forest Green", "TNF Black", "Wine Red",
+   "Nike Black") — these are usually publicly published brand/marketing
+   color names, so answer using your best knowledge of that named color
+   for any textile/apparel brand.
+
 User query: "$query"
 
-If you are not highly confident about the exact color/shade for this query,
-DO NOT guess or invent a plausible-looking answer. Instead respond with:
+Respond ONLY with a single JSON object in exactly this structure, no markdown,
+no extra text, no explanation outside the JSON:
 {
-  "color_name": "Color Not Found",
-  "code": "$query",
-  "hex": "#CCCCCC",
-  "rgb": "RGB(204, 204, 204)",
-  "description": "এই কোড/নামটি নির্দিষ্টভাবে শনাক্ত করা যায়নি। বানান/ফরম্যাট আবার চেক করুন অথবা সরাসরি Pantone TCX কোড ব্যবহার করে দেখুন।"
+  "found": true or false,
+  "color_name": "Official or best matching color name, or empty string if not found",
+  "code": "Standard closest Pantone TCX code if applicable, or empty string if not found",
+  "hex": "#HEXCODE, or #CCCCCC if not found",
+  "rgb": "RGB(r, g, b), or RGB(204, 204, 204) if not found",
+  "description": "One short sentence about this color's usage in textile, in simple English. If not found, briefly explain that this specific code/name could not be confidently identified (e.g. it looks like a private buyer code)."
 }
 
-If you ARE highly confident, respond ONLY with a JSON object in exactly this structure, no markdown, no extra text:
-{
-  "color_name": "Official or best matching color name",
-  "code": "The code provided, or standard closest Pantone TCX code (e.g. 18-1550 TCX)",
-  "hex": "#HEXCODE",
-  "rgb": "RGB(r, g, b)",
-  "description": "One short sentence about this color / its usage in textile, in simple English"
-}
+Set "found" to false ONLY if you are not highly confident about the exact
+color/shade for this specific query — do not guess or invent a plausible
+answer in that case.
 ''';
 
     try {
-      final data = await GeminiService.generateJson(prompt, needsAccuracy: true);
+      final data =
+          await GeminiService.generateJson(prompt, needsAccuracy: true);
       setState(() {
         _colorData = data;
         _isLoading = false;
@@ -254,7 +265,7 @@ If you ARE highly confident, respond ONLY with a JSON object in exactly this str
             fontWeight: FontWeight.w700,
             color: AppColors.darkGreen),
         decoration: InputDecoration(
-          hintText: 'কালারের নাম বা কোড লিখুন (যেমন: H&M Red, 18-1550 TCX)',
+          hintText: 'কালারের নাম বা TCX কোড লিখুন (যেমন: TNF Black, 18-1550 TCX)',
           hintStyle: const TextStyle(
               fontSize: 11.5,
               color: Colors.black38,
@@ -287,7 +298,7 @@ If you ARE highly confident, respond ONLY with a JSON object in exactly this str
           Icon(Icons.palette_outlined, size: 46, color: Colors.black26),
           SizedBox(height: 10),
           Text(
-            'নাম বা কোড লিখে সার্চ করুন\nSearch by color name or buyer code',
+            'কালারের নাম বা Pantone TCX কোড লিখে সার্চ করুন\nSearch by color name or Pantone TCX code',
             textAlign: TextAlign.center,
             style: TextStyle(color: Colors.black45, fontSize: 12.5, height: 1.4),
           ),
@@ -310,6 +321,31 @@ If you ARE highly confident, respond ONLY with a JSON object in exactly this str
   }
 
   Widget _resultPreview(Map<String, dynamic> data) {
+    final found = data['found'] as bool? ?? true;
+
+    // 🔴 কনফিডেন্ট না হলে — রঙের বদলে একটা স্পষ্ট "পাওয়া যায়নি" বার্তা
+    if (!found) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 30),
+        child: Column(
+          children: [
+            const Icon(Icons.search_off_rounded,
+                size: 46, color: Colors.black26),
+            const SizedBox(height: 10),
+            Text(
+              (data['description'] as String?)?.isNotEmpty == true
+                  ? data['description'] as String
+                  : 'এই কোড/নামটি নির্দিষ্টভাবে শনাক্ত করা যায়নি। বানান আবার '
+                      'চেক করুন অথবা সরাসরি Pantone TCX কোড ব্যবহার করে দেখুন।',
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                  color: Colors.black54, fontSize: 12.5, height: 1.4),
+            ),
+          ],
+        ),
+      );
+    }
+
     final hexCode = (data['hex'] as String?) ?? '#4CAF50';
     final colorName = (data['color_name'] as String?) ?? 'Unknown Color';
     final code = (data['code'] as String?) ?? '—';
@@ -402,7 +438,7 @@ If you ARE highly confident, respond ONLY with a JSON object in exactly this str
   Widget _detailRow(String label, String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 3),
-      child: Row(
+      : Row(
         children: [
           SizedBox(
             width: 78,
