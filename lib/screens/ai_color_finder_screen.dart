@@ -55,14 +55,26 @@ class _AiColorFinderScreenState extends State<AiColorFinderScreen> {
     });
 
     final prompt = '''
-You are a textile color expert. The user will give you a color name, TCX code,
-or a buyer-specific color code/reference (e.g. H&M, Zara, Nike, Pantone).
+You are a strict textile color database expert (Pantone TCX and major buyer
+color reference systems only — TPX/paper codes are not relevant here).
+The user will give you a color name, Pantone TCX code, or a buyer-specific
+color code/reference (e.g. H&M, Zara, Nike).
 User query: "$query"
 
-Respond ONLY with a JSON object in exactly this structure, no markdown, no extra text:
+If you are not highly confident about the exact color/shade for this query,
+DO NOT guess or invent a plausible-looking answer. Instead respond with:
+{
+  "color_name": "Color Not Found",
+  "code": "$query",
+  "hex": "#CCCCCC",
+  "rgb": "RGB(204, 204, 204)",
+  "description": "এই কোড/নামটি নির্দিষ্টভাবে শনাক্ত করা যায়নি। বানান/ফরম্যাট আবার চেক করুন অথবা সরাসরি Pantone TCX কোড ব্যবহার করে দেখুন।"
+}
+
+If you ARE highly confident, respond ONLY with a JSON object in exactly this structure, no markdown, no extra text:
 {
   "color_name": "Official or best matching color name",
-  "code": "The code provided, or standard closest TCX/Pantone code (e.g. 18-1550 TCX)",
+  "code": "The code provided, or standard closest Pantone TCX code (e.g. 18-1550 TCX)",
   "hex": "#HEXCODE",
   "rgb": "RGB(r, g, b)",
   "description": "One short sentence about this color / its usage in textile, in simple English"
