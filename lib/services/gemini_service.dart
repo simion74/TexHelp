@@ -112,6 +112,13 @@ class GeminiService {
           data['candidates'][0]['content']['parts'][0]['text'] as String;
       rawText =
           rawText.replaceAll('```json', '').replaceAll('```', '').trim();
+      // 🛡️ নিরাপত্তা: যদি সামনে/পেছনে বাড়তি টেক্সট থেকে যায়, শুধু
+      // { } এর মূল JSON অংশটুকু আলাদা করে নেওয়া হচ্ছে
+      final start = rawText.indexOf('{');
+      final end = rawText.lastIndexOf('}');
+      if (start != -1 && end != -1 && end > start) {
+        rawText = rawText.substring(start, end + 1);
+      }
       return jsonDecode(rawText) as Map<String, dynamic>;
     } catch (_) {
       throw AiException('রেসপন্স বোঝা যায়নি। আবার চেষ্টা করুন।');
