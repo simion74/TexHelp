@@ -5,18 +5,18 @@ import '../widgets/ad_banner.dart';
 import '../widgets/ai_icon.dart';
 import '../widgets/ai_result_card.dart';
 
-/// AI Color Finder — আগের TCX Color Finder-এর ডিজাইন হুবহু অপরিবর্তিত
-/// (সার্চ বক্স, রঙের প্রিভিউ, ডিটেইল কার্ড), শুধু ডাটার উৎস বদলে গেছে —
-/// আগে অ্যাপের ভেতরে বান্ডল করা ২৬০০+ কালার ডাটাবেজ থেকে আসতো, এখন
-/// প্রতিটা সার্চেই সরাসরি Gemini AI থেকে রিয়েল-টাইমে আসে। তাই এই ফিচার
-/// ব্যবহার করতে ইন্টারনেট (মোবাইল ডাটা/Wi-Fi) থাকা আবশ্যক।
+/// AI Color Finder — ডিজাইন: উপরে তথ্য কার্ড, নিচে ফেব্রিক ল্যাব-ডিপ
+/// স্টাইলের সোয়াচ (সাইডে জিগজ্যাগ/পিংকিং-শিয়ার কাটা প্রান্ত + কাপড়ের
+/// বুনন-টেক্সচার), যাতে টেক্সটাইল ওয়ার্কারদের কাছে এটা আসল ফিজিক্যাল
+/// Pantone TCX সোয়াচ কার্ডের মতো পরিচিত লাগে।
+///
+/// ডাটা প্রতিটা সার্চেই সরাসরি Gemini AI থেকে রিয়েল-টাইমে আসে — তাই এই
+/// ফিচার ব্যবহার করতে ইন্টারনেট (মোবাইল ডাটা/Wi-Fi) থাকা আবশ্যক।
 ///
 /// 🔧 স্কোপ: কালার কোড (সংখ্যা-ভিত্তিক) শুধু Pantone TCX-এ সীমাবদ্ধ —
-/// ব্র্যান্ডের প্রাইভেট নাম্বার কোড (H&M/Zara-এর নিজস্ব সংখ্যা) সাপোর্ট
-/// করা হয় না কারণ AI-এর সেই প্রাইভেট ডাটাবেজে এক্সেস নেই। কিন্তু কালারের
+/// ব্র্যান্ডের প্রাইভেট নাম্বার কোড সাপোর্ট করা হয় না। কিন্তু কালারের
 /// "নাম" (যেমন TNF Black, Forest Green) যেকোনো টেক্সটাইল ব্র্যান্ডের
-/// জন্য গ্রহণযোগ্য, কারণ ব্র্যান্ডের নামকরণ করা রঙ সাধারণত পাবলিকলি
-/// প্রকাশিত (মার্কেটিং/ওয়েবসাইটে) থাকে।
+/// জন্য গ্রহণযোগ্য।
 class AiColorFinderScreen extends StatefulWidget {
   const AiColorFinderScreen({super.key});
 
@@ -41,6 +41,12 @@ class _AiColorFinderScreenState extends State<AiColorFinderScreen> {
   static const double _headerTitleTopOffset = 25;
   static const double _searchBoxTopSpacing = 25;
   static const double _resultTopSpacing = 15;
+
+  // 🔧 ফেব্রিক সোয়াচ কার্ডের কনফিগারেশন — এখানেই ছোট-বড় করুন
+  static const double _swatchAspectRatio = 0.76; // ফিজিক্যাল TCX কার্ডের অনুপাত
+  static const double _swatchHorizontalMargin = 26;
+  static const double _zigzagToothWidth = 12;
+  static const double _zigzagToothHeight = 9;
 
   Color _hexToColor(String hexString) {
     final buffer = StringBuffer();
@@ -320,10 +326,14 @@ answer in that case.
     );
   }
 
+  // ---------------------------------------------------------------------
+  // 🧵 ফলাফল: উপরে তথ্য কার্ড, নিচে ফেব্রিক ল্যাব-ডিপ স্টাইল সোয়াচ
+  // ---------------------------------------------------------------------
+
   Widget _resultPreview(Map<String, dynamic> data) {
     final found = data['found'] as bool? ?? true;
 
-    // 🔴 কনফিডেন্ট না হলে — রঙের বদলে একটা স্পষ্ট "পাওয়া যায়নি" বার্তা
+    // 🔴 কনফিডেন্ট না হলে — সোয়াচের বদলে একটা স্পষ্ট "পাওয়া যায়নি" বার্তা
     if (!found) {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 30),
@@ -355,22 +365,7 @@ answer in that case.
 
     return Column(
       children: [
-        Container(
-          width: double.infinity,
-          height: 200,
-          decoration: BoxDecoration(
-            color: swatch,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: Colors.black12),
-            boxShadow: [
-              BoxShadow(
-                  color: swatch.withOpacity(0.4),
-                  blurRadius: 16,
-                  offset: const Offset(0, 6))
-            ],
-          ),
-        ),
-        const SizedBox(height: 12),
+        // 🏷️ উপরের তথ্য কার্ড
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -416,7 +411,52 @@ answer in that case.
             ],
           ),
         ),
+        const SizedBox(height: 18),
+        // 🧵 নিচে ফেব্রিক ল্যাব-ডিপ স্টাইল সোয়াচ (জিগজ্যাগ কাটা + বুনন-টেক্সচার)
+        Padding(
+          padding: const EdgeInsets.symmetric(
+              horizontal: _swatchHorizontalMargin),
+          child: _fabricSwatch(swatch),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          '🧵 Lab Dip Preview — Pantone TCX Match (Simulated)',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 10, color: Colors.black38, fontStyle: FontStyle.italic),
+        ),
       ],
+    );
+  }
+
+  /// 🧵 ফেব্রিক ল্যাব-ডিপ সোয়াচ — সাইডে জিগজ্যাগ (পিংকিং-শিয়ার) কাটা প্রান্ত
+  /// + হালকা ক্রস-হ্যাচ বুনন-টেক্সচার, ফিজিক্যাল Pantone TCX সোয়াচ কার্ডের
+  /// অনুকরণে (কোনো Pantone লোগো/ব্র্যান্ডিং ব্যবহার করা হয়নি)।
+  Widget _fabricSwatch(Color swatch) {
+    return AspectRatio(
+      aspectRatio: _swatchAspectRatio,
+      child: ClipPath(
+        clipper: const _ZigzagEdgeClipper(
+          toothWidth: _zigzagToothWidth,
+          toothHeight: _zigzagToothHeight,
+        ),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: swatch,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.18),
+                blurRadius: 14,
+                offset: const Offset(0, 6),
+              ),
+            ],
+          ),
+          child: CustomPaint(
+            painter: const _FabricTexturePainter(),
+            child: const SizedBox.expand(),
+          ),
+        ),
+      ),
     );
   }
 
@@ -459,4 +499,86 @@ answer in that case.
       ),
     );
   }
+}
+
+// ---------------------------------------------------------------------
+// 🧵 জিগজ্যাগ (পিংকিং-শিয়ার) প্রান্ত ক্লিপার — সাইডে ফিজিক্যাল ফেব্রিক
+// সোয়াচ কার্ডের মতো খাঁজকাটা কিনারা তৈরি করে
+// ---------------------------------------------------------------------
+class _ZigzagEdgeClipper extends CustomClipper<Path> {
+  final double toothWidth;
+  final double toothHeight;
+
+  const _ZigzagEdgeClipper({
+    required this.toothWidth,
+    required this.toothHeight,
+  });
+
+  @override
+  Path getClip(Size size) {
+    final path = Path()..moveTo(0, 0);
+    path.lineTo(size.width, 0);
+
+    // ডানপাশের জিগজ্যাগ প্রান্ত (উপর থেকে নিচে)
+    double y = 0;
+    bool out = true;
+    while (y < size.height) {
+      final nextY = (y + toothHeight).clamp(0.0, size.height);
+      final x = out ? size.width - toothWidth : size.width;
+      path.lineTo(x, (y + nextY) / 2);
+      path.lineTo(size.width, nextY);
+      y = nextY;
+      out = !out;
+    }
+
+    path.lineTo(0, size.height);
+
+    // বামপাশের জিগজ্যাগ প্রান্ত (নিচ থেকে উপর)
+    y = size.height;
+    out = true;
+    while (y > 0) {
+      final nextY = (y - toothHeight).clamp(0.0, size.height);
+      final x = out ? toothWidth : 0.0;
+      path.lineTo(x, (y + nextY) / 2);
+      path.lineTo(0, nextY);
+      y = nextY;
+      out = !out;
+    }
+
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
+}
+
+// ---------------------------------------------------------------------
+// 🧵 হালকা ক্রস-হ্যাচ বুনন-টেক্সচার — সোয়াচকে কাপড়ের মতো দেখানোর জন্য
+// ---------------------------------------------------------------------
+class _FabricTexturePainter extends CustomPainter {
+  const _FabricTexturePainter();
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paintLight = Paint()
+      ..color = Colors.white.withOpacity(0.07)
+      ..strokeWidth = 1;
+    final paintDark = Paint()
+      ..color = Colors.black.withOpacity(0.07)
+      ..strokeWidth = 1;
+
+    const gap = 4.0;
+    for (double x = -size.height; x < size.width; x += gap) {
+      canvas.drawLine(
+          Offset(x, 0), Offset(x + size.height, size.height), paintLight);
+    }
+    for (double x = 0; x < size.width + size.height; x += gap) {
+      canvas.drawLine(
+          Offset(x, 0), Offset(x - size.height, size.height), paintDark);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
