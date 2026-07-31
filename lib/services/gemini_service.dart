@@ -14,10 +14,11 @@ class GeminiService {
   static const String _apiKeyPref = 'gemini_api_key';
 
   // 🔧 Google-এর অফিসিয়াল "সবসময় লেটেস্ট Flash" alias
-  static const String _model = 'gemini-3.5-flash-lite';
+  static const String _accurateModel = 'gemini-flash-latest';
+  static const String _fastModel = 'gemini-flash-lite-latest';
 
-  static Uri _generateEndpoint(String apiKey) => Uri.parse(
-        'https://generativelanguage.googleapis.com/v1beta/models/$_model:generateContent?key=$apiKey',
+  static Uri _generateEndpoint(String apiKey, String model) => Uri.parse(
+        'https://generativelanguage.googleapis.com/v1beta/models/$model:generateContent?key=$apiKey',
       );
 
   // ---------------------------------------------------------------------
@@ -47,7 +48,10 @@ class GeminiService {
   // Gemini-কে অনুরোধ পাঠিয়ে স্ট্রাকচার্ড JSON রেসপন্স নেওয়া
   // ---------------------------------------------------------------------
 
-  static Future<Map<String, dynamic>> generateJson(String prompt) async {
+  static Future<Map<String, dynamic>> generateJson(
+    String prompt, {
+    bool needsAccuracy = false,
+  }) async {
     final apiKey = await getApiKey();
     if (apiKey == null) {
       throw AiException(
@@ -60,7 +64,7 @@ class GeminiService {
     try {
       response = await http
           .post(
-            _generateEndpoint(apiKey),
+            _generateEndpoint(apiKey, needsAccuracy ? _accurateModel : _fastModel),
             headers: {'Content-Type': 'application/json'},
             body: jsonEncode({
               'contents': [
