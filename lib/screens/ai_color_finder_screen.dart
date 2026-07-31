@@ -112,8 +112,7 @@ answer in that case.
 ''';
 
     try {
-      final data =
-          await GeminiService.generateJson(prompt, needsAccuracy: true);
+      final data = await GeminiService.generateJson(prompt);
       setState(() {
         _colorData = data;
         _isLoading = false;
