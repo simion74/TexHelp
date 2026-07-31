@@ -70,7 +70,7 @@ Respond ONLY with a JSON object in exactly this structure, no markdown, no extra
 ''';
 
     try {
-      final data = await GeminiService.generateJson(prompt);
+      final data = await GeminiService.generateJson(prompt, needsAccuracy: true);
       setState(() {
         _colorData = data;
         _isLoading = false;
