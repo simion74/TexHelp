@@ -5,10 +5,10 @@ import '../widgets/ad_banner.dart';
 import '../widgets/ai_icon.dart';
 import '../widgets/ai_result_card.dart';
 
-/// AI Color Finder — ডিজাইন: উপরে তথ্য কার্ড, নিচে ফেব্রিক ল্যাব-ডিপ
-/// স্টাইলের সোয়াচ (সাইডে জিগজ্যাগ/পিংকিং-শিয়ার কাটা প্রান্ত + কাপড়ের
-/// বুনন-টেক্সচার), যাতে টেক্সটাইল ওয়ার্কারদের কাছে এটা আসল ফিজিক্যাল
-/// Pantone TCX সোয়াচ কার্ডের মতো পরিচিত লাগে।
+/// AI Color Finder — একটাই সিমলেস কার্ড: উপরে তথ্য (টাইট স্পেসিং), তার
+/// ঠিক নিচেই লেগে থাকা ফেব্রিক ল্যাব-ডিপ সোয়াচ (বাম/ডান/নিচ — তিন পাশে
+/// ছোট ত্রিভুজ জিগজ্যাগ কাটা, উপরে সোজা যাতে কার্ডের সাথে মিশে থাকে),
+/// সোয়াচের নিচে বিবরণ ও ফুটার — সব একই সাদা কার্ডের ভেতরে।
 ///
 /// ডাটা প্রতিটা সার্চেই সরাসরি Gemini AI থেকে রিয়েল-টাইমে আসে — তাই এই
 /// ফিচার ব্যবহার করতে ইন্টারনেট (মোবাইল ডাটা/Wi-Fi) থাকা আবশ্যক।
@@ -42,11 +42,10 @@ class _AiColorFinderScreenState extends State<AiColorFinderScreen> {
   static const double _searchBoxTopSpacing = 25;
   static const double _resultTopSpacing = 15;
 
-  // 🔧 ফেব্রিক সোয়াচ কার্ডের কনফিগারেশন — এখানেই ছোট-বড় করুন
-  static const double _swatchAspectRatio = 0.76; // ফিজিক্যাল TCX কার্ডের অনুপাত
-  static const double _swatchHorizontalMargin = 26;
-  static const double _zigzagToothWidth = 12;
-  static const double _zigzagToothHeight = 9;
+  // 🔧 ফেব্রিক সোয়াচের কনফিগারেশন — এখানেই ছোট-বড় করুন
+  static const double _swatchAspectRatio = 0.95; // সোয়াচ অংশের অনুপাত
+  static const double _zigzagToothWidth = 7; // 🔧 ছোট = আরও সূক্ষ্ম জিগজ্যাগ
+  static const double _zigzagToothHeight = 6;
 
   Color _hexToColor(String hexString) {
     final buffer = StringBuffer();
@@ -105,10 +104,6 @@ cannot verify), use this exact structure instead:
   "rgb": "RGB(204, 204, 204)",
   "description": "Briefly explain in simple English why this specific code/name could not be confidently identified"
 }
-
-Set "found" to false ONLY if you are not highly confident about the exact
-color/shade for this specific query — do not guess or invent a plausible
-answer in that case.
 ''';
 
     try {
@@ -340,13 +335,12 @@ answer in that case.
   }
 
   // ---------------------------------------------------------------------
-  // 🧵 ফলাফল: উপরে তথ্য কার্ড, নিচে ফেব্রিক ল্যাব-ডিপ স্টাইল সোয়াচ
+  // 🧵 ফলাফল: একটাই সিমলেস কার্ড — উপরে তথ্য, নিচে লেগে থাকা ফেব্রিক সোয়াচ
   // ---------------------------------------------------------------------
 
   Widget _resultPreview(Map<String, dynamic> data) {
     final found = data['found'] as bool? ?? true;
 
-    // 🔴 কনফিডেন্ট না হলে — সোয়াচের বদলে একটা স্পষ্ট "পাওয়া যায়নি" বার্তা
     if (!found) {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 30),
@@ -376,99 +370,88 @@ answer in that case.
     final description = (data['description'] as String?) ?? '';
     final swatch = _hexToColor(hexCode);
 
-    return Column(
-      children: [
-        // 🏷️ উপরের তথ্য কার্ড
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(14),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(14),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black.withOpacity(0.06),
-                    blurRadius: 8,
-                    offset: const Offset(0, 3)),
-              ]),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(colorName,
-                  style: const TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w800,
-                      color: AppColors.darkGreen)),
-              const SizedBox(height: 8),
-              _detailRow('Code / Ref', code),
-              _detailRow('Hex', hexCode),
-              _detailRow('RGB', rgb),
-              if (description.isNotEmpty) ...[
-                const Divider(height: 20),
-                Text(description,
-                    style: const TextStyle(fontSize: 12, color: Colors.black87)),
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+              color: Colors.black.withOpacity(0.08),
+              blurRadius: 10,
+              offset: const Offset(0, 4)),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // 🏷️ উপরের তথ্য অংশ — টাইট লাইন স্পেসিং
+          Padding(
+            padding: const EdgeInsets.fromLTRB(14, 14, 14, 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(colorName,
+                    style: const TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w800,
+                        color: AppColors.darkGreen)),
+                const SizedBox(height: 4),
+                _detailRow('Color Name', colorName),
+                _detailRow('Code / Ref', code),
+                _detailRow('Hex', hexCode),
+                _detailRow('RGB', rgb),
               ],
-              const SizedBox(height: 10),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  AiIcon(size: 13),
-                  SizedBox(width: 4),
-                  Text('Powered by Gemini AI',
-                      style: TextStyle(
-                          fontSize: 10.5,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.grey)),
-                ],
+            ),
+          ),
+          // 🧵 ফেব্রিক ল্যাব-ডিপ সোয়াচ — উপরে সোজা (কার্ডের সাথে মিশে থাকার
+          // জন্য), বাম/ডান/নিচ — তিন পাশে ছোট ত্রিভুজ জিগজ্যাগ কাটা
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 14),
+            child: AspectRatio(
+              aspectRatio: _swatchAspectRatio,
+              child: ClipPath(
+                clipper: const _ZigzagSidesBottomClipper(
+                  toothWidth: _zigzagToothWidth,
+                  toothHeight: _zigzagToothHeight,
+                ),
+                child: ColoredBox(
+                  color: swatch,
+                  child: CustomPaint(
+                    painter: const _FabricTexturePainter(),
+                    child: const SizedBox.expand(),
+                  ),
+                ),
               ),
-            ],
+            ),
           ),
-        ),
-        const SizedBox(height: 18),
-        // 🧵 নিচে ফেব্রিক ল্যাব-ডিপ স্টাইল সোয়াচ (জিগজ্যাগ কাটা + বুনন-টেক্সচার)
-        Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: _swatchHorizontalMargin),
-          child: _fabricSwatch(swatch),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          '🧵 Lab Dip Preview — Pantone TCX Match (Simulated)',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              fontSize: 10, color: Colors.black38, fontStyle: FontStyle.italic),
-        ),
-      ],
-    );
-  }
-
-  /// 🧵 ফেব্রিক ল্যাব-ডিপ সোয়াচ — সাইডে জিগজ্যাগ (পিংকিং-শিয়ার) কাটা প্রান্ত
-  /// + হালকা ক্রস-হ্যাচ বুনন-টেক্সচার, ফিজিক্যাল Pantone TCX সোয়াচ কার্ডের
-  /// অনুকরণে (কোনো Pantone লোগো/ব্র্যান্ডিং ব্যবহার করা হয়নি)।
-  Widget _fabricSwatch(Color swatch) {
-    return AspectRatio(
-      aspectRatio: _swatchAspectRatio,
-      child: ClipPath(
-        clipper: const _ZigzagEdgeClipper(
-          toothWidth: _zigzagToothWidth,
-          toothHeight: _zigzagToothHeight,
-        ),
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            color: swatch,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.18),
-                blurRadius: 14,
-                offset: const Offset(0, 6),
-              ),
-            ],
+          // 📝 সোয়াচের নিচে বিবরণ ও ফুটার — একই কার্ডের ভেতরে
+          Padding(
+            padding: const EdgeInsets.fromLTRB(14, 12, 14, 14),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (description.isNotEmpty)
+                  Text(description,
+                      style: const TextStyle(
+                          fontSize: 12.5, color: Colors.black87, height: 1.4)),
+                const SizedBox(height: 10),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AiIcon(size: 13),
+                    SizedBox(width: 4),
+                    Text('Powered by Gemini AI',
+                        style: TextStyle(
+                            fontSize: 10.5,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.grey)),
+                  ],
+                ),
+              ],
+            ),
           ),
-          child: CustomPaint(
-            painter: const _FabricTexturePainter(),
-            child: const SizedBox.expand(),
-          ),
-        ),
+        ],
       ),
     );
   }
@@ -490,15 +473,15 @@ answer in that case.
 
   Widget _detailRow(String label, String value) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 3),
+      padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(
         children: [
           SizedBox(
-            width: 78,
-            child: Text(label,
+            width: 90,
+            child: Text('$label:',
                 style: const TextStyle(
-                    fontSize: 11.5,
-                    fontWeight: FontWeight.w700,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
                     color: Colors.black54)),
           ),
           Expanded(
@@ -515,14 +498,14 @@ answer in that case.
 }
 
 // ---------------------------------------------------------------------
-// 🧵 জিগজ্যাগ (পিংকিং-শিয়ার) প্রান্ত ক্লিপার — সাইডে ফিজিক্যাল ফেব্রিক
-// সোয়াচ কার্ডের মতো খাঁজকাটা কিনারা তৈরি করে
+// 🧵 জিগজ্যাগ ক্লিপার — বাম/ডান/নিচ তিন পাশে ছোট ত্রিভুজ কাটা, উপরে সোজা
+// (যাতে সোয়াচটা উপরের তথ্য অংশের সাথে সিমলেসভাবে মিশে থাকে)
 // ---------------------------------------------------------------------
-class _ZigzagEdgeClipper extends CustomClipper<Path> {
+class _ZigzagSidesBottomClipper extends CustomClipper<Path> {
   final double toothWidth;
   final double toothHeight;
 
-  const _ZigzagEdgeClipper({
+  const _ZigzagSidesBottomClipper({
     required this.toothWidth,
     required this.toothHeight,
   });
@@ -530,9 +513,10 @@ class _ZigzagEdgeClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     final path = Path()..moveTo(0, 0);
+    // উপরের প্রান্ত — সম্পূর্ণ সোজা
     path.lineTo(size.width, 0);
 
-    // ডানপাশের জিগজ্যাগ প্রান্ত (উপর থেকে নিচে)
+    // ডানপাশের জিগজ্যাগ (উপর থেকে নিচে)
     double y = 0;
     bool out = true;
     while (y < size.height) {
@@ -544,15 +528,25 @@ class _ZigzagEdgeClipper extends CustomClipper<Path> {
       out = !out;
     }
 
-    path.lineTo(0, size.height);
+    // নিচের জিগজ্যাগ (ডান থেকে বামে)
+    double x = size.width;
+    out = true;
+    while (x > 0) {
+      final nextX = (x - toothWidth).clamp(0.0, size.width);
+      final yPos = out ? size.height - toothHeight : size.height;
+      path.lineTo((x + nextX) / 2, yPos);
+      path.lineTo(nextX, size.height);
+      x = nextX;
+      out = !out;
+    }
 
-    // বামপাশের জিগজ্যাগ প্রান্ত (নিচ থেকে উপর)
+    // বামপাশের জিগজ্যাগ (নিচ থেকে উপরে)
     y = size.height;
     out = true;
     while (y > 0) {
       final nextY = (y - toothHeight).clamp(0.0, size.height);
-      final x = out ? toothWidth : 0.0;
-      path.lineTo(x, (y + nextY) / 2);
+      final xPos = out ? toothWidth : 0.0;
+      path.lineTo(xPos, (y + nextY) / 2);
       path.lineTo(0, nextY);
       y = nextY;
       out = !out;
@@ -567,7 +561,7 @@ class _ZigzagEdgeClipper extends CustomClipper<Path> {
 }
 
 // ---------------------------------------------------------------------
-// 🧵 হালকা ক্রস-হ্যাচ বুনন-টেক্সচার — সোয়াচকে কাপড়ের মতো দেখানোর জন্য
+// 🧵 অতি হালকা বুনন-টেক্সচার — প্রায় ফ্ল্যাট, শুধু সামান্য কাপড়ের অনুভূতি
 // ---------------------------------------------------------------------
 class _FabricTexturePainter extends CustomPainter {
   const _FabricTexturePainter();
@@ -575,13 +569,13 @@ class _FabricTexturePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paintLight = Paint()
-      ..color = Colors.white.withOpacity(0.07)
+      ..color = Colors.white.withOpacity(0.035)
       ..strokeWidth = 1;
     final paintDark = Paint()
-      ..color = Colors.black.withOpacity(0.07)
+      ..color = Colors.black.withOpacity(0.035)
       ..strokeWidth = 1;
 
-    const gap = 4.0;
+    const gap = 5.0;
     for (double x = -size.height; x < size.width; x += gap) {
       canvas.drawLine(
           Offset(x, 0), Offset(x + size.height, size.height), paintLight);
