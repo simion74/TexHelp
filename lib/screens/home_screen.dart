@@ -22,6 +22,11 @@ import 'fabric_type_screen.dart';
 import 'process_loss_screen.dart';
 import 'gsm_scanner_screen.dart';
 import 'ai_settings_screen.dart';
+import 'twist_calculator_screen.dart';
+import 'hank_count_calculator_screen.dart';
+import 'draft_calculator_screen.dart';
+import 'csp_calculator_screen.dart';
+import 'blend_ratio_calculator_screen.dart';
 import '../widgets/ai_home_banner.dart';
 import '../widgets/ai_icon.dart';
 import '../services/gemini_service.dart';
@@ -211,6 +216,31 @@ class _HomeScreenState extends State<HomeScreen>
       title: 'Process Loss',
       imagePath: '${_kIconBasePath}Process_loss.webp',
       builder: () => const ProcessLossScreen(),
+    ),
+    _CalcItem(
+      title: 'Twist Calculator',
+      imagePath: '${_kIconBasePath}twist_calculator.webp',
+      builder: () => const TwistCalculatorScreen(),
+    ),
+    _CalcItem(
+      title: 'Hank Count Calculator',
+      imagePath: '${_kIconBasePath}hank_count_calculator.webp',
+      builder: () => const HankCountCalculatorScreen(),
+    ),
+    _CalcItem(
+      title: 'Draft Calculator',
+      imagePath: '${_kIconBasePath}draft_calculator.webp',
+      builder: () => const DraftCalculatorScreen(),
+    ),
+    _CalcItem(
+      title: 'CSP Calculator',
+      imagePath: '${_kIconBasePath}csp_calculator.webp',
+      builder: () => const CspCalculatorScreen(),
+    ),
+    _CalcItem(
+      title: 'Blend Ratio Calculator',
+      imagePath: '${_kIconBasePath}blend_ratio_calculator.webp',
+      builder: () => const BlendRatioCalculatorScreen(),
     ),
     const _CalcItem(
       title: 'Exit',
