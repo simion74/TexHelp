@@ -20,7 +20,7 @@ import 'machine_library_screen.dart';
 import 'fabric_fault_screen.dart';
 import 'fabric_type_screen.dart';
 import 'process_loss_screen.dart';
-import 'gsm_scanner_screen.dart';
+import 'average_gsm_calculate_screen.dart';
 import 'ai_settings_screen.dart';
 import 'twist_calculator_screen.dart';
 import 'hank_count_calculator_screen.dart';
@@ -183,9 +183,9 @@ class _HomeScreenState extends State<HomeScreen>
     ),
     // 🆕 নতুন ফিচার — স্ক্রিন এখনো তৈরি হয়নি, পরে যুক্ত করা হবে
     _CalcItem(
-      title: 'GSM Scanner',
+      title: 'Average GSM Calculate',
       imagePath: '${_kIconBasePath}GSM_Scanner.webp',
-      builder: () => const GsmScannerScreen(),
+      builder: () => const AverageGsmCalculateScreen(),
     ),
     _CalcItem(
       title: 'Yarn to Knit Fabric',
