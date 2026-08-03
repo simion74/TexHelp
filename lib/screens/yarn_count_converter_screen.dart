@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/keypad_controller.dart';
 import '../theme/app_colors.dart';
 import '../widgets/calc_scaffold.dart';
+import '../widgets/formula_guide_button.dart';
 import '../widgets/input_card.dart';
 import '../widgets/numeric_keypad.dart';
 
@@ -69,6 +70,26 @@ class _YarnCountConverterScreenState extends State<YarnCountConverterScreen> {
     return CalcScaffold(
       title: 'YARN COUNT\nCONVERTER',
       icon: Icons.texture_rounded,
+      iconAsset: 'assets/homeicon/Yarn_count_converter.webp',
+      extraHeaderAction: FormulaGuideButton(
+        title: 'Yarn Count Converter',
+        sections: const [
+          FormulaGuideSection(
+            heading: '📌 সংজ্ঞা',
+            body: 'সুতার কাউন্ট প্রকাশের একাধিক পদ্ধতি আছে — Ne (English '
+                'Count), Denier, Tex, Nm (Metric Count)। এই ক্যালকুলেটর '
+                'যেকোনো একটা দিলেই বাকি তিনটা স্বয়ংক্রিয়ভাবে দেখায়।',
+          ),
+          FormulaGuideSection(
+            heading: '🧮 ফরমুলা (স্ট্যান্ডার্ড রূপান্তর ধ্রুবক)',
+            body: 'Denier = 5314.87 ÷ Ne\n'
+                'Tex = 590.541 ÷ Ne\n'
+                'Nm = Ne × 1.6934\n'
+                'Tex = Denier ÷ 9\n'
+                'Nm = 9000 ÷ Denier',
+          ),
+        ],
+      ),
       onReset: () => setState(() => ctrl.resetAll()),
       content: Padding(
         // আপনার সুবিধামত প্যাডিং পরিবর্তনের সুযোগ রাখা হয়েছে

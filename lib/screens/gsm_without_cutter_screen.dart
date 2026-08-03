@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/keypad_controller.dart';
 import '../theme/app_colors.dart';
 import '../widgets/calc_scaffold.dart';
+import '../widgets/formula_guide_button.dart';
 import '../widgets/input_card.dart';
 import '../widgets/numeric_keypad.dart';
 import '../widgets/result_box.dart';
@@ -36,6 +37,28 @@ class _GsmWithoutCutterScreenState extends State<GsmWithoutCutterScreen> {
     return CalcScaffold(
       title: 'GSM (WITHOUT\nGSM CUTTER)',
       icon: Icons.crop_free_rounded,
+      iconAsset: 'assets/homeicon/GSM _without_gsm_cutter.webp',
+      extraHeaderAction: FormulaGuideButton(
+        title: 'GSM (Without GSM Cutter)',
+        sections: const [
+          FormulaGuideSection(
+            heading: '📌 সংজ্ঞা',
+            body: 'বিশেষ GSM Cutter (যেটা ঠিক ১০০ সেমি² ফেব্রিক কেটে দেয়) '
+                'না থাকলে, একটা সাধারণ কাঁচি দিয়ে যেকোনো মাপের ফেব্রিক '
+                'নমুনা কেটে সাধারণ স্কেলে ওজন করেও GSM বের করা যায়।',
+          ),
+          FormulaGuideSection(
+            heading: '🧮 ফরমুলা',
+            body: 'Actual GSM = (ওজন(g) × 100) ÷ (দৈর্ঘ্য(cm) × প্রস্থ(cm))',
+          ),
+          FormulaGuideSection(
+            heading: '📝 ধাপে ধাপে',
+            body: '১. ফেব্রিক নমুনার দৈর্ঘ্য ও প্রস্থ (সেন্টিমিটারে) মাপুন\n'
+                '২. সাধারণ ডিজিটাল স্কেলে নমুনাটা ওজন করুন (গ্রামে)\n'
+                '৩. অ্যাপ স্বয়ংক্রিয়ভাবে GSM বের করে দেবে',
+          ),
+        ],
+      ),
       onReset: () => setState(() {
         ctrl.resetAll();
         _recalc();

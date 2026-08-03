@@ -138,6 +138,7 @@ class _StripeConverterScreenState extends State<StripeConverterScreen> {
     return CalcScaffold(
       title: 'STRIPE SIZE\nCONVERTER',
       icon: Icons.straighten_rounded,
+      iconAsset: 'assets/homeicon/Stripe_Size converter.webp',
       extraHeaderAction: IconButton(
         onPressed: _openGuide,
         icon: const Icon(Icons.more_vert_rounded, color: AppColors.darkGreen),

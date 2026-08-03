@@ -3,6 +3,7 @@ import '../models/keypad_controller.dart';
 import '../theme/app_colors.dart';
 import '../widgets/calc_scaffold.dart';
 import '../widgets/compact_input_card.dart';
+import '../widgets/formula_guide_button.dart';
 import '../widgets/numeric_keypad.dart';
 import '../widgets/result_box.dart';
 
@@ -60,6 +61,24 @@ class _YarnToFabricScreenState extends State<YarnToFabricScreen> {
     return CalcScaffold(
       title: 'YARN TO KNIT\nFABRIC',
       icon: Icons.sync_alt_rounded,
+      iconAsset: 'assets/homeicon/Yarn_to_knit_fabric.webp',
+      extraHeaderAction: FormulaGuideButton(
+        title: 'Yarn to Knit Fabric',
+        sections: const [
+          FormulaGuideSection(
+            heading: '📌 সংজ্ঞা',
+            body: 'নির্দিষ্ট পরিমাণ সুতা (ওয়েস্টেজ বাদে) দিয়ে কত মিটার/'
+                'গজ নিট ফেব্রিক তৈরি হবে তা GSM ও ফেব্রিকের প্রস্থ '
+                'অনুযায়ী হিসাব করা হয়।',
+          ),
+          FormulaGuideSection(
+            heading: '🧮 ফরমুলা',
+            body: 'Net Yarn (kg) = Yarn Weight × (1 − (Wastage% ÷ 100))\n\n'
+                'Length (m) = (Net Yarn(kg) × 39370) ÷ (GSM × Width(inch))\n\n'
+                'Yards = Length(m) × 1.09361',
+          ),
+        ],
+      ),
       onReset: () => setState(() {
         ctrl.resetAll();
         ctrl.setValue('wastage', '3');

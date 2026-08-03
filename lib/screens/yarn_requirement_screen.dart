@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/keypad_controller.dart';
 import '../theme/app_colors.dart';
 import '../widgets/calc_scaffold.dart';
+import '../widgets/formula_guide_button.dart';
 import '../widgets/input_card.dart';
 import '../widgets/numeric_keypad.dart';
 import '../widgets/result_box.dart';
@@ -30,6 +31,21 @@ class _YarnRequirementScreenState extends State<YarnRequirementScreen> {
     return CalcScaffold(
       title: 'YARN\nREQUIREMENT',
       icon: Icons.inventory_2_rounded,
+      iconAsset: 'assets/homeicon/Yarn_Requirement.webp',
+      extraHeaderAction: FormulaGuideButton(
+        title: 'Yarn Requirement Calculator',
+        sections: const [
+          FormulaGuideSection(
+            heading: '📌 সংজ্ঞা',
+            body: 'নির্দিষ্ট পরিমাণ ফেব্রিক বানাতে ওয়েস্টেজ % সহ মোট '
+                'কতটুকু সুতা প্রয়োজন হবে তা হিসাব করা হয়।',
+          ),
+          FormulaGuideSection(
+            heading: '🧮 ফরমুলা',
+            body: 'Total Yarn = Fabric Qty × (1 + (Wastage % ÷ 100))',
+          ),
+        ],
+      ),
       onReset: () => setState(() {
         ctrl.resetAll();
         _recalc();

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/keypad_controller.dart';
 import '../theme/app_colors.dart';
 import '../widgets/calc_scaffold.dart';
+import '../widgets/formula_guide_button.dart';
 import '../widgets/input_card.dart';
 import '../widgets/numeric_keypad.dart';
 import '../widgets/result_box.dart';
@@ -88,6 +89,30 @@ class _ProcessLossScreenState extends State<ProcessLossScreen> {
     return CalcScaffold(
       title: 'PROCESS LOSS\nCALCULATOR',
       icon: Icons.compress_rounded,
+      iconAsset: 'assets/homeicon/Process_loss.webp',
+      extraHeaderAction: FormulaGuideButton(
+        title: 'Process Loss Calculator',
+        sections: const [
+          FormulaGuideSection(
+            heading: '📌 সংজ্ঞা',
+            body: 'যেকোনো প্রসেসের (ডাইং, ফিনিশিং, ওয়াশিং ইত্যাদি) আগে ও '
+                'পরে ফেব্রিক/ইয়ার্নের ওজনের পার্থক্য থেকে কতটুকু ওজন '
+                'লস হয়েছে তা হিসাব করা হয়।',
+          ),
+          FormulaGuideSection(
+            heading: '🧮 ফরমুলা',
+            body: 'Loss Qty = Before Qty − After Qty\n\n'
+                'Loss % = (Loss Qty ÷ Before Qty) × 100',
+          ),
+          FormulaGuideSection(
+            heading: '📝 ধাপে ধাপে',
+            body: '১. প্রসেসের আগের ওজন (Before Qty) লিখুন\n'
+                '২. প্রসেসের পরের ওজন (After Qty) অথবা টার্গেট Loss % — '
+                'যেকোনো একটা লিখুন\n'
+                '৩. বাকিটা স্বয়ংক্রিয়ভাবে হিসাব হয়ে যাবে',
+          ),
+        ],
+      ),
       onReset: () => setState(() {
         ctrl.resetAll();
         _mode = _LossInputMode.afterQty;

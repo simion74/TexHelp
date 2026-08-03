@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/keypad_controller.dart';
 import '../theme/app_colors.dart';
 import '../widgets/calc_scaffold.dart';
+import '../widgets/formula_guide_button.dart';
 import '../widgets/input_card.dart';
 import '../widgets/numeric_keypad.dart';
 import '../widgets/result_box.dart';
@@ -38,6 +39,31 @@ class _GsmByYarnCountScreenState extends State<GsmByYarnCountScreen> {
     return CalcScaffold(
       title: 'GSM (BY\nYARN COUNT)',
       icon: Icons.tag_rounded,
+      iconAsset: 'assets/homeicon/GSM_By_yarn_count.webp',
+      extraHeaderAction: FormulaGuideButton(
+        title: 'GSM (By Yarn Count)',
+        sections: const [
+          FormulaGuideSection(
+            heading: '📌 সংজ্ঞা',
+            body: 'সুতার Count (Ne) ও নিটিং মেশিনের Stitch Length জানা '
+                'থাকলে, ফেব্রিক বোনার আগেই আনুমানিক GSM বের করা যায় — '
+                'এটা মূলত Single Jersey ফেব্রিকের জন্য প্রযোজ্য একটা '
+                'প্রচলিত এস্টিমেশন ফরমুলা।',
+          ),
+          FormulaGuideSection(
+            heading: '🧮 ফরমুলা',
+            body: 'GSM = 4100 ÷ (Yarn Count(Ne) × Stitch Length)\n\n'
+                '৪১০০ এখানে Single Jersey-এর জন্য প্রচলিত একটা ধ্রুবক '
+                'মান — অন্যান্য স্ট্রাকচারে (Rib, Interlock) এই ধ্রুবক '
+                'ভিন্ন হতে পারে।',
+          ),
+          FormulaGuideSection(
+            heading: '⚠️ নোট',
+            body: 'এটা একটা আনুমানিক এস্টিমেশন — বাস্তব ফেব্রিক তৈরির পর '
+                'GSM Cutter দিয়ে সরাসরি মাপাই সবচেয়ে নির্ভরযোগ্য।',
+          ),
+        ],
+      ),
       onReset: () => setState(() {
         ctrl.resetAll();
         _recalc();

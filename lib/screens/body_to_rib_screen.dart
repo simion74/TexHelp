@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/keypad_controller.dart';
 import '../theme/app_colors.dart';
 import '../widgets/calc_scaffold.dart';
+import '../widgets/formula_guide_button.dart';
 import '../widgets/input_card.dart';
 import '../widgets/numeric_keypad.dart';
 import '../widgets/result_box.dart';
@@ -50,6 +51,24 @@ class _BodyToRibScreenState extends State<BodyToRibScreen> {
     return CalcScaffold(
       title: 'BODY TO RIB\nFABRIC RATIO',
       icon: Icons.compare_arrows_rounded,
+      iconAsset: 'assets/homeicon/Rib_to_body_fabric_ratio.webp',
+      extraHeaderAction: FormulaGuideButton(
+        title: 'Body to Rib Fabric Ratio',
+        sections: const [
+          FormulaGuideSection(
+            heading: '📌 সংজ্ঞা',
+            body: 'আগের কোনো অর্ডারের Body ও Rib ফেব্রিকের অনুপাত '
+                '(রেফারেন্স) থেকে, নতুন অর্ডারের Body পরিমাণ অনুযায়ী '
+                'কতটুকু Rib ফেব্রিক লাগবে তা হিসাব করা হয়।',
+          ),
+          FormulaGuideSection(
+            heading: '🧮 ফরমুলা',
+            body: 'Rib % = (Reference Rib ÷ Reference Body) × 100\n\n'
+                'Required Rib = (Rib % ÷ 100) × New Body\n\n'
+                'Total Fabric = New Body + Required Rib',
+          ),
+        ],
+      ),
       onReset: () => setState(() {
         ctrl.resetAll();
         _recalc();

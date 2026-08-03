@@ -3,6 +3,7 @@ import '../models/keypad_controller.dart';
 import '../theme/app_colors.dart';
 import '../widgets/calc_scaffold.dart';
 import '../widgets/compact_input_card.dart';
+import '../widgets/formula_guide_button.dart';
 import '../widgets/input_card.dart';
 import '../widgets/numeric_keypad.dart';
 import '../widgets/result_box.dart';
@@ -67,6 +68,31 @@ class _ShrinkageScreenState extends State<ShrinkageScreen> {
     return CalcScaffold(
       title: 'SHRINKAGE\nMEASUREMENT',
       icon: Icons.local_laundry_service_rounded,
+      iconAsset: 'assets/homeicon/Shrinkage_measurement.webp',
+      extraHeaderAction: FormulaGuideButton(
+        title: 'Shrinkage Measurement',
+        sections: const [
+          FormulaGuideSection(
+            heading: '📌 সংজ্ঞা',
+            body: 'ওয়াশ/প্রসেসের আগে ও পরে ফেব্রিকের দৈর্ঘ্য-প্রস্থ '
+                'মেপে Length Shrinkage, Width Shrinkage ও Spirality '
+                '(প্যাঁচ) হিসাব করা হয়।',
+          ),
+          FormulaGuideSection(
+            heading: '🧮 ফরমুলা',
+            body: 'Length Shrink % = ((L1 − L2) ÷ L1) × 100\n'
+                'Width Shrink % = ((W1 − W2) ÷ W1) × 100\n'
+                'Spirality % = (Displacement ÷ L1) × 100',
+          ),
+          FormulaGuideSection(
+            heading: '📝 ধাপে ধাপে',
+            body: '১. ওয়াশের আগে দৈর্ঘ্য (L1) ও প্রস্থ (W1) মাপুন\n'
+                '২. ওয়াশের পরে দৈর্ঘ্য (L2) ও প্রস্থ (W2) মাপুন\n'
+                '৩. Spirality মাপতে চাইলে Displacement (বাঁকার পরিমাণ) '
+                'লিখুন',
+          ),
+        ],
+      ),
       onReset: () => setState(() {
         ctrl.resetAll();
         _recalc();

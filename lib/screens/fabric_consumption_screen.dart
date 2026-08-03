@@ -3,6 +3,7 @@ import '../models/keypad_controller.dart';
 import '../theme/app_colors.dart';
 import '../widgets/calc_scaffold.dart';
 import '../widgets/compact_input_card.dart';
+import '../widgets/formula_guide_button.dart';
 import '../widgets/numeric_keypad.dart';
 import '../widgets/result_box.dart';
 
@@ -42,6 +43,33 @@ class _FabricConsumptionScreenState extends State<FabricConsumptionScreen> {
     return CalcScaffold(
       title: 'FABRIC\nCONSUMPTION',
       icon: Icons.checkroom_rounded,
+      iconAsset: 'assets/homeicon/Fabric_consumption.webp',
+      extraHeaderAction: FormulaGuideButton(
+        title: 'Fabric Consumption (Per Dozen)',
+        sections: const [
+          FormulaGuideSection(
+            heading: '📌 সংজ্ঞা',
+            body: 'গার্মেন্টের বডি লেংথ, স্লিভ লেংথ, চেস্ট চওড়া ও এলাউন্স '
+                'থেকে এক ডজন গার্মেন্ট তৈরিতে কী পরিমাণ ফেব্রিক (কেজিতে) '
+                'লাগবে তা হিসাব করা হয়।',
+          ),
+          FormulaGuideSection(
+            heading: '🧮 ফরমুলা',
+            body: 'Total Length = Body + Sleeve + Allowance\n'
+                'Total Width = Chest + (Allowance ÷ 2)\n\n'
+                'Fabric (kg/dozen) = (Length × Width × 2 × GSM × 12) ÷ '
+                '10,000,000',
+          ),
+          FormulaGuideSection(
+            heading: '📝 ধাপে ধাপে',
+            body: '১. Body ও Sleeve লেংথ (ইঞ্চিতে) লিখুন\n'
+                '২. Chest চওড়া (ইঞ্চিতে) লিখুন\n'
+                '৩. কাটিং/সিম Allowance লিখুন\n'
+                '৪. ফেব্রিকের GSM লিখুন — বাকিটা স্বয়ংক্রিয়ভাবে হিসাব '
+                'হয়ে যাবে',
+          ),
+        ],
+      ),
       onReset: () => setState(() {
         ctrl.resetAll();
         _recalc();
