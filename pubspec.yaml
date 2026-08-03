@@ -10,12 +10,14 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.6
+  # 📤 Export ফিচারের জন্য (Excel, PDF, Image)
+  excel: ^4.0.6
+  pdf: ^3.11.1
+  printing: ^5.13.4
+  path_provider: ^2.1.4
+  share_plus: ^7.2.1
   # Google AdMob ব্যানার বিজ্ঞাপন দেখানোর জন্য। flutter pub get দিলে ইনস্টল হবে।
   google_mobile_ads: ^5.2.0
-  # নিচের প্যাকেজটি ঐচ্ছিক (Share App বাটনের জন্য)।
-  # আপনার নেটওয়ার্কে pub.dev এক্সেস থাকলে আনকমেন্ট করে flutter pub get দিন।
-  # share_plus: ^7.2.1
-
   # 📸 GSM Scanner ফিচারের ইন-অ্যাপ ক্যামেরার জন্য
   camera: ^0.10.5+9
   # 🔍 GSM Scanner-এ ট্যাগের সংখ্যা পড়ার জন্য গুগলের OCR প্যাকেজ
