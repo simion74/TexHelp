@@ -217,43 +217,36 @@ class _HomeScreenState extends State<HomeScreen>
       title: '4 Point Inspection',
       imagePath: '${_kIconBasePath}4_point_inspection.webp',
       builder: () => const FourPointScreen(),
-      department: 'Quality/Test',
     ),
     _CalcItem(
       title: 'Stripe Size Converter',
       imagePath: '${_kIconBasePath}Stripe_Size converter.webp',
       builder: () => const StripeConverterScreen(),
-      department: 'Quality/Test',
     ),
     _CalcItem(
       title: 'Shrinkage Measurement',
       imagePath: '${_kIconBasePath}Shrinkage_measurement.webp',
       builder: () => const ShrinkageScreen(),
-      department: 'Quality/Test',
     ),
     _CalcItem(
       title: 'Seam Efficiency',
       imagePath: '${_kIconBasePath}seam_efficiency_calculator.webp',
       builder: () => const SeamEfficiencyCalculatorScreen(),
-      department: 'Quality/Test',
     ),
     _CalcItem(
       title: 'DHU Calculator',
       imagePath: '${_kIconBasePath}dhu_calculator.webp',
       builder: () => const DhuCalculatorScreen(),
-      department: 'Quality/Test',
     ),
     _CalcItem(
       title: 'RFT Calculator',
       imagePath: '${_kIconBasePath}rft_calculator.webp',
       builder: () => const RftCalculatorScreen(),
-      department: 'Quality/Test',
     ),
     _CalcItem(
       title: 'AQL Sampling',
       imagePath: '${_kIconBasePath}aql_sampling.webp',
       builder: () => const AqlSamplingCalculatorScreen(),
-      department: 'Quality/Test',
     ),
 
     // =========================== General Tools ===========================
@@ -308,31 +301,26 @@ class _HomeScreenState extends State<HomeScreen>
       title: 'Twist Calculator',
       imagePath: '${_kIconBasePath}twist_calculator.webp',
       builder: () => const TwistCalculatorScreen(),
-      department: 'Spinning',
     ),
     _CalcItem(
       title: 'Hank Count Calculator',
       imagePath: '${_kIconBasePath}hank_count_calculator.webp',
       builder: () => const HankCountCalculatorScreen(),
-      department: 'Spinning',
     ),
     _CalcItem(
       title: 'Draft Calculator',
       imagePath: '${_kIconBasePath}draft_calculator.webp',
       builder: () => const DraftCalculatorScreen(),
-      department: 'Spinning',
     ),
     _CalcItem(
       title: 'CSP Calculator',
       imagePath: '${_kIconBasePath}csp_calculator.webp',
       builder: () => const CspCalculatorScreen(),
-      department: 'Spinning',
     ),
     _CalcItem(
       title: 'Blend Ratio',
       imagePath: '${_kIconBasePath}blend_ratio_calculator.webp',
       builder: () => const BlendRatioCalculatorScreen(),
-      department: 'Spinning',
     ),
 
     // ============================= Knitting =============================
@@ -340,19 +328,16 @@ class _HomeScreenState extends State<HomeScreen>
       title: 'Stitch Density',
       imagePath: '${_kIconBasePath}stitch_density_calculator.webp',
       builder: () => const StitchDensityCalculatorScreen(),
-      department: 'Knitting',
     ),
     _CalcItem(
       title: 'Tightness Factor',
       imagePath: '${_kIconBasePath}tightness_factor_calculator.webp',
       builder: () => const TightnessFactorCalculatorScreen(),
-      department: 'Knitting',
     ),
     _CalcItem(
       title: 'Knitting Production',
       imagePath: '${_kIconBasePath}knitting_production_calculator.webp',
       builder: () => const KnittingProductionCalculatorScreen(),
-      department: 'Knitting',
     ),
 
     // ============================= Weaving =============================
@@ -360,19 +345,16 @@ class _HomeScreenState extends State<HomeScreen>
       title: 'Fabric Crimp',
       imagePath: '${_kIconBasePath}fabric_crimp_calculator.webp',
       builder: () => const FabricCrimpCalculatorScreen(),
-      department: 'Weaving',
     ),
     _CalcItem(
       title: 'Warp Yarn Requirement',
       imagePath: '${_kIconBasePath}warp_yarn_requirement_calculator.webp',
       builder: () => const WarpYarnRequirementCalculatorScreen(),
-      department: 'Weaving',
     ),
     _CalcItem(
       title: 'Loom Production',
       imagePath: '${_kIconBasePath}loom_production_calculator.webp',
       builder: () => const LoomProductionCalculatorScreen(),
-      department: 'Weaving',
     ),
 
     // ============================= Dyeing =============================
@@ -380,19 +362,16 @@ class _HomeScreenState extends State<HomeScreen>
       title: 'Liquor Ratio',
       imagePath: '${_kIconBasePath}liquor_ratio_calculator.webp',
       builder: () => const LiquorRatioCalculatorScreen(),
-      department: 'Dyeing',
     ),
     _CalcItem(
       title: 'Dye Recipe',
       imagePath: '${_kIconBasePath}dye_recipe_calculator.webp',
       builder: () => const DyeRecipeCalculatorScreen(),
-      department: 'Dyeing',
     ),
     _CalcItem(
       title: 'Chemical Dosing',
       imagePath: '${_kIconBasePath}chemical_dosing_calculator.webp',
       builder: () => const ChemicalDosingCalculatorScreen(),
-      department: 'Dyeing',
     ),
 
     // ============================= Finishing =============================
@@ -400,19 +379,16 @@ class _HomeScreenState extends State<HomeScreen>
       title: 'Wet Pickup',
       imagePath: '${_kIconBasePath}wet_pickup_calculator.webp',
       builder: () => const WetPickupCalculatorScreen(),
-      department: 'Finishing',
     ),
     _CalcItem(
       title: 'Chemical Add-on',
       imagePath: '${_kIconBasePath}chemical_addon_calculator.webp',
       builder: () => const ChemicalAddOnCalculatorScreen(),
-      department: 'Finishing',
     ),
     _CalcItem(
       title: 'GSM Change',
       imagePath: '${_kIconBasePath}gsm_change_calculator.webp',
       builder: () => const GsmChangeCalculatorScreen(),
-      department: 'Finishing',
     ),
 
     // ======================= Garments / Merchandising =======================
@@ -420,31 +396,26 @@ class _HomeScreenState extends State<HomeScreen>
       title: 'Hourly Target',
       imagePath: '${_kIconBasePath}hourly_target_calculator.webp',
       builder: () => const HourlyTargetCalculatorScreen(),
-      department: 'Garments',
     ),
     _CalcItem(
       title: 'Line Efficiency',
       imagePath: '${_kIconBasePath}line_efficiency_calculator.webp',
       builder: () => const LineEfficiencyCalculatorScreen(),
-      department: 'Garments',
     ),
     _CalcItem(
       title: 'CM Costing',
       imagePath: '${_kIconBasePath}cm_costing_calculator.webp',
       builder: () => const CmCostingCalculatorScreen(),
-      department: 'Garments',
     ),
     _CalcItem(
       title: 'Marker Efficiency',
       imagePath: '${_kIconBasePath}marker_efficiency.webp',
       builder: () => const MarkerEfficiencyCalculatorScreen(),
-      department: 'Garments',
     ),
     _CalcItem(
       title: 'Marker Consumption',
       imagePath: '${_kIconBasePath}marker_consumption.webp',
       builder: () => const MarkerConsumptionCalculatorScreen(),
-      department: 'Garments',
     ),
 
     // ============================ Export Sheets ============================
@@ -452,19 +423,16 @@ class _HomeScreenState extends State<HomeScreen>
       title: 'Costing Sheet',
       imagePath: '${_kIconBasePath}costing_sheet.webp',
       builder: () => const CostingSheetScreen(),
-      department: 'Export',
     ),
     _CalcItem(
       title: 'Cutting Sheet',
       imagePath: '${_kIconBasePath}cutting_sheet.webp',
       builder: () => const CuttingSheetScreen(),
-      department: 'Export',
     ),
     _CalcItem(
       title: 'Order Sheet',
       imagePath: '${_kIconBasePath}order_sheet.webp',
       builder: () => const OrderSheetScreen(),
-      department: 'Export',
     ),
 
     const _CalcItem(
