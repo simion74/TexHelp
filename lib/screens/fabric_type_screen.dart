@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../data/fabric_type_data.dart';
 import '../services/gemini_service.dart';
 import '../theme/app_colors.dart';
+import '../widgets/ai_icon.dart';
 import '../widgets/ai_result_card.dart';
-import '../widgets/ai_search_box.dart';
 import '../widgets/library_scaffold.dart';
 import '../widgets/library_thumbnail.dart';
 import '../widgets/library_wave_header.dart';
@@ -20,6 +20,7 @@ class FabricTypeScreen extends StatefulWidget {
 
 class _FabricTypeScreenState extends State<FabricTypeScreen> {
   bool _isEnglish = true;
+  String _query = '';
 
   // 🤖 AI Support — বিল্ড-ইন তালিকায় না থাকা ফেব্রিক টাইপও Gemini AI থেকে
   // এনে দেখাবে
@@ -31,6 +32,16 @@ class _FabricTypeScreenState extends State<FabricTypeScreen> {
   static const int _crossAxisCount = 4;
   static const double _gridSpacing = 10;
   static const double _cardAspectRatio = 0.86;
+
+  // 🔎 টাইপ করার সাথে সাথেই বিল্ড-ইন তালিকা ফিল্টার হবে (অফলাইনেও কাজ করে)
+  List<FabricTypeItem> get _filtered {
+    if (_query.isEmpty) return kFabricTypes;
+    final q = _query.toLowerCase();
+    return kFabricTypes
+        .where((f) =>
+            f.nameEn.toLowerCase().contains(q) || f.nameBn.contains(_query))
+        .toList();
+  }
 
   Future<void> _searchFabricTypeWithAi(String query) async {
     setState(() {
@@ -86,6 +97,7 @@ closest matching real textile fabric.
 
   @override
   Widget build(BuildContext context) {
+    final filtered = _filtered;
     return LibraryScaffold(
       header: LibraryWaveHeader(
         title: 'Fabric Type',
@@ -98,13 +110,86 @@ closest matching real textile fabric.
       body: ListView(
         padding: const EdgeInsets.fromLTRB(14, 12, 14, 6),
         children: [
-          // 🤖 AI Support সার্চ বক্স — বিল্ড-ইন তালিকায় না থাকা ফেব্রিক
-          // টাইপও Gemini AI থেকে খুঁজে দেখাবে
-          AiSearchBox(
-            hintText: 'Ask AI: e.g. Interlock, Denim, Georgette...',
-            accentColor: AppColors.purple,
-            isLoading: _aiLoading,
-            onSearch: _searchFabricTypeWithAi,
+          // 🔎 বাম পাশে "AI Support" লেবেল + ডান পাশে সার্চ বক্স। এখানে টাইপ
+          // করলে নিচের বিল্ড-ইন গ্রিড সাথে সাথে ফিল্টার হয় (অফলাইনেও কাজ
+          // করে), আর Enter/AI আইকনে চাপলে Gemini AI থেকেও ডিটেইলস আনা হয়।
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                decoration: BoxDecoration(
+                  color: AppColors.purple.withOpacity(0.10),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: AppColors.purple.withOpacity(0.35)),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const AiIcon(size: 16),
+                    const SizedBox(height: 2),
+                    const Text(
+                      'AI Support',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 8,
+                          fontWeight: FontWeight.w800,
+                          height: 1.05,
+                          color: AppColors.purple),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.05),
+                          blurRadius: 6,
+                          offset: const Offset(0, 2)),
+                    ],
+                  ),
+                  child: TextField(
+                    onChanged: (v) => setState(() => _query = v),
+                    onSubmitted: _searchFabricTypeWithAi,
+                    style: const TextStyle(fontSize: 12.5),
+                    decoration: InputDecoration(
+                      isDense: true,
+                      hintText: 'Ask AI: e.g. Interlock, Denim, Georgette...',
+                      hintStyle: const TextStyle(
+                          fontSize: 11, color: Colors.black38),
+                      prefixIcon: const Icon(Icons.search_rounded,
+                          color: Colors.black45, size: 18),
+                      prefixIconConstraints: const BoxConstraints(
+                        minWidth: 34,
+                        minHeight: 0,
+                      ),
+                      suffixIcon: _aiLoading
+                          ? const Padding(
+                              padding: EdgeInsets.all(12),
+                              child: SizedBox(
+                                width: 14,
+                                height: 14,
+                                child: CircularProgressIndicator(
+                                    strokeWidth: 2, color: AppColors.purple),
+                              ),
+                            )
+                          : IconButton(
+                              tooltip: 'Ask AI',
+                              icon: const AiIcon(size: 18),
+                              onPressed: () => _searchFabricTypeWithAi(_query),
+                            ),
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 12, horizontal: 4),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           if (_aiLoading || _aiError != null || _aiFabric != null) ...[
             const SizedBox(height: 12),
@@ -157,7 +242,7 @@ closest matching real textile fabric.
                   children: [
                     const TextSpan(text: 'Total: '),
                     TextSpan(
-                      text: '${kFabricTypes.length} Types',
+                      text: '${filtered.length} Types',
                       style: const TextStyle(
                           fontWeight: FontWeight.w800, color: AppColors.green),
                     ),
@@ -170,7 +255,7 @@ closest matching real textile fabric.
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: kFabricTypes.length,
+            itemCount: filtered.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: _crossAxisCount,
               crossAxisSpacing: _gridSpacing,
@@ -178,7 +263,7 @@ closest matching real textile fabric.
               childAspectRatio: _cardAspectRatio,
             ),
             itemBuilder: (context, i) {
-              final fab = kFabricTypes[i];
+              final fab = filtered[i];
               return _FabricTypeCard(
                 fabric: fab,
                 onTap: () {
