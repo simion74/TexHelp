@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../data/chemical_data.dart';
 import '../theme/app_colors.dart';
 import '../widgets/library_scaffold.dart';
-import '../widgets/library_thumbnail.dart';
 import '../widgets/library_wave_header.dart';
 
 class ChemicalDetailScreen extends StatefulWidget {
@@ -43,41 +42,58 @@ class _ChemicalDetailScreenState extends State<ChemicalDetailScreen> {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(14, 12, 14, 6),
         children: [
-          AspectRatio(
-            aspectRatio: 16 / 9,
-            child: LibraryThumbnail(
-              imagePath: null,
-              icon: c.categoryIcon,
-              color: c.categoryColor,
-              borderRadius: 16,
+          // 🏷️ কোনো ছবি/থাম্বনেইল কন্টেইনার নেই — শুধু আইকন-অ্যাভাটার
+          // সহ নাম ও ক্যাটাগরির তথ্যভিত্তিক হেডার
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: c.categoryColor.withOpacity(0.08),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: c.categoryColor.withOpacity(0.18)),
             ),
-          ),
-          const SizedBox(height: 14),
-
-          // 🏷️ নাম / ক্যাটাগরি কার্ড
-          _WhiteInfoCard(
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Expanded(
-                  child: _LabeledValue(
-                    icon: Icons.science_rounded,
-                    iconColor: AppColors.green,
-                    label: _isEnglish ? 'Chemical Name' : 'কেমিক্যালের নাম',
-                    labelColor: AppColors.green,
-                    value: _isEnglish ? c.nameEn : c.nameBn,
-                  ),
+                Container(
+                  width: 54,
+                  height: 54,
+                  decoration: BoxDecoration(
+                      color: c.categoryColor, shape: BoxShape.circle),
+                  child: Icon(c.categoryIcon, color: Colors.white, size: 25),
                 ),
-                const SizedBox(
-                    height: 46,
-                    child: VerticalDivider(width: 24, thickness: 1)),
+                const SizedBox(width: 14),
                 Expanded(
-                  child: _LabeledValue(
-                    icon: c.categoryIcon,
-                    iconColor: c.categoryColor,
-                    label: _isEnglish ? 'Category' : 'ক্যাটাগরি',
-                    labelColor: c.categoryColor,
-                    value: _isEnglish ? c.categoryEn : c.categoryBn,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        _isEnglish ? c.nameEn : c.nameBn,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w800,
+                            color: AppColors.darkGreen,
+                            height: 1.2),
+                      ),
+                      const SizedBox(height: 6),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 3),
+                        decoration: BoxDecoration(
+                          color: c.categoryColor.withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text(
+                          _isEnglish ? c.categoryEn : c.categoryBn,
+                          style: TextStyle(
+                              fontSize: 10.5,
+                              fontWeight: FontWeight.w700,
+                              color: c.categoryColor),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -185,30 +201,6 @@ class _ChemicalDetailScreenState extends State<ChemicalDetailScreen> {
   }
 }
 
-class _WhiteInfoCard extends StatelessWidget {
-  final Widget child;
-  const _WhiteInfoCard({required this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(14),
-        boxShadow: [
-          BoxShadow(
-              color: Colors.black.withOpacity(0.06),
-              blurRadius: 8,
-              offset: const Offset(0, 3)),
-        ],
-      ),
-      child: child,
-    );
-  }
-}
-
 class _ColorInfoCard extends StatelessWidget {
   final Color bgColor;
   final IconData icon;
@@ -253,56 +245,6 @@ class _ColorInfoCard extends StatelessWidget {
           child,
         ],
       ),
-    );
-  }
-}
-
-class _LabeledValue extends StatelessWidget {
-  final IconData icon;
-  final Color iconColor;
-  final Color labelColor;
-  final String label;
-  final String value;
-
-  const _LabeledValue({
-    required this.icon,
-    required this.iconColor,
-    required this.labelColor,
-    required this.label,
-    required this.value,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: 34,
-          height: 34,
-          decoration: BoxDecoration(color: iconColor, shape: BoxShape.circle),
-          child: Icon(icon, color: Colors.white, size: 16),
-        ),
-        const SizedBox(width: 8),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(label,
-                  style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                      color: labelColor)),
-              const SizedBox(height: 2),
-              Text(value,
-                  style: const TextStyle(
-                      fontSize: 12.5,
-                      fontWeight: FontWeight.w800,
-                      color: Color(0xFF1A1A1A))),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }

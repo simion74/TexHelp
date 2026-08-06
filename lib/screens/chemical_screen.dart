@@ -3,7 +3,6 @@ import '../data/chemical_data.dart';
 import '../theme/app_colors.dart';
 import '../utils/fuzzy_search.dart';
 import '../widgets/library_scaffold.dart';
-import '../widgets/library_thumbnail.dart';
 import '../widgets/library_wave_header.dart';
 import 'chemical_detail_screen.dart';
 
@@ -12,6 +11,10 @@ import 'chemical_detail_screen.dart';
 /// কেমিক্যাল সেফটি তথ্যে AI-এর ভুল অনুমান (hallucination) সরাসরি বিপদজনক
 /// হতে পারে। শুধুমাত্র যাচাই করা বান্ডল করা ডাটা থেকেই সার্চ/ফিল্টার হয়,
 /// বানান একটু ভুল হলেও (fuzzy match) খুঁজে দেবে।
+///
+/// 📝 নোট: কোনো স্যাম্পল ছবি না থাকায় গ্রিড-থাম্বনেইল বাদ দিয়ে এখন
+/// প্রতিটি কেমিক্যাল একটি ক্লিন লিস্ট-টাইল আকারে দেখানো হয় — শুধু
+/// রঙিন আইকন-অ্যাভাটার, নাম, ক্যাটাগরি ব্যাজ, আর সংক্ষিপ্ত ব্যবহার।
 class ChemicalScreen extends StatefulWidget {
   const ChemicalScreen({super.key});
 
@@ -23,11 +26,7 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
   bool _isEnglish = true;
   String _query = '';
   String? _selectedCategory; // null = All
-
-  // 🔧 গ্রিড কনফিগারেশন
-  static const int _crossAxisCount = 4;
-  static const double _gridSpacing = 10;
-  static const double _cardAspectRatio = 0.86;
+  bool _isCategoryExpanded = false;
 
   List<ChemicalItem> get _filtered {
     return kChemicals.where((c) {
@@ -89,40 +88,110 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
                         onPressed: () => setState(() => _query = ''),
                       ),
                 border: InputBorder.none,
-                contentPadding: const EdgeInsets.symmetric(
-                    vertical: 12, horizontal: 4),
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
               ),
             ),
           ),
           const SizedBox(height: 14),
-          const Text(
-            'Category Filter',
-            style: TextStyle(
-                fontSize: 11, fontWeight: FontWeight.w700, color: Colors.black54),
+
+          // 🔽 Category Filter হেডার — ট্যাপ করলে সব ক্যাটাগরি এক্সপ্যান্ড/কোলাপ্স হবে
+          InkWell(
+            borderRadius: BorderRadius.circular(6),
+            onTap: () =>
+                setState(() => _isCategoryExpanded = !_isCategoryExpanded),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Row(
+                children: [
+                  const Text(
+                    'Category Filter',
+                    style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black54),
+                  ),
+                  const SizedBox(width: 6),
+                  if (!_isCategoryExpanded && _selectedCategory != null)
+                    Flexible(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: AppColors.green.withOpacity(0.12),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text(
+                          _isEnglish
+                              ? kChemicalCategories
+                                  .firstWhere(
+                                      (cat) => cat.id == _selectedCategory)
+                                  .nameEn
+                              : kChemicalCategories
+                                  .firstWhere(
+                                      (cat) => cat.id == _selectedCategory)
+                                  .nameBn,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.darkGreen),
+                        ),
+                      ),
+                    ),
+                  const Spacer(),
+                  AnimatedRotation(
+                    turns: _isCategoryExpanded ? 0.5 : 0,
+                    duration: const Duration(milliseconds: 200),
+                    child: const Icon(Icons.keyboard_arrow_down_rounded,
+                        size: 18, color: Colors.black45),
+                  ),
+                ],
+              ),
+            ),
           ),
           const SizedBox(height: 8),
-          Wrap(
-            spacing: 6,
-            runSpacing: 6,
-            children: [
-              _CategoryChip(
-                label: 'All',
-                color: AppColors.green,
-                icon: Icons.apps_rounded,
-                selected: _selectedCategory == null,
-                onTap: () => setState(() => _selectedCategory = null),
-              ),
-              for (final cat in kChemicalCategories)
-                _CategoryChip(
-                  label: _isEnglish ? cat.nameEn : cat.nameBn,
-                  color: cat.color,
-                  icon: cat.icon,
-                  selected: _selectedCategory == cat.id,
-                  onTap: () => setState(() => _selectedCategory = cat.id),
-                ),
-            ],
+          AnimatedSize(
+            duration: const Duration(milliseconds: 220),
+            curve: Curves.easeInOut,
+            alignment: Alignment.topCenter,
+            child: !_isCategoryExpanded
+                ? const SizedBox.shrink()
+                : Wrap(
+                    spacing: 6,
+                    runSpacing: 6,
+                    children: [
+                      _CategoryChip(
+                        label: 'All',
+                        color: AppColors.green,
+                        icon: Icons.apps_rounded,
+                        selected: _selectedCategory == null,
+                        onTap: () {
+                          setState(() {
+                            _selectedCategory = null;
+                            _isCategoryExpanded = false;
+                          });
+                        },
+                      ),
+                      for (final cat in kChemicalCategories)
+                        _CategoryChip(
+                          label: _isEnglish ? cat.nameEn : cat.nameBn,
+                          color: cat.color,
+                          icon: cat.icon,
+                          selected: _selectedCategory == cat.id,
+                          onTap: () {
+                            setState(() {
+                              _selectedCategory = cat.id;
+                              _isCategoryExpanded = false;
+                            });
+                          },
+                        ),
+                    ],
+                  ),
           ),
           const SizedBox(height: 14),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -167,19 +236,14 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
               ),
             )
           else
-            GridView.builder(
+            ListView.separated(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: filtered.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: _crossAxisCount,
-                crossAxisSpacing: _gridSpacing,
-                mainAxisSpacing: _gridSpacing,
-                childAspectRatio: _cardAspectRatio,
-              ),
+              separatorBuilder: (_, __) => const SizedBox(height: 8),
               itemBuilder: (context, i) {
                 final c = filtered[i];
-                return _ChemicalCard(
+                return _ChemicalListTile(
                   chemical: c,
                   isEnglish: _isEnglish,
                   onTap: () {
@@ -247,12 +311,14 @@ class _CategoryChip extends StatelessWidget {
   }
 }
 
-class _ChemicalCard extends StatelessWidget {
+/// 🧾 কোনো ইমেজ/থাম্বনেইল কন্টেইনার ছাড়াই ক্লিন লিস্ট-টাইল —
+/// রঙিন আইকন-অ্যাভাটার, নাম, ব্যবহারের সংক্ষিপ্ত বিবরণ, ক্যাটাগরি ব্যাজ।
+class _ChemicalListTile extends StatelessWidget {
   final ChemicalItem chemical;
   final bool isEnglish;
   final VoidCallback onTap;
 
-  const _ChemicalCard({
+  const _ChemicalListTile({
     required this.chemical,
     required this.isEnglish,
     required this.onTap,
@@ -260,50 +326,80 @@ class _ChemicalCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final color = chemical.categoryColor;
     return Material(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(7),
-      elevation: 1.5,
-      shadowColor: Colors.black26,
+      color: Colors.transparent,
       child: InkWell(
-        borderRadius: BorderRadius.circular(7),
+        borderRadius: BorderRadius.circular(12),
         onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.all(6),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.min,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border(left: BorderSide(color: color, width: 4)),
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  blurRadius: 6,
+                  offset: const Offset(0, 2)),
+            ],
+          ),
+          padding: const EdgeInsets.fromLTRB(12, 10, 10, 10),
+          child: Row(
             children: [
-              AspectRatio(
-                aspectRatio: 16 / 9,
-                child: LibraryThumbnail(
-                  imagePath: null,
-                  icon: chemical.categoryIcon,
-                  color: chemical.categoryColor,
-                  borderRadius: 3,
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                    color: color.withOpacity(0.12), shape: BoxShape.circle),
+                child: Icon(chemical.categoryIcon, color: color, size: 19),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      isEnglish ? chemical.nameEn : chemical.nameBn,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w800,
+                          color: AppColors.darkGreen),
+                    ),
+                    const SizedBox(height: 3),
+                    Text(
+                      isEnglish
+                          ? chemical.usedInProcessEn
+                          : chemical.usedInProcessBn,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontSize: 10.5, color: Colors.black45),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 6),
-              Text(
-                isEnglish ? chemical.nameEn : chemical.nameBn,
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                    fontSize: 9.2,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.darkGreen,
-                    height: 1.15),
-              ),
-              const SizedBox(height: 4),
+              const SizedBox(width: 8),
               Container(
-                width: 15,
-                height: 15,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                    color: chemical.categoryColor, shape: BoxShape.circle),
-                child: Icon(chemical.categoryIcon,
-                    color: Colors.white, size: 9),
+                  color: color.withOpacity(0.10),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(
+                  isEnglish ? chemical.categoryEn : chemical.categoryBn,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      fontSize: 9, fontWeight: FontWeight.w700, color: color),
+                ),
               ),
+              const SizedBox(width: 4),
+              const Icon(Icons.chevron_right_rounded,
+                  color: Colors.black26, size: 18),
             ],
           ),
         ),
