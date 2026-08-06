@@ -22,6 +22,8 @@ import 'ai_color_finder_screen.dart';
 import 'machine_library_screen.dart';
 import 'fabric_fault_screen.dart';
 import 'fabric_type_screen.dart';
+import 'chemical_screen.dart';
+import 'lab_test_screen.dart';
 import 'process_loss_screen.dart';
 import 'average_gsm_calculate_screen.dart';
 import 'ai_settings_screen.dart';
@@ -200,6 +202,16 @@ class _HomeScreenState extends State<HomeScreen>
       title: 'Machine Library',
       imagePath: '${_kIconBasePath}Machine_Library.webp',
       builder: () => const MachineLibraryScreen(),
+    ),
+    _CalcItem(
+      title: 'Chemical Library',
+      imagePath: '${_kIconBasePath}Chemicali.webp',
+      builder: () => const ChemicalScreen(),
+    ),
+    _CalcItem(
+      title: 'Lab Test',
+      imagePath: '${_kIconBasePath}Lab_test.webp',
+      builder: () => const LabTestScreen(),
     ),
     _CalcItem(
       title: 'Fabric Fault',
