@@ -22,6 +22,7 @@ class _LabTestScreenState extends State<LabTestScreen> {
   bool _isEnglish = true;
   String _query = '';
   String? _selectedCategory; // null = All
+  bool _isCategoryExpanded = false; // ক্যাটাগরি চিপ লিস্ট ডিফল্টে বন্ধ থাকবে
 
   static const int _crossAxisCount = 4;
   static const double _gridSpacing = 10;
@@ -87,40 +88,110 @@ class _LabTestScreenState extends State<LabTestScreen> {
                         onPressed: () => setState(() => _query = ''),
                       ),
                 border: InputBorder.none,
-                contentPadding: const EdgeInsets.symmetric(
-                    vertical: 12, horizontal: 4),
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
               ),
             ),
           ),
           const SizedBox(height: 14),
-          const Text(
-            'Category Filter',
-            style: TextStyle(
-                fontSize: 11, fontWeight: FontWeight.w700, color: Colors.black54),
+
+          // 🔽 Category Filter হেডার — ট্যাপ করলে সব ক্যাটাগরি এক্সপ্যান্ড/কোলাপ্স হবে
+          InkWell(
+            borderRadius: BorderRadius.circular(6),
+            onTap: () =>
+                setState(() => _isCategoryExpanded = !_isCategoryExpanded),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Row(
+                children: [
+                  const Text(
+                    'Category Filter',
+                    style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black54),
+                  ),
+                  const SizedBox(width: 6),
+                  if (!_isCategoryExpanded && _selectedCategory != null)
+                    Flexible(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: AppColors.green.withOpacity(0.12),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text(
+                          _isEnglish
+                              ? kLabTestCategories
+                                  .firstWhere(
+                                      (c) => c.id == _selectedCategory)
+                                  .nameEn
+                              : kLabTestCategories
+                                  .firstWhere(
+                                      (c) => c.id == _selectedCategory)
+                                  .nameBn,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.darkGreen),
+                        ),
+                      ),
+                    ),
+                  const Spacer(),
+                  AnimatedRotation(
+                    turns: _isCategoryExpanded ? 0.5 : 0,
+                    duration: const Duration(milliseconds: 200),
+                    child: const Icon(Icons.keyboard_arrow_down_rounded,
+                        size: 18, color: Colors.black45),
+                  ),
+                ],
+              ),
+            ),
           ),
           const SizedBox(height: 8),
-          Wrap(
-            spacing: 6,
-            runSpacing: 6,
-            children: [
-              _CategoryChip(
-                label: 'All',
-                color: AppColors.green,
-                icon: Icons.apps_rounded,
-                selected: _selectedCategory == null,
-                onTap: () => setState(() => _selectedCategory = null),
-              ),
-              for (final cat in kLabTestCategories)
-                _CategoryChip(
-                  label: _isEnglish ? cat.nameEn : cat.nameBn,
-                  color: cat.color,
-                  icon: cat.icon,
-                  selected: _selectedCategory == cat.id,
-                  onTap: () => setState(() => _selectedCategory = cat.id),
-                ),
-            ],
+          AnimatedSize(
+            duration: const Duration(milliseconds: 220),
+            curve: Curves.easeInOut,
+            alignment: Alignment.topCenter,
+            child: !_isCategoryExpanded
+                ? const SizedBox.shrink()
+                : Wrap(
+                    spacing: 6,
+                    runSpacing: 6,
+                    children: [
+                      _CategoryChip(
+                        label: 'All',
+                        color: AppColors.green,
+                        icon: Icons.apps_rounded,
+                        selected: _selectedCategory == null,
+                        onTap: () {
+                          setState(() {
+                            _selectedCategory = null;
+                            _isCategoryExpanded = false;
+                          });
+                        },
+                      ),
+                      for (final cat in kLabTestCategories)
+                        _CategoryChip(
+                          label: _isEnglish ? cat.nameEn : cat.nameBn,
+                          color: cat.color,
+                          icon: cat.icon,
+                          selected: _selectedCategory == cat.id,
+                          onTap: () {
+                            setState(() {
+                              _selectedCategory = cat.id;
+                              _isCategoryExpanded = false;
+                            });
+                          },
+                        ),
+                    ],
+                  ),
           ),
           const SizedBox(height: 14),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
