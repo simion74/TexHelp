@@ -101,31 +101,26 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
                 fontSize: 11, fontWeight: FontWeight.w700, color: Colors.black54),
           ),
           const SizedBox(height: 8),
-          SizedBox(
-            height: 34,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
+          Wrap(
+            spacing: 6,
+            runSpacing: 6,
+            children: [
+              _CategoryChip(
+                label: 'All',
+                color: AppColors.green,
+                icon: Icons.apps_rounded,
+                selected: _selectedCategory == null,
+                onTap: () => setState(() => _selectedCategory = null),
+              ),
+              for (final cat in kChemicalCategories)
                 _CategoryChip(
-                  label: 'All',
-                  color: AppColors.green,
-                  icon: Icons.apps_rounded,
-                  selected: _selectedCategory == null,
-                  onTap: () => setState(() => _selectedCategory = null),
+                  label: _isEnglish ? cat.nameEn : cat.nameBn,
+                  color: cat.color,
+                  icon: cat.icon,
+                  selected: _selectedCategory == cat.id,
+                  onTap: () => setState(() => _selectedCategory = cat.id),
                 ),
-                for (final cat in kChemicalCategories)
-                  Padding(
-                    padding: const EdgeInsets.only(left: 6),
-                    child: _CategoryChip(
-                      label: _isEnglish ? cat.nameEn : cat.nameBn,
-                      color: cat.color,
-                      icon: cat.icon,
-                      selected: _selectedCategory == cat.id,
-                      onTap: () => setState(() => _selectedCategory = cat.id),
-                    ),
-                  ),
-              ],
-            ),
+            ],
           ),
           const SizedBox(height: 14),
           Row(
