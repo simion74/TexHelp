@@ -359,45 +359,46 @@ class _ChemicalListTile extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // পুরো নাম — এখন ২ লাইন পর্যন্ত wrap হবে, কাটা পড়বে না
                     Text(
                       isEnglish ? chemical.nameEn : chemical.nameBn,
-                      maxLines: 1,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w800,
-                          color: AppColors.darkGreen),
+                          color: AppColors.darkGreen,
+                          height: 1.2),
                     ),
-                    const SizedBox(height: 3),
-                    Text(
-                      isEnglish
-                          ? chemical.usedInProcessEn
-                          : chemical.usedInProcessBn,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontSize: 10.5, color: Colors.black45),
+                    const SizedBox(height: 4),
+                    // ক্যাটাগরি — খুব ছোট আকারে নামের ঠিক নিচে
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          width: 5,
+                          height: 5,
+                          decoration:
+                              BoxDecoration(color: color, shape: BoxShape.circle),
+                        ),
+                        const SizedBox(width: 5),
+                        Flexible(
+                          child: Text(
+                            isEnglish ? chemical.categoryEn : chemical.categoryBn,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                fontSize: 9.5,
+                                fontWeight: FontWeight.w600,
+                                color: color),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ),
-              const SizedBox(width: 8),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: color.withOpacity(0.10),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(
-                  isEnglish ? chemical.categoryEn : chemical.categoryBn,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                      fontSize: 9, fontWeight: FontWeight.w700, color: color),
-                ),
-              ),
-              const SizedBox(width: 4),
+              const SizedBox(width: 6),
               const Icon(Icons.chevron_right_rounded,
                   color: Colors.black26, size: 18),
             ],
