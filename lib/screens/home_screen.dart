@@ -1130,21 +1130,6 @@ class _CalcCard extends StatelessWidget {
                       color: AppColors.darkGreen,
                       height: _titleLineHeight),
                 ),
-                // 🏷️ ঐচ্ছিক বিভাগের নাম — অতি ছোট ফন্টে, শুধু থাকলেই দেখাবে
-                if (item.department != null) ...[
-                  const SizedBox(height: 1),
-                  Text(
-                    item.department!,
-                    textAlign: TextAlign.center,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 7.2,
-                        color: Colors.black38,
-                        height: 1.0),
-                  ),
-                ],
               ],
             ),
           ),
