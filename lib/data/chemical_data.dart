@@ -60,13 +60,13 @@ class ChemicalCategory {
 }
 
 const List<ChemicalCategory> kChemicalCategories = [
-  ChemicalCategory(id: 'cat_0', nameEn: 'Pretreatment & Preparatory Chemicals', nameBn: 'প্রি-ট্রিটমেন্ট ও প্রিপারেটরি কেমিক্যাল', color: AppColors.teal, icon: Icons.cleaning_services_rounded),
+  ChemicalCategory(id: 'cat_0', nameEn: 'Pretreatment & Preparatory', nameBn: 'প্রি-ট্রিটমেন্ট ও প্রিপারেটরি কেমিক্যাল', color: AppColors.teal, icon: Icons.cleaning_services_rounded),
   ChemicalCategory(id: 'cat_1', nameEn: 'Dyes & Colorants', nameBn: 'ডাইজ ও কালারেন্ট', color: AppColors.purple, icon: Icons.palette_rounded),
   ChemicalCategory(id: 'cat_2', nameEn: 'Dyeing Auxiliary Chemicals', nameBn: 'ডাইং অক্সিলিয়ারি কেমিক্যাল', color: AppColors.orange, icon: Icons.science_rounded),
-  ChemicalCategory(id: 'cat_3', nameEn: 'Printing Chemicals', nameBn: 'প্রিন্টিং কেমিক্যাল', color: AppColors.pink, icon: Icons.brush_rounded),
-  ChemicalCategory(id: 'cat_4', nameEn: 'Finishing Chemicals', nameBn: 'ফিনিশিং কেমিক্যাল', color: AppColors.green, icon: Icons.auto_fix_high_rounded),
-  ChemicalCategory(id: 'cat_5', nameEn: 'Garment Washing Chemicals', nameBn: 'গার্মেন্ট ওয়াশিং কেমিক্যাল', color: AppColors.darkTeal, icon: Icons.local_laundry_service_rounded),
-  ChemicalCategory(id: 'cat_6', nameEn: 'General Process / Utility Chemicals', nameBn: 'জেনারেল প্রসেস/ইউটিলিটি কেমিক্যাল', color: AppColors.lightGreen, icon: Icons.build_circle_rounded),
+  ChemicalCategory(id: 'cat_3', nameEn: 'Printing', nameBn: 'প্রিন্টিং কেমিক্যাল', color: AppColors.pink, icon: Icons.brush_rounded),
+  ChemicalCategory(id: 'cat_4', nameEn: 'Finishing', nameBn: 'ফিনিশিং কেমিক্যাল', color: AppColors.green, icon: Icons.auto_fix_high_rounded),
+  ChemicalCategory(id: 'cat_5', nameEn: 'Garment Washing', nameBn: 'গার্মেন্ট ওয়াশিং কেমিক্যাল', color: AppColors.darkTeal, icon: Icons.local_laundry_service_rounded),
+  ChemicalCategory(id: 'cat_6', nameEn: 'General Process / Utility', nameBn: 'জেনারেল প্রসেস/ইউটিলিটি কেমিক্যাল', color: AppColors.lightGreen, icon: Icons.build_circle_rounded),
 ];
 
 const List<ChemicalItem> kChemicals = [
