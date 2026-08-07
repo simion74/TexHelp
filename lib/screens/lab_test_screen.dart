@@ -94,7 +94,7 @@ class _LabTestScreenState extends State<LabTestScreen> {
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image:
-                        AssetImage('assets/images/lab_test_screen_frame.webp'),
+                        AssetImage('assets/images/lab_chemical.webp'),
                     fit: BoxFit.cover,
                   ),
                 ),
