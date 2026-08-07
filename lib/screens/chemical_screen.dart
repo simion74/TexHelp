@@ -116,7 +116,7 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image:
-                        AssetImage('assets/images/chemical_screen_frame.webp'),
+                        AssetImage('assets/images/lab_chemical.webp'),
                     fit: BoxFit.cover,
                   ),
                 ),
