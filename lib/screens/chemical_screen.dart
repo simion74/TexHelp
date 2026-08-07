@@ -33,6 +33,17 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
   String? _selectedCategory; // null = All
   bool _isCategoryExpanded = false;
 
+  // 🎨 নিচের কেমিক্যাল লিস্টে এখন প্রতিটা ক্যাটাগরির আলাদা রং দেখানো হয় না —
+  // ব্যাকগ্রাউন্ড ফ্রেমের সাথে "Finishing" ক্যাটাগরির রংটাই সবচেয়ে ভালো
+  // মানানসই, তাই পুরো লিস্টে এই একটা রংই ব্যবহার হচ্ছে। "Finishing" নাম
+  // বদলে গেলে/না পাওয়া গেলে প্রথম ক্যাটাগরির রং ব্যবহার হবে (ক্র্যাশ হবে না)।
+  static final Color _listAccentColor = kChemicalCategories
+      .firstWhere(
+        (c) => c.nameEn == 'Finishing',
+        orElse: () => kChemicalCategories.first,
+      )
+      .color;
+
   List<ChemicalItem> get _filtered {
     return kChemicals.where((c) {
       final matchesCategory =
@@ -84,6 +95,7 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
                             Navigator.of(context).popUntil((r) => r.isFirst),
                       ),
                     ),
+                    const SizedBox(height: 14),
                     Expanded(
                       child: ListView(
                         padding: const EdgeInsets.fromLTRB(14, 14, 14, 6),
@@ -198,20 +210,29 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
                             ),
                           ),
                           const SizedBox(height: 8),
+                          // 🔲 ক্যাটাগরি গ্রিড — উদাহরণ ছবির মতো ৪x২ = ৮টা
+                          // স্কয়ার ব্লক (All + ৭টা ক্যাটাগরি), প্রতিটাতে
+                          // বাম পাশে আইকন, ডান পাশে ছোট ফন্টে দুই লাইনের নাম
                           AnimatedSize(
                             duration: const Duration(milliseconds: 220),
                             curve: Curves.easeInOut,
                             alignment: Alignment.topCenter,
                             child: !_isCategoryExpanded
                                 ? const SizedBox.shrink()
-                                : Wrap(
-                                    spacing: 6,
-                                    runSpacing: 6,
+                                : GridView.count(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    crossAxisCount: 4,
+                                    mainAxisSpacing: 8,
+                                    crossAxisSpacing: 8,
+                                    childAspectRatio: 1.0,
                                     children: [
-                                      _CategoryChip(
-                                        label: 'All',
-                                        color: AppColors.green,
+                                      _CategoryGridTile(
                                         icon: Icons.apps_rounded,
+                                        title: 'All',
+                                        subtitle: '${kChemicals.length}',
+                                        color: AppColors.green,
                                         selected: _selectedCategory == null,
                                         onTap: () {
                                           setState(() {
@@ -221,12 +242,12 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
                                         },
                                       ),
                                       for (final cat in kChemicalCategories)
-                                        _CategoryChip(
-                                          label: _isEnglish
+                                        _CategoryGridTile(
+                                          icon: cat.icon,
+                                          title: _isEnglish
                                               ? cat.nameEn
                                               : cat.nameBn,
                                           color: cat.color,
-                                          icon: cat.icon,
                                           selected:
                                               _selectedCategory == cat.id,
                                           onTap: () {
@@ -300,6 +321,7 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
                                 return _ChemicalListTile(
                                   chemical: c,
                                   isEnglish: _isEnglish,
+                                  accentColor: _listAccentColor,
                                   onTap: () {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
@@ -352,8 +374,9 @@ class _ChemicalHeader extends StatelessWidget {
     required this.onHomeTap,
   });
 
-  // 🔧 হেডার শুরু হওয়ার আগে উপরে কতটুকু ফাঁকা জায়গা থাকবে
-  static const double topOffset = 16;
+  // 🔧 হেডার শুরু হওয়ার আগে উপরে কতটুকু ফাঁকা জায়গা থাকবে — বাড়ালে হেডার
+  // নিচে নামবে (উদাহরণ ছবির মতো গাঢ় green wave-এর মাঝামাঝি জায়গায় বসবে)
+  static const double topOffset = 34;
   static const double buttonSize = 34;
   static const double buttonIconSize = 17;
   static const double titleFontSize = 18;
@@ -364,7 +387,7 @@ class _ChemicalHeader extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        // 🏠 home বাটন — সাদা বৃত্ত + সবুজ আইকন (উদাহরণ ছবির সাথে মিল রেখে)
+        // 🏠 home বাটন — সাদা বর্ডার, ভিতরে green ফিল, তার ভিতরে সাদা আইকন
         Material(
           color: Colors.white,
           shape: const CircleBorder(),
@@ -373,11 +396,21 @@ class _ChemicalHeader extends StatelessWidget {
             customBorder: const CircleBorder(),
             onTap: onHomeTap,
             child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Icon(
-                Icons.home_rounded,
-                color: AppColors.green,
-                size: buttonIconSize,
+              // 🔧 সাদা বর্ডারের পুরুত্ব — সংখ্যা বাড়ালে বর্ডার মোটা হবে
+              padding: const EdgeInsets.all(3),
+              child: Container(
+                width: buttonSize - 6,
+                height: buttonSize - 6,
+                decoration: const BoxDecoration(
+                  color: AppColors.green,
+                  shape: BoxShape.circle,
+                ),
+                alignment: Alignment.center,
+                child: Icon(
+                  Icons.home_rounded,
+                  color: Colors.white,
+                  size: buttonIconSize,
+                ),
               ),
             ),
           ),
@@ -470,17 +503,22 @@ class _LanguageToggle extends StatelessWidget {
   }
 }
 
-class _CategoryChip extends StatelessWidget {
-  final String label;
-  final Color color;
+/// 🔲 ক্যাটাগরি গ্রিডের একটা স্কয়ার ব্লক — বাম পাশে আইকন, ডান পাশে টাইটেল
+/// (এবং "All"-এর জন্য নিচে সংখ্যা)। সিলেক্ট করা থাকলে হালকা গাঢ় ব্যাকগ্রাউন্ড
+/// আর রঙিন বর্ডার দেখাবে।
+class _CategoryGridTile extends StatelessWidget {
   final IconData icon;
+  final String title;
+  final String? subtitle;
+  final Color color;
   final bool selected;
   final VoidCallback onTap;
 
-  const _CategoryChip({
-    required this.label,
-    required this.color,
+  const _CategoryGridTile({
     required this.icon,
+    required this.title,
+    this.subtitle,
+    required this.color,
     required this.selected,
     required this.onTap,
   });
@@ -488,24 +526,54 @@ class _CategoryChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: selected ? color : color.withOpacity(0.10),
-      borderRadius: BorderRadius.circular(20),
+      color: selected ? color.withOpacity(0.22) : color.withOpacity(0.12),
+      borderRadius: BorderRadius.circular(10),
       child: InkWell(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(10),
         onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: selected ? Border.all(color: color, width: 1.3) : null,
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
           child: Row(
-            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(icon, size: 11, color: selected ? Colors.white : color),
+              Icon(icon, size: 15, color: color),
               const SizedBox(width: 4),
-              Text(
-                label,
-                style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w700,
-                    color: selected ? Colors.white : color),
+              Expanded(
+                child: subtitle == null
+                    ? Text(
+                        title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: 8.5,
+                            fontWeight: FontWeight.w700,
+                            color: color,
+                            height: 1.05),
+                      )
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            title,
+                            style: TextStyle(
+                                fontSize: 9.5,
+                                fontWeight: FontWeight.w800,
+                                color: color),
+                          ),
+                          Text(
+                            subtitle!,
+                            style: TextStyle(
+                                fontSize: 8.5,
+                                fontWeight: FontWeight.w600,
+                                color: color.withOpacity(0.75)),
+                          ),
+                        ],
+                      ),
               ),
             ],
           ),
@@ -520,17 +588,20 @@ class _CategoryChip extends StatelessWidget {
 class _ChemicalListTile extends StatelessWidget {
   final ChemicalItem chemical;
   final bool isEnglish;
+  final Color accentColor;
   final VoidCallback onTap;
 
   const _ChemicalListTile({
     required this.chemical,
     required this.isEnglish,
+    required this.accentColor,
     required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    final color = chemical.categoryColor;
+    // 🎨 এখন ক্যাটাগরি অনুযায়ী রং বদলায় না — সব লিস্ট-টাইলে একটাই রং
+    final color = accentColor;
     return Material(
       color: Colors.transparent,
       child: InkWell(
