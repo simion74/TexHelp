@@ -13,13 +13,17 @@ import 'chemical_detail_screen.dart';
 /// বানান একটু ভুল হলেও (fuzzy match) খুঁজে দেবে।
 ///
 /// 🖼️ নোট: এই স্ক্রিনটা আলাদা ব্যাকগ্রাউন্ড ফ্রেম
-/// (`assets/image/chemical_screen_frame.webp`) ব্যবহার করে — তাই এটা আর
+/// (`assets/images/chemical_screen_frame.webp`) ব্যবহার করে — তাই এটা আর
 /// শেয়ার্ড `LibraryScaffold` / `LibraryWaveHeader` (যেগুলো Machine Library ও
 /// Fabric Fault স্ক্রিনে `assets/images/bg_frame.webp` ব্যবহার করে) থেকে
 /// নেয় না। এই ফাইলের ভিতরেই স্ট্যাটাস-বার স্ট্রিপ, ব্যাকগ্রাউন্ড ফ্রেম,
 /// হেডার (home আইকন + টাইটেল + ভাষা টগল) এবং নিচের অ্যাড ব্যানার — সবকিছু
 /// স্বনির্ভরভাবে (self-contained) বসানো হয়েছে, যাতে অন্য কোনো স্ক্রিনের
 /// ডিজাইনে প্রভাব না পড়ে।
+///
+/// 📌 স্ক্রল বিহেভিয়ার: সার্চ বক্স + Category Filter (গ্রিডসহ) + "All
+/// Chemicals" রো — এই পুরো উপরের অংশটা ফিক্সড থাকে, স্ক্রল হয় না। শুধু
+/// নিচের কেমিক্যাল লিস্টটা আলাদাভাবে স্ক্রল হয়, ডান পাশে চিকন স্ক্রলবার সহ।
 class ChemicalScreen extends StatefulWidget {
   const ChemicalScreen({super.key});
 
@@ -31,7 +35,7 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
   bool _isEnglish = true;
   String _query = '';
   String? _selectedCategory; // null = All
-  bool _isCategoryExpanded = false;
+  final ScrollController _listScrollController = ScrollController();
 
   // 🎨 নিচের কেমিক্যাল লিস্টে এখন প্রতিটা ক্যাটাগরির আলাদা রং দেখানো হয় না —
   // ব্যাকগ্রাউন্ড ফ্রেমের সাথে "Finishing" ক্যাটাগরির রংটাই সবচেয়ে ভালো
@@ -44,6 +48,33 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
       )
       .color;
 
+  // ==========================================================================
+  // 🔧🔧🔧 লেআউট টিউনিং কনস্ট্যান্ট — নিচের সবগুলো ভ্যালু স্বাধীনভাবে বদলে
+  // স্পেসিং/সাইজ যেভাবে ইচ্ছা কন্ট্রোল করা যাবে, কোডের অন্য কোথাও হাত
+  // দেওয়ার দরকার নেই।
+  // ==========================================================================
+
+  // --- পুরো ফিক্সড (উপরের, স্ক্রল না হওয়া) অংশের বাইরের প্যাডিং ---
+  static const EdgeInsets fixedSectionPadding =
+      EdgeInsets.fromLTRB(14, 0, 14, 0);
+
+  // --- সার্চ বক্স ---
+  static const double searchBoxBottomGap = 12; // সার্চ বক্স ↔ Category Filter
+
+  // --- ক্যাটাগরি ফিল্টার ---
+  static const double categoryLabelBottomGap = 0; // "Category Filter" টেক্সট ↔ গ্রিড
+  static const double categoryGridTileHeight = 56; // প্রতিটা ব্লকের হাইট
+  static const double categoryGridSpacing = 8; // ব্লকগুলোর মাঝের গ্যাপ (আনুভূমিক+উলম্ব)
+  static const double categoryGridBottomGap = 0; // গ্রিড ↔ "All Chemicals" রো
+
+  // --- "All Chemicals" রো ---
+  static const double allChemicalsBottomGap = 0; // এই রো ↔ স্ক্রলযোগ্য লিস্ট
+
+  // --- স্ক্রলযোগ্য লিস্ট ---
+  static const EdgeInsets listPadding = EdgeInsets.fromLTRB(14, 8, 10, 12);
+  static const double listItemSpacing = 8; // দুইটা কেমিক্যাল আইটেমের মাঝের গ্যাপ
+  static const double listScrollbarThickness = 3; // ডান পাশের চিকন স্ক্রলবার
+
   List<ChemicalItem> get _filtered {
     return kChemicals.where((c) {
       final matchesCategory =
@@ -54,6 +85,12 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
           fuzzyContains(c.usedInProcessEn, _query);
       return matchesCategory && matchesQuery;
     }).toList();
+  }
+
+  @override
+  void dispose() {
+    _listScrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -75,10 +112,11 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
             ),
             Expanded(
               child: Container(
-                // 🖼️ নতুন ব্যাকগ্রাউন্ড ফ্রেম — পুরো স্ক্রিন জুড়ে
+                // 🖼️ ব্যাকগ্রাউন্ড ফ্রেম — পুরো স্ক্রিন জুড়ে
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/chemical_screen_frame.webp'),
+                    image:
+                        AssetImage('assets/images/chemical_screen_frame.webp'),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -96,9 +134,12 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
                       ),
                     ),
                     const SizedBox(height: 14),
-                    Expanded(
-                      child: ListView(
-                        padding: const EdgeInsets.fromLTRB(14, 14, 14, 6),
+
+                    // 📌 ফিক্সড অংশ — সার্চ বক্স + ক্যাটাগরি গ্রিড +
+                    // "All Chemicals" রো, এগুলো স্ক্রল হয় না
+                    Padding(
+                      padding: fixedSectionPadding,
+                      child: Column(
                         children: [
                           // 🔎 সার্চ বক্স — টাইপ করার সাথে সাথে ফিল্টার হয়,
                           // বানান একটু ভুল হলেও (fuzzy match) কাছাকাছি
@@ -141,129 +182,65 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 12),
+                          SizedBox(height: searchBoxBottomGap),
 
-                          // 🔽 Category Filter হেডার — ট্যাপ করলে সব
-                          // ক্যাটাগরি এক্সপ্যান্ড/কোলাপ্স হবে
-                          InkWell(
-                            borderRadius: BorderRadius.circular(6),
-                            onTap: () => setState(() =>
-                                _isCategoryExpanded = !_isCategoryExpanded),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 4),
-                              child: Row(
-                                children: [
-                                  const Text(
-                                    'Category Filter',
-                                    style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.black54),
-                                  ),
-                                  const SizedBox(width: 6),
-                                  if (!_isCategoryExpanded &&
-                                      _selectedCategory != null)
-                                    Flexible(
-                                      child: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 8, vertical: 2),
-                                        decoration: BoxDecoration(
-                                          color: AppColors.green
-                                              .withOpacity(0.12),
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                        child: Text(
-                                          _isEnglish
-                                              ? kChemicalCategories
-                                                  .firstWhere((cat) =>
-                                                      cat.id ==
-                                                      _selectedCategory)
-                                                  .nameEn
-                                              : kChemicalCategories
-                                                  .firstWhere((cat) =>
-                                                      cat.id ==
-                                                      _selectedCategory)
-                                                  .nameBn,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                              fontSize: 9,
-                                              fontWeight: FontWeight.w700,
-                                              color: AppColors.darkGreen),
-                                        ),
-                                      ),
-                                    ),
-                                  const Spacer(),
-                                  AnimatedRotation(
-                                    turns: _isCategoryExpanded ? 0.5 : 0,
-                                    duration:
-                                        const Duration(milliseconds: 200),
-                                    child: const Icon(
-                                        Icons.keyboard_arrow_down_rounded,
-                                        size: 17,
-                                        color: Colors.black45),
-                                  ),
-                                ],
-                              ),
+                          // 🏷️ Category Filter লেবেল — এখন আর ট্যাপ করে
+                          // hide/show করা যায় না, সবসময় নিচে গ্রিড দেখা যাবে
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Category Filter',
+                              style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black54),
                             ),
                           ),
-                          const SizedBox(height: 8),
-                          // 🔲 ক্যাটাগরি গ্রিড — উদাহরণ ছবির মতো ৪x২ = ৮টা
-                          // স্কয়ার ব্লক (All + ৭টা ক্যাটাগরি), প্রতিটাতে
-                          // বাম পাশে আইকন, ডান পাশে ছোট ফন্টে দুই লাইনের নাম
-                          AnimatedSize(
-                            duration: const Duration(milliseconds: 220),
-                            curve: Curves.easeInOut,
-                            alignment: Alignment.topCenter,
-                            child: !_isCategoryExpanded
-                                ? const SizedBox.shrink()
-                                : GridView.count(
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    crossAxisCount: 4,
-                                    mainAxisSpacing: 8,
-                                    crossAxisSpacing: 8,
-                                    childAspectRatio: 1.0,
-                                    children: [
-                                      _CategoryGridTile(
-                                        icon: Icons.apps_rounded,
-                                        title: 'All',
-                                        subtitle: '${kChemicals.length}',
-                                        color: AppColors.green,
-                                        selected: _selectedCategory == null,
-                                        onTap: () {
-                                          setState(() {
-                                            _selectedCategory = null;
-                                            _isCategoryExpanded = false;
-                                          });
-                                        },
-                                      ),
-                                      for (final cat in kChemicalCategories)
-                                        _CategoryGridTile(
-                                          icon: cat.icon,
-                                          title: _isEnglish
-                                              ? cat.nameEn
-                                              : cat.nameBn,
-                                          color: cat.color,
-                                          selected:
-                                              _selectedCategory == cat.id,
-                                          onTap: () {
-                                            setState(() {
-                                              _selectedCategory = cat.id;
-                                              _isCategoryExpanded = false;
-                                            });
-                                          },
-                                        ),
-                                    ],
-                                  ),
+                          SizedBox(height: categoryLabelBottomGap),
+
+                          // 🔲 ক্যাটাগরি গ্রিড — ৪x২ = ৮টা ব্লক (All + ৭টা
+                          // ক্যাটাগরি), প্রতিটাতে বাম পাশে আইকন, ডান পাশে
+                          // ছোট ফন্টে দুই লাইনের নাম। এখন সবসময় দেখা যায়।
+                          GridView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: kChemicalCategories.length + 1,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 4,
+                              mainAxisSpacing: categoryGridSpacing,
+                              crossAxisSpacing: categoryGridSpacing,
+                              mainAxisExtent: categoryGridTileHeight,
+                            ),
+                            itemBuilder: (context, index) {
+                              if (index == 0) {
+                                return _CategoryGridTile(
+                                  icon: Icons.apps_rounded,
+                                  title: 'All',
+                                  subtitle: '${kChemicals.length}',
+                                  color: AppColors.green,
+                                  selected: _selectedCategory == null,
+                                  onTap: () =>
+                                      setState(() => _selectedCategory = null),
+                                );
+                              }
+                              final cat = kChemicalCategories[index - 1];
+                              return _CategoryGridTile(
+                                icon: cat.icon,
+                                title:
+                                    _isEnglish ? cat.nameEn : cat.nameBn,
+                                color: cat.color,
+                                selected: _selectedCategory == cat.id,
+                                onTap: () =>
+                                    setState(() => _selectedCategory = cat.id),
+                              );
+                            },
                           ),
-                          const SizedBox(height: 12),
+                          SizedBox(height: categoryGridBottomGap),
 
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
                             children: [
                               const Text(
                                 'All Chemicals',
@@ -289,11 +266,17 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 10),
-                          if (filtered.isEmpty)
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 30),
+                          SizedBox(height: allChemicalsBottomGap),
+                        ],
+                      ),
+                    ),
+
+                    // 📜 শুধুমাত্র এই অংশটুকু স্ক্রল হয় — কেমিক্যাল লিস্ট
+                    Expanded(
+                      child: filtered.isEmpty
+                          ? Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 30, horizontal: 14),
                               child: Column(
                                 children: [
                                   const Icon(Icons.search_off_rounded,
@@ -309,36 +292,40 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
                                 ],
                               ),
                             )
-                          else
-                            ListView.separated(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: filtered.length,
-                              separatorBuilder: (_, __) =>
-                                  const SizedBox(height: 8),
-                              itemBuilder: (context, i) {
-                                final c = filtered[i];
-                                return _ChemicalListTile(
-                                  chemical: c,
-                                  isEnglish: _isEnglish,
-                                  accentColor: _listAccentColor,
-                                  onTap: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (_) => ChemicalDetailScreen(
-                                          chemical: c,
-                                          initialIsEnglish: _isEnglish,
+                          : Scrollbar(
+                              controller: _listScrollController,
+                              thumbVisibility: true,
+                              thickness: listScrollbarThickness,
+                              radius: const Radius.circular(10),
+                              child: ListView.separated(
+                                controller: _listScrollController,
+                                padding: listPadding,
+                                itemCount: filtered.length,
+                                separatorBuilder: (_, __) =>
+                                    SizedBox(height: listItemSpacing),
+                                itemBuilder: (context, i) {
+                                  final c = filtered[i];
+                                  return _ChemicalListTile(
+                                    chemical: c,
+                                    isEnglish: _isEnglish,
+                                    accentColor: _listAccentColor,
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (_) =>
+                                              ChemicalDetailScreen(
+                                            chemical: c,
+                                            initialIsEnglish: _isEnglish,
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
                             ),
-                          const SizedBox(height: 12),
-                        ],
-                      ),
                     ),
+
                     // 📢 এটা আগেও এখানেই ছিল — নিচের "View Guide" স্টাইলের
                     // কন্টেইনার এখানে নেই, বরং আগের AdBannerWidget-ই ফিরিয়ে
                     // আনা হয়েছে।
@@ -358,11 +345,13 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
   }
 }
 
-/// 🧭 এই স্ক্রিনের নিজস্ব হেডার — নতুন ফ্রেম অনুযায়ী উদাহরণ ছবির মতো করে
-/// বানানো: সাদা গোলাকার বাটনে সবুজ home আইকন, বাম-সংলগ্ন টাইটেল/সাবটাইটেল,
-/// আর ডানে সাদা পিল-আকৃতির ভাষা টগল (ভিতরের সিলেক্টেড অংশ সবুজ)।
+/// 🧭 এই স্ক্রিনের নিজস্ব হেডার — সাদা গোলাকার বাটনে green ফিল + সাদা home
+/// আইকন, বাম-সংলগ্ন টাইটেল/সাবটাইটেল, আর ডানে সাদা পিল-আকৃতির ভাষা টগল।
 ///
-/// 🔧 নিচের কনস্ট্যান্টগুলো বদলে পজিশন/সাইজ টিউন করা যাবে।
+/// 🔧🔧🔧 নিচে home আইকন, টাইটেল/সাবটাইটেল, আর ভাষা টগল — এই তিনটার জন্য
+/// আলাদা আলাদা EdgeInsets দেওয়া আছে (top/left/right/bottom)। প্রতিটা
+/// এলিমেন্ট স্বাধীনভাবে উপরে/নিচে/ডানে/বামে সরাতে শুধু সংশ্লিষ্ট
+/// EdgeInsets-এর সংখ্যা বদলান — বাকি এলিমেন্টে কোনো প্রভাব পড়বে না।
 class _ChemicalHeader extends StatelessWidget {
   final bool isEnglish;
   final ValueChanged<bool> onLanguageChanged;
@@ -374,81 +363,101 @@ class _ChemicalHeader extends StatelessWidget {
     required this.onHomeTap,
   });
 
-  // 🔧 হেডার শুরু হওয়ার আগে উপরে কতটুকু ফাঁকা জায়গা থাকবে — বাড়ালে হেডার
-  // নিচে নামবে (উদাহরণ ছবির মতো গাঢ় green wave-এর মাঝামাঝি জায়গায় বসবে)
+  // 🔧 হেডার শুরু হওয়ার আগে উপরে কতটুকু ফাঁকা জায়গা থাকবে — বাড়ালে পুরো
+  // হেডার-রো (৩টা এলিমেন্টই একসাথে) নিচে নামবে
   static const double topOffset = 34;
+
+  // 🔧 home বাটনের সাইজ
   static const double buttonSize = 34;
   static const double buttonIconSize = 17;
+
+  // 🔧 টাইটেল/সাবটাইটেলের ফন্ট সাইজ
   static const double titleFontSize = 18;
   static const double subtitleFontSize = 10.5;
+
+  // 🔧🔧🔧 এলিমেন্ট-ভিত্তিক আলাদা প্যাডিং — এখানে বদলালেই শুধু ওই
+  // এলিমেন্টটা সরবে (top: উপরে নামা, bottom: নিচে নামা ঠেকানো, left/right)
+  static const EdgeInsets homeIconPadding =
+      EdgeInsets.only(top: 0, right: 0, bottom: 0, left: 0);
+  static const EdgeInsets titlePadding =
+      EdgeInsets.only(top: 0, right: 0, bottom: 0, left: 10);
+  static const EdgeInsets togglePadding =
+      EdgeInsets.only(top: 0, right: 0, bottom: 0, left: 8);
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // 🏠 home বাটন — সাদা বর্ডার, ভিতরে green ফিল, তার ভিতরে সাদা আইকন
-        Material(
-          color: Colors.white,
-          shape: const CircleBorder(),
-          elevation: 3,
-          child: InkWell(
-            customBorder: const CircleBorder(),
-            onTap: onHomeTap,
-            child: Padding(
-              // 🔧 সাদা বর্ডারের পুরুত্ব — সংখ্যা বাড়ালে বর্ডার মোটা হবে
-              padding: const EdgeInsets.all(3),
-              child: Container(
-                width: buttonSize - 6,
-                height: buttonSize - 6,
-                decoration: const BoxDecoration(
-                  color: AppColors.green,
-                  shape: BoxShape.circle,
-                ),
-                alignment: Alignment.center,
-                child: Icon(
-                  Icons.home_rounded,
-                  color: Colors.white,
-                  size: buttonIconSize,
+        Padding(
+          padding: homeIconPadding,
+          child: Material(
+            color: Colors.white,
+            shape: const CircleBorder(),
+            elevation: 3,
+            child: InkWell(
+              customBorder: const CircleBorder(),
+              onTap: onHomeTap,
+              child: Padding(
+                // 🔧 সাদা বর্ডারের পুরুত্ব — সংখ্যা বাড়ালে বর্ডার মোটা হবে
+                padding: const EdgeInsets.all(3),
+                child: Container(
+                  width: buttonSize - 6,
+                  height: buttonSize - 6,
+                  decoration: const BoxDecoration(
+                    color: AppColors.green,
+                    shape: BoxShape.circle,
+                  ),
+                  alignment: Alignment.center,
+                  child: Icon(
+                    Icons.home_rounded,
+                    color: Colors.white,
+                    size: buttonIconSize,
+                  ),
                 ),
               ),
             ),
           ),
         ),
-        const SizedBox(width: 10),
         Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text(
-                'Chemical Library',
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: titleFontSize,
-                  fontWeight: FontWeight.w800,
-                  color: AppColors.darkGreen,
-                  height: 1.1,
+          child: Padding(
+            padding: titlePadding,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text(
+                  'Chemical Library',
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: titleFontSize,
+                    fontWeight: FontWeight.w800,
+                    color: AppColors.darkGreen,
+                    height: 1.1,
+                  ),
                 ),
-              ),
-              SizedBox(height: 2),
-              Text(
-                'Textile & Garments Chemical Reference',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: subtitleFontSize,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black54,
+                SizedBox(height: 2),
+                Text(
+                  'Textile & Garments Chemical Reference',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: subtitleFontSize,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black54,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-        const SizedBox(width: 8),
-        _LanguageToggle(
-          isEnglish: isEnglish,
-          onChanged: onLanguageChanged,
+        Padding(
+          padding: togglePadding,
+          child: _LanguageToggle(
+            isEnglish: isEnglish,
+            onChanged: onLanguageChanged,
+          ),
         ),
       ],
     );
@@ -503,8 +512,8 @@ class _LanguageToggle extends StatelessWidget {
   }
 }
 
-/// 🔲 ক্যাটাগরি গ্রিডের একটা স্কয়ার ব্লক — বাম পাশে আইকন, ডান পাশে টাইটেল
-/// (এবং "All"-এর জন্য নিচে সংখ্যা)। সিলেক্ট করা থাকলে হালকা গাঢ় ব্যাকগ্রাউন্ড
+/// 🔲 ক্যাটাগরি গ্রিডের একটা ব্লক — বাম পাশে আইকন, ডান পাশে টাইটেল (এবং
+/// "All"-এর জন্য নিচে সংখ্যা)। সিলেক্ট করা থাকলে হালকা গাঢ় ব্যাকগ্রাউন্ড
 /// আর রঙিন বর্ডার দেখাবে।
 class _CategoryGridTile extends StatelessWidget {
   final IconData icon;
