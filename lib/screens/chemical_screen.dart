@@ -67,7 +67,7 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
                 // 🖼️ নতুন ব্যাকগ্রাউন্ড ফ্রেম — পুরো স্ক্রিন জুড়ে
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/image/chemical_screen_frame.webp'),
+                    image: AssetImage('assets/images/chemical_screen_frame.webp'),
                     fit: BoxFit.cover,
                   ),
                 ),
