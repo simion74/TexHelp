@@ -13,7 +13,7 @@ import 'lab_test_detail_screen.dart';
 /// থেকে সার্চ/ফিল্টার হয়, বানান ভুল হলেও (fuzzy match) খুঁজে দেবে।
 ///
 /// 🖼️ নোট: Chemical Library-এর মতোই এই স্ক্রিনটাও নিজের আলাদা ব্যাকগ্রাউন্ড
-/// ফ্রেম (`assets/images/lab_test_screen_frame.webp`, নীল থিম) ব্যবহার করে —
+/// ফ্রেম (`assets/images/lab_test_screen_frame.webp`) ব্যবহার করে —
 /// তাই শেয়ার্ড `LibraryScaffold` / `LibraryWaveHeader` থেকে না নিয়ে এই
 /// ফাইলের ভিতরেই স্ট্যাটাস-বার স্ট্রিপ, ব্যাকগ্রাউন্ড ফ্রেম, হেডার (home
 /// আইকন + টাইটেল + ভাষা টগল) এবং নিচের অ্যাড ব্যানার — সবকিছু
@@ -34,30 +34,33 @@ class _LabTestScreenState extends State<LabTestScreen> {
   bool _isEnglish = true;
   String _query = '';
   String? _selectedCategory; // null = All
-  bool _isCategoryExpanded = false; // ক্যাটাগরি গ্রিড ডিফল্টে বন্ধ থাকবে
+  bool _isCategoryExpanded = true; // ক্যাটাগরি গ্রিড সবসময় খোলা থাকবে
 
   static const int _crossAxisCount = 4;
   static const double _gridSpacing = 10;
   static const double _cardAspectRatio = 0.86;
 
-  // 🔵 এই স্ক্রিনের থিম-কালার — ব্যাকগ্রাউন্ড ফ্রেম নীল, তাই হোম আইকন,
-  // সিলেক্টেড টগল, "All" ক্যাটাগরি ব্লক, কাউন্ট নাম্বার ইত্যাদি সবখানে
-  // (আগে যেখানে AppColors.green ব্যবহার হতো) এখন এই নীল রং দুটো ব্যবহার
-  // হচ্ছে। নিচের টেস্ট-কার্ড গ্রিড (_LabTestCard) অপরিবর্তিত রাখা হয়েছে,
-  // ওখানে প্রতিটা ক্যাটাগরির নিজস্ব রংই (test.categoryColor) থাকছে।
-  static const Color _accentBlue = Color(0xff1565c0);
-  static const Color _darkBlueText = Color(0xff0a3d62);
+  // 🟢 এই স্ক্রিনের থিম-কালার — এখন Chemical Screen-এর মতোই সবুজ থিম।
+  // হোম আইকন, সিলেক্টেড টগল, "All" ক্যাটাগরি ব্লক, কাউন্ট নাম্বার ইত্যাদি
+  // সবখানে AppColors.green / AppColors.darkGreen ব্যবহার হচ্ছে। নিচের
+  // টেস্ট-কার্ড গ্রিড (_LabTestCard) অপরিবর্তিত রাখা হয়েছে, ওখানে প্রতিটা
+  // ক্যাটাগরির নিজস্ব রংই (test.categoryColor) থাকছে।
+  static const Color _accentBlue = AppColors.green;
+  static const Color _darkBlueText = AppColors.darkGreen;
 
   // ==========================================================================
   // 🔧🔧🔧 লেআউট টিউনিং কনস্ট্যান্ট — এখান থেকেই স্পেসিং/সাইজ কন্ট্রোল
   // করা যাবে, কোডের অন্য কোথাও হাত দেওয়ার দরকার নেই।
   // ==========================================================================
-  static const double searchBoxBottomGap = 14; // সার্চ বক্স ↔ স্ক্রলযোগ্য অংশ
-  static const double categoryLabelBottomGap = 8; // "Category Filter" টেক্সট ↔ গ্রিড
-  static const double categoryGridTileHeight = 56; // প্রতিটা ক্যাটাগরি ব্লকের হাইট
-  static const double categoryGridSpacing = 8; // ক্যাটাগরি ব্লকগুলোর মাঝের গ্যাপ
-  static const double categoryGridBottomGap = 14; // গ্রিড ↔ "All Tests" রো
-  static const double allTestsBottomGap = 10; // "All Tests" রো ↔ টেস্ট গ্রিড
+  static const double searchBoxBottomGap = 5; // সার্চ বক্স ↔ স্ক্রলযোগ্য অংশ
+  static const double categoryLabelBottomGap =
+      0; // "Category Filter" টেক্সট ↔ গ্রিড
+  static const double categoryGridTileHeight =
+      28; // প্রতিটা ক্যাটাগরি ব্লকের হাইট
+  static const double categoryGridSpacing =
+      8; // ক্যাটাগরি ব্লকগুলোর মাঝের গ্যাপ
+  static const double categoryGridBottomGap = 1; // গ্রিড ↔ "All Tests" রো
+  static const double allTestsBottomGap = 1; // "All Tests" রো ↔ টেস্ট গ্রিড
 
   List<LabTestItem> get _filtered {
     return kLabTests.where((t) {
@@ -83,7 +86,7 @@ class _LabTestScreenState extends State<LabTestScreen> {
       child: Scaffold(
         body: Column(
           children: [
-            // স্ট্যাটাস বার আইকনগুলোর জন্য গাঢ় নীল স্ট্রিপ
+            // স্ট্যাটাস বার আইকনগুলোর জন্য গাঢ় সবুজ স্ট্রিপ
             Container(
               height: statusBarHeight,
               color: _darkBlueText,
@@ -93,8 +96,7 @@ class _LabTestScreenState extends State<LabTestScreen> {
                 // 🖼️ ব্যাকগ্রাউন্ড ফ্রেম — পুরো স্ক্রিন জুড়ে
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image:
-                        AssetImage('assets/images/lab_chemical.webp'),
+                    image: AssetImage('assets/images/lab_chemical.webp'),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -167,11 +169,9 @@ class _LabTestScreenState extends State<LabTestScreen> {
                           // ক্যাটাগরি এক্সপ্যান্ড/কোলাপ্স হবে
                           InkWell(
                             borderRadius: BorderRadius.circular(6),
-                            onTap: () => setState(() =>
-                                _isCategoryExpanded = !_isCategoryExpanded),
+                            onTap: null,
                             child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 4),
+                              padding: const EdgeInsets.symmetric(vertical: 4),
                               child: Row(
                                 children: [
                                   const Text(
@@ -189,8 +189,7 @@ class _LabTestScreenState extends State<LabTestScreen> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 8, vertical: 2),
                                         decoration: BoxDecoration(
-                                          color:
-                                              _accentBlue.withOpacity(0.12),
+                                          color: _accentBlue.withOpacity(0.12),
                                           borderRadius:
                                               BorderRadius.circular(20),
                                         ),
@@ -198,13 +197,11 @@ class _LabTestScreenState extends State<LabTestScreen> {
                                           _isEnglish
                                               ? kLabTestCategories
                                                   .firstWhere((c) =>
-                                                      c.id ==
-                                                      _selectedCategory)
+                                                      c.id == _selectedCategory)
                                                   .nameEn
                                               : kLabTestCategories
                                                   .firstWhere((c) =>
-                                                      c.id ==
-                                                      _selectedCategory)
+                                                      c.id == _selectedCategory)
                                                   .nameBn,
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
@@ -216,15 +213,6 @@ class _LabTestScreenState extends State<LabTestScreen> {
                                       ),
                                     ),
                                   const Spacer(),
-                                  AnimatedRotation(
-                                    turns: _isCategoryExpanded ? 0.5 : 0,
-                                    duration:
-                                        const Duration(milliseconds: 200),
-                                    child: const Icon(
-                                        Icons.keyboard_arrow_down_rounded,
-                                        size: 18,
-                                        color: Colors.black45),
-                                  ),
                                 ],
                               ),
                             ),
@@ -244,8 +232,7 @@ class _LabTestScreenState extends State<LabTestScreen> {
                                     shrinkWrap: true,
                                     physics:
                                         const NeverScrollableScrollPhysics(),
-                                    itemCount:
-                                        kLabTestCategories.length + 1,
+                                    itemCount: kLabTestCategories.length + 1,
                                     gridDelegate:
                                         SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 4,
@@ -260,22 +247,19 @@ class _LabTestScreenState extends State<LabTestScreen> {
                                           title: 'All',
                                           subtitle: '${kLabTests.length}',
                                           color: _accentBlue,
-                                          selected:
-                                              _selectedCategory == null,
+                                          selected: _selectedCategory == null,
                                           onTap: () => setState(
                                               () => _selectedCategory = null),
                                         );
                                       }
-                                      final cat =
-                                          kLabTestCategories[index - 1];
+                                      final cat = kLabTestCategories[index - 1];
                                       return _CategoryGridTile(
                                         icon: cat.icon,
                                         title: _isEnglish
                                             ? cat.nameEn
                                             : cat.nameBn,
                                         color: cat.color,
-                                        selected:
-                                            _selectedCategory == cat.id,
+                                        selected: _selectedCategory == cat.id,
                                         onTap: () => setState(
                                             () => _selectedCategory = cat.id),
                                       );
@@ -285,8 +269,7 @@ class _LabTestScreenState extends State<LabTestScreen> {
                           SizedBox(height: categoryGridBottomGap),
 
                           Row(
-                            mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const Text(
                                 'All Tests',
@@ -315,8 +298,7 @@ class _LabTestScreenState extends State<LabTestScreen> {
                           SizedBox(height: allTestsBottomGap),
                           if (filtered.isEmpty)
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 30),
+                              padding: const EdgeInsets.symmetric(vertical: 30),
                               child: Column(
                                 children: [
                                   const Icon(Icons.search_off_rounded,
@@ -383,13 +365,16 @@ class _LabTestScreenState extends State<LabTestScreen> {
   }
 }
 
-/// 🧭 এই স্ক্রিনের নিজস্ব হেডার — সাদা গোলাকার বাটনে নীল ফিল + সাদা home
+/// 🧭 এই স্ক্রিনের নিজস্ব হেডার — সাদা গোলাকার বাটনে সবুজ ফিল + সাদা home
 /// আইকন, বাম-সংলগ্ন টাইটেল/সাবটাইটেল, আর ডানে সাদা পিল-আকৃতির ভাষা টগল।
 ///
 /// 🔧🔧🔧 নিচে home আইকন, টাইটেল/সাবটাইটেল, আর ভাষা টগল — এই তিনটার জন্য
 /// আলাদা আলাদা EdgeInsets দেওয়া আছে। প্রতিটা এলিমেন্ট স্বাধীনভাবে
 /// উপরে/নিচে/ডানে/বামে সরাতে শুধু সংশ্লিষ্ট EdgeInsets-এর সংখ্যা বদলান —
 /// বাকি এলিমেন্টে কোনো প্রভাব পড়বে না।
+///
+/// 🎨 প্যাডিং ও টেক্সট কালার এখন Chemical Screen-এর সাথে হুবহু মেলানো —
+/// থিম-কালারও Chemical Screen-এর মতোই সবুজ।
 class _LabTestHeader extends StatelessWidget {
   final bool isEnglish;
   final ValueChanged<bool> onLanguageChanged;
@@ -413,25 +398,25 @@ class _LabTestHeader extends StatelessWidget {
   static const double titleFontSize = 18;
   static const double subtitleFontSize = 10.5;
 
-  // 🔵 এই হেডারের থিম-কালার (নীল)
-  static const Color _accentBlue = Color(0xff1565c0);
-  static const Color _darkBlueText = Color(0xff0a3d62);
+  // 🟢 এই হেডারের থিম-কালার — Chemical Screen-এর মতোই সবুজ
+  static const Color _accentBlue = AppColors.green;
+  static const Color _darkBlueText = AppColors.darkGreen;
 
   // 🔧🔧🔧 এলিমেন্ট-ভিত্তিক আলাদা প্যাডিং — এখানে বদলালেই শুধু ওই
-  // এলিমেন্টটা সরবে (top/right/bottom/left)
+  // এলিমেন্টটা সরবে (top/right/bottom/left) — Chemical Screen-এর মতোই
   static const EdgeInsets homeIconPadding =
       EdgeInsets.only(top: 0, right: 0, bottom: 0, left: 0);
   static const EdgeInsets titlePadding =
-      EdgeInsets.only(top: 0, right: 0, bottom: 0, left: 10);
+      EdgeInsets.only(top: 60, right: 0, bottom: 0, left: 90);
   static const EdgeInsets togglePadding =
-      EdgeInsets.only(top: 0, right: 0, bottom: 0, left: 8);
+      EdgeInsets.only(top: 105, right: 0, bottom: 0, left: 8);
 
   @override
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // 🏠 home বাটন — সাদা বর্ডার, ভিতরে নীল ফিল, তার ভিতরে সাদা আইকন
+        // 🏠 home বাটন — সাদা বর্ডার, ভিতরে সবুজ ফিল, তার ভিতরে সাদা আইকন
         Padding(
           padding: homeIconPadding,
           child: Material(
@@ -475,7 +460,7 @@ class _LabTestHeader extends StatelessWidget {
                   style: TextStyle(
                     fontSize: titleFontSize,
                     fontWeight: FontWeight.w800,
-                    color: _darkBlueText,
+                    color: Color(0x8a24700d),
                     height: 1.1,
                   ),
                 ),
@@ -487,7 +472,7 @@ class _LabTestHeader extends StatelessWidget {
                   style: TextStyle(
                     fontSize: subtitleFontSize,
                     fontWeight: FontWeight.w500,
-                    color: Colors.black54,
+                    color: Color(0x8a144206),
                   ),
                 ),
               ],
@@ -512,7 +497,7 @@ class _LanguageToggle extends StatelessWidget {
 
   const _LanguageToggle({required this.isEnglish, required this.onChanged});
 
-  static const Color _accentBlue = Color(0xff1565c0);
+  static const Color _accentBlue = AppColors.green;
 
   @override
   Widget build(BuildContext context) {
@@ -557,8 +542,12 @@ class _LanguageToggle extends StatelessWidget {
 }
 
 /// 🔲 ক্যাটাগরি গ্রিডের একটা স্কয়ার ব্লক — বাম পাশে আইকন, ডান পাশে টাইটেল
-/// (এবং "All"-এর জন্য নিচে সংখ্যা)। সিলেক্ট করা থাকলে হালকা গাঢ়
+/// (এবং "All"-এর জন্য পাশে সংখ্যা)। সিলেক্ট করা থাকলে হালকা গাঢ়
 /// ব্যাকগ্রাউন্ড আর রঙিন বর্ডার দেখাবে।
+///
+/// 🎨 রাউন্ড কর্নার (6) ও subtitle লেআউট (title পাশাপাশি "(count)") এখন
+/// Chemical Screen-এর সাথে হুবহু মেলানো — যাতে "All" ব্লকে সংখ্যা কেটে না
+/// যায়।
 class _CategoryGridTile extends StatelessWidget {
   final IconData icon;
   final String title;
@@ -580,13 +569,13 @@ class _CategoryGridTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: selected ? color.withOpacity(0.22) : color.withOpacity(0.12),
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(6),
       child: InkWell(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(6),
         onTap: onTap,
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(6),
             border: selected ? Border.all(color: color, width: 1.3) : null,
           ),
           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
@@ -607,8 +596,8 @@ class _CategoryGridTile extends StatelessWidget {
                             color: color,
                             height: 1.05),
                       )
-                    : Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                    : Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
@@ -618,8 +607,9 @@ class _CategoryGridTile extends StatelessWidget {
                                 fontWeight: FontWeight.w800,
                                 color: color),
                           ),
+                          const SizedBox(width: 4),
                           Text(
-                            subtitle!,
+                            '($subtitle)',
                             style: TextStyle(
                                 fontSize: 8.5,
                                 fontWeight: FontWeight.w600,
