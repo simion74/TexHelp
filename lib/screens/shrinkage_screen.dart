@@ -4,7 +4,6 @@ import '../theme/app_colors.dart';
 import '../widgets/calc_scaffold.dart';
 import '../widgets/compact_input_card.dart';
 import '../widgets/formula_guide_button.dart';
-import '../widgets/input_card.dart';
 import '../widgets/numeric_keypad.dart';
 import '../widgets/result_box.dart';
 
@@ -16,25 +15,22 @@ class ShrinkageScreen extends StatefulWidget {
 }
 
 class _ShrinkageScreenState extends State<ShrinkageScreen> {
-  final ctrl = KeypadFieldController(['l1', 'w1', 'l2', 'w2', 'displacement']);
+  final ctrl = KeypadFieldController(['l1', 'w1', 'l2', 'w2']);
 
   double? _lengthShrink;
   double? _widthShrink;
-  double? _spirality;
 
   void _recalc() {
     final l1 = ctrl.number('l1');
     final w1 = ctrl.number('w1');
     final l2 = ctrl.number('l2');
     final w2 = ctrl.number('w2');
-    final d = ctrl.number('displacement');
 
     setState(() {
       _lengthShrink =
           (l1 != null && l2 != null && l1 > 0) ? ((l1 - l2) / l1) * 100 : null;
       _widthShrink =
           (w1 != null && w2 != null && w1 > 0) ? ((w1 - w2) / w1) * 100 : null;
-      _spirality = (d != null && l1 != null && l1 > 0) ? (d / l1) * 100 : null;
     });
   }
 
@@ -75,21 +71,27 @@ class _ShrinkageScreenState extends State<ShrinkageScreen> {
           FormulaGuideSection(
             heading: '📌 সংজ্ঞা',
             body: 'ওয়াশ/প্রসেসের আগে ও পরে ফেব্রিকের দৈর্ঘ্য-প্রস্থ '
-                'মেপে Length Shrinkage, Width Shrinkage ও Spirality '
-                '(প্যাঁচ) হিসাব করা হয়।',
+                'মেপে Length Shrinkage ও Width Shrinkage হিসাব করা হয় — '
+                'ফেব্রিক ওয়াশের পর কতটা সংকুচিত হচ্ছে তা যাচাইয়ের '
+                'জন্য এটা একটা অত্যাবশ্যকীয় টেস্ট।',
           ),
           FormulaGuideSection(
             heading: '🧮 ফরমুলা',
             body: 'Length Shrink % = ((L1 − L2) ÷ L1) × 100\n'
-                'Width Shrink % = ((W1 − W2) ÷ W1) × 100\n'
-                'Spirality % = (Displacement ÷ L1) × 100',
+                'Width Shrink % = ((W1 − W2) ÷ W1) × 100',
           ),
           FormulaGuideSection(
             heading: '📝 ধাপে ধাপে',
-            body: '১. ওয়াশের আগে দৈর্ঘ্য (L1) ও প্রস্থ (W1) মাপুন\n'
-                '২. ওয়াশের পরে দৈর্ঘ্য (L2) ও প্রস্থ (W2) মাপুন\n'
-                '৩. Spirality মাপতে চাইলে Displacement (বাঁকার পরিমাণ) '
-                'লিখুন',
+            body: '১. ওয়াশের আগে নমুনার দৈর্ঘ্য (L1) ও প্রস্থ (W1) মাপুন\n'
+                '২. নির্ধারিত ওয়াশ/প্রসেস সম্পন্ন করুন\n'
+                '৩. ওয়াশের পরে একই নমুনার দৈর্ঘ্য (L2) ও প্রস্থ (W2) '
+                'মাপুন\n'
+                '৪. অ্যাপ স্বয়ংক্রিয়ভাবে দুটোর শতাংশ শ্রিংকেজ দেখাবে',
+          ),
+          FormulaGuideSection(
+            heading: '💡 নোট',
+            body: 'ফেব্রিক স্পাইরালিটি/টুইস্ট আলাদা একটা ফিচার — "Twisting '
+                'Measurement" ক্যালকুলেটরে সেটা মাপা যাবে।',
           ),
         ],
       ),
@@ -97,13 +99,12 @@ class _ShrinkageScreenState extends State<ShrinkageScreen> {
         ctrl.resetAll();
         _recalc();
       }),
-      // ১. সম্পূর্ণ কন্টেন্টের বাইরের প্যাডিং কাস্টমাইজ করতে এটি ব্যবহার করুন:
       content: Padding(
         padding: const EdgeInsets.only(
-          left: 12.0,
-          right: 12.0,
-          top: 28.0,
-          bottom: 18.0, // <-- প্রয়োজন অনুযায়ী বাড়াতে/কমাতে পারেন
+          left: 14.0,
+          right: 14.0,
+          top: 30.0,
+          bottom: 18.0,
         ),
         child: Column(
           children: [
@@ -139,10 +140,7 @@ class _ShrinkageScreenState extends State<ShrinkageScreen> {
                 ),
               ],
             ),
-
-            // ২. সেকশনগুলোর মাঝের ভার্টিক্যাল গ্যাপ কাস্টমাইজ করতে height ছোট/বড় করুন:
-            const SizedBox(height: 4.0),
-
+            const SizedBox(height: 6.0),
             _sectionTitle(
                 'After Wash', Icons.water_drop_rounded, AppColors.purple),
             Row(
@@ -175,30 +173,12 @@ class _ShrinkageScreenState extends State<ShrinkageScreen> {
                 ),
               ],
             ),
-
-            const SizedBox(height: 4.0),
-
-            InputCard(
-              icon: Icons.rotate_right_rounded,
-              label: 'Displacement (D)',
-              subLabel: 'Spirality Dev.',
-              value: ctrl.values['displacement']!,
-              unit: 'cm',
-              placeholder: '0.0',
-              iconGradient: AppColors.greenIconGradient,
-              accentColor: AppColors.green,
-              active: ctrl.activeId == 'displacement',
-              dense: true,
-              onTap: () => setState(() => ctrl.setActive('displacement')),
-            ),
-
-            const SizedBox(height: 6.0),
-
+            const SizedBox(height: 14.0),
             Row(
               children: [
                 Expanded(
                   child: ResultBox(
-                    label: 'Length %',
+                    label: 'LENGTH SHRINK %',
                     value: _lengthShrink != null
                         ? '${_lengthShrink!.toStringAsFixed(2)}%'
                         : '0.00',
@@ -206,13 +186,12 @@ class _ShrinkageScreenState extends State<ShrinkageScreen> {
                         ? AppColors.teal
                         : AppColors.inputBorder,
                     live: _lengthShrink != null,
-                    dense: true,
                   ),
                 ),
-                const SizedBox(width: 6),
+                const SizedBox(width: 8),
                 Expanded(
                   child: ResultBox(
-                    label: 'Width %',
+                    label: 'WIDTH SHRINK %',
                     value: _widthShrink != null
                         ? '${_widthShrink!.toStringAsFixed(2)}%'
                         : '0.00',
@@ -220,21 +199,6 @@ class _ShrinkageScreenState extends State<ShrinkageScreen> {
                         ? AppColors.purple
                         : AppColors.inputBorder,
                     live: _widthShrink != null,
-                    dense: true,
-                  ),
-                ),
-                const SizedBox(width: 6),
-                Expanded(
-                  child: ResultBox(
-                    label: 'Spirality %',
-                    value: _spirality != null
-                        ? '${_spirality!.toStringAsFixed(2)}%'
-                        : '0.00',
-                    borderColor: _spirality != null
-                        ? AppColors.green
-                        : AppColors.inputBorder,
-                    live: _spirality != null,
-                    dense: true,
                   ),
                 ),
               ],
