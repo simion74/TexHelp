@@ -10,6 +10,7 @@ import 'roll_dia_width_screen.dart';
 import 'fabric_gsm_screen.dart';
 import 'fabric_weight_screen.dart';
 import 'shrinkage_screen.dart';
+import 'twisting_measurement_screen.dart';
 import 'stripe_converter_screen.dart';
 import 'yarn_requirement_screen.dart';
 import 'yarn_count_converter_screen.dart';
@@ -239,6 +240,11 @@ class _HomeScreenState extends State<HomeScreen>
       title: 'Shrinkage Measurement',
       imagePath: '${_kIconBasePath}Shrinkage_measurement.webp',
       builder: () => const ShrinkageScreen(),
+    ),
+    _CalcItem(
+      title: 'Twisting Measurement',
+      imagePath: '${_kIconBasePath}twisting_measurement.webp',
+      builder: () => const TwistingMeasurementScreen(),
     ),
     _CalcItem(
       title: 'Seam Efficiency',
