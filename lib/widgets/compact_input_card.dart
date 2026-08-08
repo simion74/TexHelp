@@ -7,6 +7,13 @@ import '../theme/app_colors.dart';
 /// এই widget-এ আইকন + লেবেল + ভ্যালু সব একই লাইনে (আইকন বামে, ইনপুট
 /// ডান পাশে) থাকে বলে হাইট অনেক কম লাগে - ছোট স্ক্রিনেও সহজে ফিট হয়।
 /// ইনপুট বক্সটা ছোট রাখা হয়েছে (৩-৪ ডিজিটের জন্য যথেষ্ট)।
+///
+/// 🆕 [labelFontSize] ও [labelMaxLines] — ঐচ্ছিক প্যারামিটার, ডিফল্ট
+/// ভ্যালু আগের আচরণের মতোই (fontSize: 11.5, maxLines: 1)। যে স্ক্রিনে
+/// label টেক্সট এক লাইনে ফিট হচ্ছে না / কেটে যাচ্ছে (যেমন
+/// FabricConsumptionScreen), শুধু সেই স্ক্রিনেই এই দুইটা পাস করে দিলে
+/// আইকন/কার্ড সাইজ অপরিবর্তিত রেখে লেবেল ছোট ফন্টে দুই লাইনে wrap
+/// হবে। অন্য কোনো স্ক্রিনে প্রভাব পড়বে না, কারণ ডিফল্ট ভ্যালু আগের মতোই।
 class CompactInputCard extends StatelessWidget {
   final IconData icon;
   final String label;
@@ -16,6 +23,8 @@ class CompactInputCard extends StatelessWidget {
   final Color accentColor;
   final bool active;
   final VoidCallback onTap;
+  final double labelFontSize;
+  final int labelMaxLines;
 
   const CompactInputCard({
     super.key,
@@ -27,6 +36,8 @@ class CompactInputCard extends StatelessWidget {
     required this.accentColor,
     required this.onTap,
     this.active = false,
+    this.labelFontSize = 11.5,
+    this.labelMaxLines = 1,
   });
 
   @override
@@ -46,7 +57,9 @@ class CompactInputCard extends StatelessWidget {
           ),
           boxShadow: [
             BoxShadow(
-              color: active ? accentColor.withOpacity(0.2) : Colors.black.withOpacity(0.04),
+              color: active
+                  ? accentColor.withOpacity(0.2)
+                  : Colors.black.withOpacity(0.04),
               blurRadius: active ? 10 : 5,
               offset: const Offset(0, 2),
             ),
@@ -67,10 +80,10 @@ class CompactInputCard extends StatelessWidget {
             Expanded(
               child: Text(
                 label,
-                maxLines: 1,
+                maxLines: labelMaxLines,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontSize: 11.5,
+                style: TextStyle(
+                  fontSize: labelFontSize,
                   fontWeight: FontWeight.w800,
                   color: AppColors.darkGreen,
                 ),
@@ -94,7 +107,8 @@ class CompactInputCard extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w800,
-                      color: value.isEmpty ? Colors.black38 : AppColors.darkGreen,
+                      color:
+                          value.isEmpty ? Colors.black38 : AppColors.darkGreen,
                     ),
                   ),
                   const SizedBox(width: 3),
