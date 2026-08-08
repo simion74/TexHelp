@@ -59,20 +59,23 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
       EdgeInsets.fromLTRB(14, 0, 14, 0);
 
   // --- সার্চ বক্স ---
-  static const double searchBoxBottomGap = 12; // সার্চ বক্স ↔ Category Filter
+  static const double searchBoxBottomGap = 5; // সার্চ বক্স ↔ Category Filter
 
   // --- ক্যাটাগরি ফিল্টার ---
-  static const double categoryLabelBottomGap = 0; // "Category Filter" টেক্সট ↔ গ্রিড
-  static const double categoryGridTileHeight = 56; // প্রতিটা ব্লকের হাইট
-  static const double categoryGridSpacing = 8; // ব্লকগুলোর মাঝের গ্যাপ (আনুভূমিক+উলম্ব)
-  static const double categoryGridBottomGap = 0; // গ্রিড ↔ "All Chemicals" রো
+  static const double categoryLabelBottomGap =
+      3; // "Category Filter" টেক্সট ↔ গ্রিড
+  static const double categoryGridTileHeight = 30; // প্রতিটা ব্লকের হাইট
+  static const double categoryGridSpacing =
+      8; // ব্লকগুলোর মাঝের গ্যাপ (আনুভূমিক+উলম্ব)
+  static const double categoryGridBottomGap = 2; // গ্রিড ↔ "All Chemicals" রো
 
   // --- "All Chemicals" রো ---
   static const double allChemicalsBottomGap = 0; // এই রো ↔ স্ক্রলযোগ্য লিস্ট
 
   // --- স্ক্রলযোগ্য লিস্ট ---
   static const EdgeInsets listPadding = EdgeInsets.fromLTRB(14, 8, 10, 12);
-  static const double listItemSpacing = 8; // দুইটা কেমিক্যাল আইটেমের মাঝের গ্যাপ
+  static const double listItemSpacing =
+      8; // দুইটা কেমিক্যাল আইটেমের মাঝের গ্যাপ
   static const double listScrollbarThickness = 3; // ডান পাশের চিকন স্ক্রলবার
 
   List<ChemicalItem> get _filtered {
@@ -115,8 +118,7 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
                 // 🖼️ ব্যাকগ্রাউন্ড ফ্রেম — পুরো স্ক্রিন জুড়ে
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image:
-                        AssetImage('assets/images/lab_chemical.webp'),
+                    image: AssetImage('assets/images/lab_chemical.webp'),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -227,8 +229,7 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
                               final cat = kChemicalCategories[index - 1];
                               return _CategoryGridTile(
                                 icon: cat.icon,
-                                title:
-                                    _isEnglish ? cat.nameEn : cat.nameBn,
+                                title: _isEnglish ? cat.nameEn : cat.nameBn,
                                 color: cat.color,
                                 selected: _selectedCategory == cat.id,
                                 onTap: () =>
@@ -239,8 +240,7 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
                           SizedBox(height: categoryGridBottomGap),
 
                           Row(
-                            mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const Text(
                                 'All Chemicals',
@@ -312,8 +312,7 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
                                     onTap: () {
                                       Navigator.of(context).push(
                                         MaterialPageRoute(
-                                          builder: (_) =>
-                                              ChemicalDetailScreen(
+                                          builder: (_) => ChemicalDetailScreen(
                                             chemical: c,
                                             initialIsEnglish: _isEnglish,
                                           ),
@@ -380,9 +379,9 @@ class _ChemicalHeader extends StatelessWidget {
   static const EdgeInsets homeIconPadding =
       EdgeInsets.only(top: 0, right: 0, bottom: 0, left: 0);
   static const EdgeInsets titlePadding =
-      EdgeInsets.only(top: 0, right: 0, bottom: 0, left: 10);
+      EdgeInsets.only(top: 60, right: 0, bottom: 0, left: 40);
   static const EdgeInsets togglePadding =
-      EdgeInsets.only(top: 0, right: 0, bottom: 0, left: 8);
+      EdgeInsets.only(top: 105, right: 0, bottom: 0, left: 8);
 
   @override
   Widget build(BuildContext context) {
@@ -433,7 +432,7 @@ class _ChemicalHeader extends StatelessWidget {
                   style: TextStyle(
                     fontSize: titleFontSize,
                     fontWeight: FontWeight.w800,
-                    color: AppColors.darkGreen,
+                    color: Color(0x8a24700d),
                     height: 1.1,
                   ),
                 ),
@@ -445,7 +444,7 @@ class _ChemicalHeader extends StatelessWidget {
                   style: TextStyle(
                     fontSize: subtitleFontSize,
                     fontWeight: FontWeight.w500,
-                    color: Colors.black54,
+                    color: Color(0x8a144206),
                   ),
                 ),
               ],
@@ -536,13 +535,13 @@ class _CategoryGridTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: selected ? color.withOpacity(0.22) : color.withOpacity(0.12),
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(6),
       child: InkWell(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(6),
         onTap: onTap,
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(6),
             border: selected ? Border.all(color: color, width: 1.3) : null,
           ),
           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
@@ -563,8 +562,8 @@ class _CategoryGridTile extends StatelessWidget {
                             color: color,
                             height: 1.05),
                       )
-                    : Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                    : Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
@@ -574,8 +573,9 @@ class _CategoryGridTile extends StatelessWidget {
                                 fontWeight: FontWeight.w800,
                                 color: color),
                           ),
+                          const SizedBox(width: 4),
                           Text(
-                            subtitle!,
+                            '($subtitle)',
                             style: TextStyle(
                                 fontSize: 8.5,
                                 fontWeight: FontWeight.w600,
