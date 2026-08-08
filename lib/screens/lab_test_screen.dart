@@ -56,7 +56,7 @@ class _LabTestScreenState extends State<LabTestScreen> {
   static const double categoryLabelBottomGap =
       0; // "Category Filter" টেক্সট ↔ গ্রিড
   static const double categoryGridTileHeight =
-      28; // প্রতিটা ক্যাটাগরি ব্লকের হাইট
+      30; // প্রতিটা ক্যাটাগরি ব্লকের হাইট
   static const double categoryGridSpacing =
       8; // ক্যাটাগরি ব্লকগুলোর মাঝের গ্যাপ
   static const double categoryGridBottomGap = 1; // গ্রিড ↔ "All Tests" রো
@@ -407,7 +407,7 @@ class _LabTestHeader extends StatelessWidget {
   static const EdgeInsets homeIconPadding =
       EdgeInsets.only(top: 0, right: 0, bottom: 0, left: 0);
   static const EdgeInsets titlePadding =
-      EdgeInsets.only(top: 60, right: 0, bottom: 0, left: 90);
+      EdgeInsets.only(top: 60, right: 0, bottom: 0, left: 60);
   static const EdgeInsets togglePadding =
       EdgeInsets.only(top: 105, right: 0, bottom: 0, left: 8);
 
@@ -460,7 +460,7 @@ class _LabTestHeader extends StatelessWidget {
                   style: TextStyle(
                     fontSize: titleFontSize,
                     fontWeight: FontWeight.w800,
-                    color: Color(0x8a24700d),
+                    color: Color(0x8a026B0C),
                     height: 1.1,
                   ),
                 ),
