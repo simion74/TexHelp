@@ -13,7 +13,7 @@ import 'lab_test_detail_screen.dart';
 /// থেকে fuzzy সার্চ/ফিল্টার হয়।
 ///
 /// 📌 স্ক্রল বিহেভিয়ার (Chemical Screen-এর সাথে হুবহু একই, প্রমাণিত
-/// বাগ-মুক্ত প্যাটার্ন): সার্চ বক্স + Category Filter গ্রিড + "All Tests"
+/// বাগ-মুক্ত প্যাটার্ন): সার্চ বক্স + ক্যাটাগরি গ্রিড + "All Tests"
 /// রো — এই পুরো উপরের অংশটা ফিক্সড থাকে (কোনো ListView-এর ভেতরে না), শুধু
 /// নিচের টেস্ট গ্রিডটা আলাদা `Expanded` স্ক্রলযোগ্য অংশ। আগে পুরো স্ক্রিনটা
 /// (২১৪-আইটেমের shrinkWrap গ্রিডসহ) একটাই ListView-এর ভেতরে নেস্টেড ছিল —
@@ -44,11 +44,10 @@ class _LabTestScreenState extends State<LabTestScreen> {
   // ==========================================================================
   static const EdgeInsets fixedSectionPadding =
       EdgeInsets.fromLTRB(14, 0, 14, 0);
-  static const double searchBoxBottomGap = 5;
-  static const double categoryLabelBottomGap = 3;
+  static const double searchBoxBottomGap = 0;
   static const double categoryGridTileHeight = 30;
   static const double categoryGridSpacing = 8;
-  // 👇 Category Filter গ্রিড ↔ "All Tests" রো — এখন 0, কোনো ফাঁকা জায়গা নেই
+  // 👇 ক্যাটাগরি গ্রিড ↔ "All Tests" রো — এখন 0, কোনো ফাঁকা জায়গা নেই
   static const double categoryGridBottomGap = 0;
   static const double allTestsBottomGap = 0;
 
@@ -158,18 +157,6 @@ class _LabTestScreenState extends State<LabTestScreen> {
                             ),
                           ),
                           const SizedBox(height: searchBoxBottomGap),
-
-                          const Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Category Filter',
-                              style: TextStyle(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.black54),
-                            ),
-                          ),
-                          const SizedBox(height: categoryLabelBottomGap),
 
                           // 🔲 ক্যাটাগরি গ্রিড — ১৬টা ক্যাটাগরি + All
                           GridView.builder(

@@ -21,7 +21,7 @@ import 'chemical_detail_screen.dart';
 /// স্বনির্ভরভাবে (self-contained) বসানো হয়েছে, যাতে অন্য কোনো স্ক্রিনের
 /// ডিজাইনে প্রভাব না পড়ে।
 ///
-/// 📌 স্ক্রল বিহেভিয়ার: সার্চ বক্স + Category Filter (গ্রিডসহ) + "All
+/// 📌 স্ক্রল বিহেভিয়ার: সার্চ বক্স + ক্যাটাগরি গ্রিড + "All
 /// Chemicals" রো — এই পুরো উপরের অংশটা ফিক্সড থাকে, স্ক্রল হয় না। শুধু
 /// নিচের কেমিক্যাল লিস্টটা আলাদাভাবে স্ক্রল হয়, ডান পাশে চিকন স্ক্রলবার সহ।
 class ChemicalScreen extends StatefulWidget {
@@ -59,11 +59,9 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
       EdgeInsets.fromLTRB(14, 0, 14, 0);
 
   // --- সার্চ বক্স ---
-  static const double searchBoxBottomGap = 5; // সার্চ বক্স ↔ Category Filter
+  static const double searchBoxBottomGap = 5; // সার্চ বক্স ↔ ক্যাটাগরি গ্রিড
 
   // --- ক্যাটাগরি ফিল্টার ---
-  static const double categoryLabelBottomGap =
-      3; // "Category Filter" টেক্সট ↔ গ্রিড
   static const double categoryGridTileHeight = 30; // প্রতিটা ব্লকের হাইট
   static const double categoryGridSpacing =
       8; // ব্লকগুলোর মাঝের গ্যাপ (আনুভূমিক+উলম্ব)
@@ -185,20 +183,6 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
                             ),
                           ),
                           SizedBox(height: searchBoxBottomGap),
-
-                          // 🏷️ Category Filter লেবেল — এখন আর ট্যাপ করে
-                          // hide/show করা যায় না, সবসময় নিচে গ্রিড দেখা যাবে
-                          const Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Category Filter',
-                              style: TextStyle(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.black54),
-                            ),
-                          ),
-                          SizedBox(height: categoryLabelBottomGap),
 
                           // 🔲 ক্যাটাগরি গ্রিড — ৪x২ = ৮টা ব্লক (All + ৭টা
                           // ক্যাটাগরি), প্রতিটাতে বাম পাশে আইকন, ডান পাশে
