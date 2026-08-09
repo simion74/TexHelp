@@ -7,22 +7,18 @@ import '../widgets/ad_banner.dart';
 import '../widgets/library_thumbnail.dart';
 import 'lab_test_detail_screen.dart';
 
-/// 🔬 Lab Test Library — ফেব্রিক/গার্মেন্টসের ২১৪+ ল্যাব টেস্টের রেফারেন্স
-/// (Physical, Chemical, Mechanical ইত্যাদি সব ধরনের)। Chemical Library-এর
-/// মতোই এখানে কোনো "Ask AI" সার্চ নেই — শুধু যাচাই করা বান্ডল করা ডাটা
-/// থেকে সার্চ/ফিল্টার হয়, বানান ভুল হলেও (fuzzy match) খুঁজে দেবে।
+/// 🔬 Lab Test Library — ফেব্রিক/গার্মেন্টসের ২১৪+ ল্যাব টেস্টের রেফারেন্স।
+/// Chemical Library-এর সাথে হুবহু মিলিয়ে ডিজাইন করা, এবং স্ক্রল আর্কিটেকচারও
+/// (নিচের নোট দেখুন) একই — কোনো "Ask AI" সার্চ নেই, শুধু বান্ডল করা ডাটা
+/// থেকে fuzzy সার্চ/ফিল্টার হয়।
 ///
-/// 🖼️ নোট: Chemical Library-এর মতোই এই স্ক্রিনটাও নিজের আলাদা ব্যাকগ্রাউন্ড
-/// ফ্রেম (`assets/images/lab_test_screen_frame.webp`) ব্যবহার করে —
-/// তাই শেয়ার্ড `LibraryScaffold` / `LibraryWaveHeader` থেকে না নিয়ে এই
-/// ফাইলের ভিতরেই স্ট্যাটাস-বার স্ট্রিপ, ব্যাকগ্রাউন্ড ফ্রেম, হেডার (home
-/// আইকন + টাইটেল + ভাষা টগল) এবং নিচের অ্যাড ব্যানার — সবকিছু
-/// স্বনির্ভরভাবে (self-contained) বসানো হয়েছে।
-///
-/// 📌 স্ক্রল বিহেভিয়ার: এখানে ক্যাটাগরি অনেক বেশি বলে Chemical Library থেকে
-/// আলাদা — শুধু সার্চ বক্সটাই ফিক্সড থাকে, তার নিচে Category Filter
-/// (হাইড/আনহাইড টগলসহ) + "All Tests" রো + টেস্ট গ্রিড — সবকিছু একসাথে
-/// স্ক্রল হয়।
+/// 📌 স্ক্রল বিহেভিয়ার (Chemical Screen-এর সাথে হুবহু একই, প্রমাণিত
+/// বাগ-মুক্ত প্যাটার্ন): সার্চ বক্স + Category Filter গ্রিড + "All Tests"
+/// রো — এই পুরো উপরের অংশটা ফিক্সড থাকে (কোনো ListView-এর ভেতরে না), শুধু
+/// নিচের টেস্ট গ্রিডটা আলাদা `Expanded` স্ক্রলযোগ্য অংশ। আগে পুরো স্ক্রিনটা
+/// (২১৪-আইটেমের shrinkWrap গ্রিডসহ) একটাই ListView-এর ভেতরে নেস্টেড ছিল —
+/// এই নেস্টিং-ই রিলিজ বিল্ডে (এডিটর প্রিভিউতে না) একটা বড় ফাঁকা গ্যাপ
+/// তৈরি করছিল। এখন এই নেস্টিং সম্পূর্ণ সরিয়ে দেওয়া হয়েছে।
 class LabTestScreen extends StatefulWidget {
   const LabTestScreen({super.key});
 
@@ -34,33 +30,30 @@ class _LabTestScreenState extends State<LabTestScreen> {
   bool _isEnglish = true;
   String _query = '';
   String? _selectedCategory; // null = All
-  bool _isCategoryExpanded = true; // ক্যাটাগরি গ্রিড সবসময় খোলা থাকবে
+  final ScrollController _listScrollController = ScrollController();
 
   static const int _crossAxisCount = 4;
   static const double _gridSpacing = 10;
   static const double _cardAspectRatio = 0.86;
 
-  // 🟢 এই স্ক্রিনের থিম-কালার — এখন Chemical Screen-এর মতোই সবুজ থিম।
-  // হোম আইকন, সিলেক্টেড টগল, "All" ক্যাটাগরি ব্লক, কাউন্ট নাম্বার ইত্যাদি
-  // সবখানে AppColors.green / AppColors.darkGreen ব্যবহার হচ্ছে। নিচের
-  // টেস্ট-কার্ড গ্রিড (_LabTestCard) অপরিবর্তিত রাখা হয়েছে, ওখানে প্রতিটা
-  // ক্যাটাগরির নিজস্ব রংই (test.categoryColor) থাকছে।
-  static const Color _accentBlue = AppColors.green;
-  static const Color _darkBlueText = AppColors.darkGreen;
+  static const Color _accentGreen = AppColors.green;
+  static const Color _darkGreenText = AppColors.darkGreen;
 
   // ==========================================================================
-  // 🔧🔧🔧 লেআউট টিউনিং কনস্ট্যান্ট — এখান থেকেই স্পেসিং/সাইজ কন্ট্রোল
-  // করা যাবে, কোডের অন্য কোথাও হাত দেওয়ার দরকার নেই।
+  // 🔧🔧🔧 লেআউট টিউনিং কনস্ট্যান্ট — Chemical Screen-এর সাথে হুবহু মিলিয়ে
   // ==========================================================================
-  static const double searchBoxBottomGap = 5; // সার্চ বক্স ↔ স্ক্রলযোগ্য অংশ
-  static const double categoryLabelBottomGap =
-      0; // "Category Filter" টেক্সট ↔ গ্রিড
-  static const double categoryGridTileHeight =
-      30; // প্রতিটা ক্যাটাগরি ব্লকের হাইট
-  static const double categoryGridSpacing =
-      8; // ক্যাটাগরি ব্লকগুলোর মাঝের গ্যাপ
-  static const double categoryGridBottomGap = 1; // গ্রিড ↔ "All Tests" রো
-  static const double allTestsBottomGap = 1; // "All Tests" রো ↔ টেস্ট গ্রিড
+  static const EdgeInsets fixedSectionPadding =
+      EdgeInsets.fromLTRB(14, 0, 14, 0);
+  static const double searchBoxBottomGap = 5;
+  static const double categoryLabelBottomGap = 3;
+  static const double categoryGridTileHeight = 30;
+  static const double categoryGridSpacing = 8;
+  // 👇 Category Filter গ্রিড ↔ "All Tests" রো — এখন 0, কোনো ফাঁকা জায়গা নেই
+  static const double categoryGridBottomGap = 0;
+  static const double allTestsBottomGap = 0;
+
+  static const EdgeInsets listPadding = EdgeInsets.fromLTRB(14, 8, 10, 12);
+  static const double listScrollbarThickness = 3;
 
   List<LabTestItem> get _filtered {
     return kLabTests.where((t) {
@@ -75,6 +68,12 @@ class _LabTestScreenState extends State<LabTestScreen> {
   }
 
   @override
+  void dispose() {
+    _listScrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final filtered = _filtered;
     final statusBarHeight = MediaQuery.of(context).padding.top;
@@ -86,14 +85,12 @@ class _LabTestScreenState extends State<LabTestScreen> {
       child: Scaffold(
         body: Column(
           children: [
-            // স্ট্যাটাস বার আইকনগুলোর জন্য গাঢ় সবুজ স্ট্রিপ
             Container(
               height: statusBarHeight,
-              color: _darkBlueText,
+              color: _darkGreenText,
             ),
             Expanded(
               child: Container(
-                // 🖼️ ব্যাকগ্রাউন্ড ফ্রেম — পুরো স্ক্রিন জুড়ে
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/lab_chemical.webp'),
@@ -115,158 +112,101 @@ class _LabTestScreenState extends State<LabTestScreen> {
                     ),
                     const SizedBox(height: 14),
 
-                    // 📌 শুধু সার্চ বক্সটাই ফিক্সড — স্ক্রল হয় না
+                    // 📌 ফিক্সড অংশ — সার্চ বক্স + ক্যাটাগরি গ্রিড +
+                    // "All Tests" রো, এগুলো স্ক্রল হয় না (কোনো ListView-এর
+                    // ভেতরে না, তাই shrinkWrap-জনিত গ্যাপ বাগ হবে না)
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(14, 0, 14, 0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black.withOpacity(0.05),
-                                blurRadius: 6,
-                                offset: const Offset(0, 2)),
-                          ],
-                        ),
-                        child: TextField(
-                          onChanged: (v) => setState(() => _query = v),
-                          style: const TextStyle(fontSize: 12.5),
-                          decoration: InputDecoration(
-                            isDense: true,
-                            hintText:
-                                'Search test name (e.g. Colorfastness, GSM...)',
-                            hintStyle: const TextStyle(
-                                fontSize: 11.5, color: Colors.black38),
-                            prefixIcon: const Icon(Icons.search_rounded,
-                                color: Colors.black45, size: 18),
-                            prefixIconConstraints: const BoxConstraints(
-                                minWidth: 34, minHeight: 0),
-                            suffixIcon: _query.isEmpty
-                                ? null
-                                : IconButton(
-                                    icon: const Icon(Icons.close_rounded,
-                                        size: 16, color: Colors.black45),
-                                    onPressed: () =>
-                                        setState(() => _query = ''),
-                                  ),
-                            border: InputBorder.none,
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 12, horizontal: 4),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: searchBoxBottomGap),
-
-                    // 📜 সার্চ বক্সের নিচ থেকে এখানে সবকিছু (ক্যাটাগরি
-                    // ফিল্টারসহ) একসাথে স্ক্রল হয় — কারণ ক্যাটাগরি অনেক বেশি
-                    Expanded(
-                      child: ListView(
-                        padding: const EdgeInsets.fromLTRB(14, 0, 14, 6),
+                      padding: fixedSectionPadding,
+                      child: Column(
                         children: [
-                          // 🔽 Category Filter হেডার — ট্যাপ করলে সব
-                          // ক্যাটাগরি এক্সপ্যান্ড/কোলাপ্স হবে
-                          InkWell(
-                            borderRadius: BorderRadius.circular(6),
-                            onTap: null,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 4),
-                              child: Row(
-                                children: [
-                                  const Text(
-                                    'Category Filter',
-                                    style: TextStyle(
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.black54),
-                                  ),
-                                  const SizedBox(width: 6),
-                                  if (!_isCategoryExpanded &&
-                                      _selectedCategory != null)
-                                    Flexible(
-                                      child: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 8, vertical: 2),
-                                        decoration: BoxDecoration(
-                                          color: _accentBlue.withOpacity(0.12),
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                        child: Text(
-                                          _isEnglish
-                                              ? kLabTestCategories
-                                                  .firstWhere((c) =>
-                                                      c.id == _selectedCategory)
-                                                  .nameEn
-                                              : kLabTestCategories
-                                                  .firstWhere((c) =>
-                                                      c.id == _selectedCategory)
-                                                  .nameBn,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w700,
-                                              color: _darkBlueText),
-                                        ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.black.withOpacity(0.05),
+                                    blurRadius: 6,
+                                    offset: const Offset(0, 2)),
+                              ],
+                            ),
+                            child: TextField(
+                              onChanged: (v) => setState(() => _query = v),
+                              style: const TextStyle(fontSize: 11.5),
+                              decoration: InputDecoration(
+                                isDense: true,
+                                hintText:
+                                    'Search test name (e.g. Colorfastness, GSM...)',
+                                hintStyle: const TextStyle(
+                                    fontSize: 10.5, color: Colors.black38),
+                                prefixIcon: const Icon(Icons.search_rounded,
+                                    color: Colors.black45, size: 16),
+                                prefixIconConstraints: const BoxConstraints(
+                                    minWidth: 32, minHeight: 0),
+                                suffixIcon: _query.isEmpty
+                                    ? null
+                                    : IconButton(
+                                        icon: const Icon(Icons.close_rounded,
+                                            size: 14, color: Colors.black45),
+                                        onPressed: () =>
+                                            setState(() => _query = ''),
                                       ),
-                                    ),
-                                  const Spacer(),
-                                ],
+                                border: InputBorder.none,
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 11, horizontal: 4),
                               ),
                             ),
                           ),
-                          SizedBox(height: categoryLabelBottomGap),
+                          const SizedBox(height: searchBoxBottomGap),
 
-                          // 🔲 ক্যাটাগরি গ্রিড — স্কয়ার ব্লক, বাম পাশে
-                          // আইকন, ডান পাশে ছোট ফন্টে দুই লাইনের নাম।
-                          // ক্যাটাগরি অনেক বেশি বলে হাইড/আনহাইড টগল আছে।
-                          AnimatedSize(
-                            duration: const Duration(milliseconds: 220),
-                            curve: Curves.easeInOut,
-                            alignment: Alignment.topCenter,
-                            child: !_isCategoryExpanded
-                                ? const SizedBox.shrink()
-                                : GridView.builder(
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemCount: kLabTestCategories.length + 1,
-                                    gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 4,
-                                      mainAxisSpacing: categoryGridSpacing,
-                                      crossAxisSpacing: categoryGridSpacing,
-                                      mainAxisExtent: categoryGridTileHeight,
-                                    ),
-                                    itemBuilder: (context, index) {
-                                      if (index == 0) {
-                                        return _CategoryGridTile(
-                                          icon: Icons.apps_rounded,
-                                          title: 'All',
-                                          subtitle: '${kLabTests.length}',
-                                          color: _accentBlue,
-                                          selected: _selectedCategory == null,
-                                          onTap: () => setState(
-                                              () => _selectedCategory = null),
-                                        );
-                                      }
-                                      final cat = kLabTestCategories[index - 1];
-                                      return _CategoryGridTile(
-                                        icon: cat.icon,
-                                        title: _isEnglish
-                                            ? cat.nameEn
-                                            : cat.nameBn,
-                                        color: cat.color,
-                                        selected: _selectedCategory == cat.id,
-                                        onTap: () => setState(
-                                            () => _selectedCategory = cat.id),
-                                      );
-                                    },
-                                  ),
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Category Filter',
+                              style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black54),
+                            ),
                           ),
-                          SizedBox(height: categoryGridBottomGap),
+                          const SizedBox(height: categoryLabelBottomGap),
+
+                          // 🔲 ক্যাটাগরি গ্রিড — ১৬টা ক্যাটাগরি + All
+                          GridView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: kLabTestCategories.length + 1,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 4,
+                              mainAxisSpacing: categoryGridSpacing,
+                              crossAxisSpacing: categoryGridSpacing,
+                              mainAxisExtent: categoryGridTileHeight,
+                            ),
+                            itemBuilder: (context, index) {
+                              if (index == 0) {
+                                return _CategoryGridTile(
+                                  icon: Icons.apps_rounded,
+                                  title: 'All',
+                                  subtitle: '${kLabTests.length}',
+                                  color: _accentGreen,
+                                  selected: _selectedCategory == null,
+                                  onTap: () =>
+                                      setState(() => _selectedCategory = null),
+                                );
+                              }
+                              final cat = kLabTestCategories[index - 1];
+                              return _CategoryGridTile(
+                                icon: cat.icon,
+                                title: _isEnglish ? cat.nameEn : cat.nameBn,
+                                color: cat.color,
+                                selected: _selectedCategory == cat.id,
+                                onTap: () =>
+                                    setState(() => _selectedCategory = cat.id),
+                              );
+                            },
+                          ),
+                          const SizedBox(height: categoryGridBottomGap),
 
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -274,81 +214,92 @@ class _LabTestScreenState extends State<LabTestScreen> {
                               const Text(
                                 'All Tests',
                                 style: TextStyle(
-                                    fontSize: 13,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w800,
-                                    color: _darkBlueText),
+                                    color: _darkGreenText),
                               ),
                               Text.rich(
                                 TextSpan(
                                   style: const TextStyle(
-                                      fontSize: 11, color: Colors.black54),
+                                      fontSize: 10, color: Colors.black54),
                                   children: [
                                     const TextSpan(text: 'Total: '),
                                     TextSpan(
                                       text: '${filtered.length} Tests',
                                       style: const TextStyle(
                                           fontWeight: FontWeight.w800,
-                                          color: _accentBlue),
+                                          color: _accentGreen),
                                     ),
                                   ],
                                 ),
                               ),
                             ],
                           ),
-                          SizedBox(height: allTestsBottomGap),
-                          if (filtered.isEmpty)
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 30),
+                          const SizedBox(height: allTestsBottomGap),
+                        ],
+                      ),
+                    ),
+
+                    // 📜 শুধুমাত্র এই অংশটুকু স্ক্রল হয় — টেস্ট গ্রিড।
+                    // আগে shrinkWrap:true + NeverScrollableScrollPhysics
+                    // দিয়ে বাইরের ListView-এর ভেতরে ছিল (গ্যাপ বাগের কারণ) —
+                    // এখন এটাই নিজে সরাসরি স্ক্রলযোগ্য, কোনো নেস্টিং নেই।
+                    Expanded(
+                      child: filtered.isEmpty
+                          ? Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 30, horizontal: 14),
                               child: Column(
                                 children: [
                                   const Icon(Icons.search_off_rounded,
-                                      size: 40, color: Colors.black26),
+                                      size: 38, color: Colors.black26),
                                   const SizedBox(height: 8),
                                   Text(
                                     _isEnglish
                                         ? 'No matching test found.'
                                         : 'কোনো মিলে যাওয়া টেস্ট পাওয়া যায়নি।',
                                     style: const TextStyle(
-                                        color: Colors.black45, fontSize: 12),
+                                        color: Colors.black45, fontSize: 11),
                                   ),
                                 ],
                               ),
                             )
-                          else
-                            GridView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: filtered.length,
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: _crossAxisCount,
-                                crossAxisSpacing: _gridSpacing,
-                                mainAxisSpacing: _gridSpacing,
-                                childAspectRatio: _cardAspectRatio,
-                              ),
-                              itemBuilder: (context, i) {
-                                final t = filtered[i];
-                                return _LabTestCard(
-                                  test: t,
-                                  onTap: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (_) => LabTestDetailScreen(
-                                          test: t,
-                                          initialIsEnglish: _isEnglish,
+                          : Scrollbar(
+                              controller: _listScrollController,
+                              thumbVisibility: true,
+                              thickness: listScrollbarThickness,
+                              radius: const Radius.circular(10),
+                              child: GridView.builder(
+                                controller: _listScrollController,
+                                padding: listPadding,
+                                itemCount: filtered.length,
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: _crossAxisCount,
+                                  crossAxisSpacing: _gridSpacing,
+                                  mainAxisSpacing: _gridSpacing,
+                                  childAspectRatio: _cardAspectRatio,
+                                ),
+                                itemBuilder: (context, i) {
+                                  final t = filtered[i];
+                                  return _LabTestCard(
+                                    test: t,
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (_) => LabTestDetailScreen(
+                                            test: t,
+                                            initialIsEnglish: _isEnglish,
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
                             ),
-                          const SizedBox(height: 12),
-                        ],
-                      ),
                     ),
 
-                    // 📢 নিচের অ্যাড ব্যানার — Chemical Library-এর মতোই
                     const ClipRRect(
                       borderRadius:
                           BorderRadius.vertical(top: Radius.circular(10)),
@@ -365,16 +316,8 @@ class _LabTestScreenState extends State<LabTestScreen> {
   }
 }
 
-/// 🧭 এই স্ক্রিনের নিজস্ব হেডার — সাদা গোলাকার বাটনে সবুজ ফিল + সাদা home
-/// আইকন, বাম-সংলগ্ন টাইটেল/সাবটাইটেল, আর ডানে সাদা পিল-আকৃতির ভাষা টগল।
-///
-/// 🔧🔧🔧 নিচে home আইকন, টাইটেল/সাবটাইটেল, আর ভাষা টগল — এই তিনটার জন্য
-/// আলাদা আলাদা EdgeInsets দেওয়া আছে। প্রতিটা এলিমেন্ট স্বাধীনভাবে
-/// উপরে/নিচে/ডানে/বামে সরাতে শুধু সংশ্লিষ্ট EdgeInsets-এর সংখ্যা বদলান —
-/// বাকি এলিমেন্টে কোনো প্রভাব পড়বে না।
-///
-/// 🎨 প্যাডিং ও টেক্সট কালার এখন Chemical Screen-এর সাথে হুবহু মেলানো —
-/// থিম-কালারও Chemical Screen-এর মতোই সবুজ।
+/// 🧭 এই স্ক্রিনের নিজস্ব হেডার — Chemical Library-এর হেডারের সাথে হুবহু
+/// মিলিয়ে (একই পজিশন/সাইজ/কালার), শুধু টাইটেল টেক্সট আলাদা
 class _LabTestHeader extends StatelessWidget {
   final bool isEnglish;
   final ValueChanged<bool> onLanguageChanged;
@@ -386,28 +329,20 @@ class _LabTestHeader extends StatelessWidget {
     required this.onHomeTap,
   });
 
-  // 🔧 হেডার শুরু হওয়ার আগে উপরে কতটুকু ফাঁকা জায়গা থাকবে — বাড়ালে পুরো
-  // হেডার-রো (৩টা এলিমেন্টই একসাথে) নিচে নামবে
   static const double topOffset = 34;
-
-  // 🔧 home বাটনের সাইজ
   static const double buttonSize = 34;
   static const double buttonIconSize = 17;
 
-  // 🔧 টাইটেল/সাবটাইটেলের ফন্ট সাইজ
-  static const double titleFontSize = 18;
+  // 🔧 টাইটেল বড় ও বোল্ড করা হয়েছে (আগে 18 ছিল)
+  static const double titleFontSize = 24;
   static const double subtitleFontSize = 10.5;
 
-  // 🟢 এই হেডারের থিম-কালার — Chemical Screen-এর মতোই সবুজ
-  static const Color _accentBlue = AppColors.green;
-  static const Color _darkBlueText = AppColors.darkGreen;
+  static const Color _accentGreen = AppColors.green;
 
-  // 🔧🔧🔧 এলিমেন্ট-ভিত্তিক আলাদা প্যাডিং — এখানে বদলালেই শুধু ওই
-  // এলিমেন্টটা সরবে (top/right/bottom/left) — Chemical Screen-এর মতোই
   static const EdgeInsets homeIconPadding =
       EdgeInsets.only(top: 0, right: 0, bottom: 0, left: 0);
   static const EdgeInsets titlePadding =
-      EdgeInsets.only(top: 60, right: 0, bottom: 0, left: 60);
+      EdgeInsets.only(top: 60, right: 0, bottom: 0, left: 40);
   static const EdgeInsets togglePadding =
       EdgeInsets.only(top: 105, right: 0, bottom: 0, left: 8);
 
@@ -416,7 +351,6 @@ class _LabTestHeader extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // 🏠 home বাটন — সাদা বর্ডার, ভিতরে সবুজ ফিল, তার ভিতরে সাদা আইকন
         Padding(
           padding: homeIconPadding,
           child: Material(
@@ -427,13 +361,12 @@ class _LabTestHeader extends StatelessWidget {
               customBorder: const CircleBorder(),
               onTap: onHomeTap,
               child: Padding(
-                // 🔧 সাদা বর্ডারের পুরুত্ব — সংখ্যা বাড়ালে বর্ডার মোটা হবে
                 padding: const EdgeInsets.all(3),
                 child: Container(
                   width: buttonSize - 6,
                   height: buttonSize - 6,
                   decoration: const BoxDecoration(
-                    color: _accentBlue,
+                    color: _accentGreen,
                     shape: BoxShape.circle,
                   ),
                   alignment: Alignment.center,
@@ -459,8 +392,8 @@ class _LabTestHeader extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontSize: titleFontSize,
-                    fontWeight: FontWeight.w800,
-                    color: Color(0x8a026B0C),
+                    fontWeight: FontWeight.w900,
+                    color: Color(0x8a24700d),
                     height: 1.1,
                   ),
                 ),
@@ -497,7 +430,7 @@ class _LanguageToggle extends StatelessWidget {
 
   const _LanguageToggle({required this.isEnglish, required this.onChanged});
 
-  static const Color _accentBlue = AppColors.green;
+  static const Color _accentGreen = AppColors.green;
 
   @override
   Widget build(BuildContext context) {
@@ -526,7 +459,7 @@ class _LanguageToggle extends StatelessWidget {
         duration: const Duration(milliseconds: 180),
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
-          color: selected ? _accentBlue : Colors.transparent,
+          color: selected ? _accentGreen : Colors.transparent,
           borderRadius: BorderRadius.circular(13),
         ),
         child: Text(
@@ -541,13 +474,6 @@ class _LanguageToggle extends StatelessWidget {
   }
 }
 
-/// 🔲 ক্যাটাগরি গ্রিডের একটা স্কয়ার ব্লক — বাম পাশে আইকন, ডান পাশে টাইটেল
-/// (এবং "All"-এর জন্য পাশে সংখ্যা)। সিলেক্ট করা থাকলে হালকা গাঢ়
-/// ব্যাকগ্রাউন্ড আর রঙিন বর্ডার দেখাবে।
-///
-/// 🎨 রাউন্ড কর্নার (6) ও subtitle লেআউট (title পাশাপাশি "(count)") এখন
-/// Chemical Screen-এর সাথে হুবহু মেলানো — যাতে "All" ব্লকে সংখ্যা কেটে না
-/// যায়।
 class _CategoryGridTile extends StatelessWidget {
   final IconData icon;
   final String title;
@@ -626,8 +552,7 @@ class _CategoryGridTile extends StatelessWidget {
   }
 }
 
-/// 🧾 টেস্ট গ্রিড কার্ড — Chemical Library-এর নির্দেশনা অনুযায়ী এই অংশ
-/// অপরিবর্তিত রাখা হয়েছে (প্রতিটা ক্যাটাগরির নিজস্ব রংই থাকছে)।
+/// 🧾 টেস্ট গ্রিড কার্ড — অপরিবর্তিত (প্রতিটা ক্যাটাগরির নিজস্ব রং)
 class _LabTestCard extends StatelessWidget {
   final LabTestItem test;
   final VoidCallback onTap;

@@ -67,7 +67,7 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
   static const double categoryGridTileHeight = 30; // প্রতিটা ব্লকের হাইট
   static const double categoryGridSpacing =
       8; // ব্লকগুলোর মাঝের গ্যাপ (আনুভূমিক+উলম্ব)
-  static const double categoryGridBottomGap = 2; // গ্রিড ↔ "All Chemicals" রো
+  static const double categoryGridBottomGap = 0; // গ্রিড ↔ "All Chemicals" রো
 
   // --- "All Chemicals" রো ---
   static const double allChemicalsBottomGap = 0; // এই রো ↔ স্ক্রলযোগ্য লিস্ট
@@ -371,7 +371,7 @@ class _ChemicalHeader extends StatelessWidget {
   static const double buttonIconSize = 17;
 
   // 🔧 টাইটেল/সাবটাইটেলের ফন্ট সাইজ
-  static const double titleFontSize = 18;
+  static const double titleFontSize = 24;
   static const double subtitleFontSize = 10.5;
 
   // 🔧🔧🔧 এলিমেন্ট-ভিত্তিক আলাদা প্যাডিং — এখানে বদলালেই শুধু ওই
@@ -431,7 +431,7 @@ class _ChemicalHeader extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontSize: titleFontSize,
-                    fontWeight: FontWeight.w800,
+                    fontWeight: FontWeight.w900,
                     color: Color(0x8a24700d),
                     height: 1.1,
                   ),
