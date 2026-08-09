@@ -12,13 +12,11 @@ import 'lab_test_detail_screen.dart';
 /// (নিচের নোট দেখুন) একই — কোনো "Ask AI" সার্চ নেই, শুধু বান্ডল করা ডাটা
 /// থেকে fuzzy সার্চ/ফিল্টার হয়।
 ///
-/// 📌 স্ক্রল বিহেভিয়ার (Chemical Screen-এর সাথে হুবহু একই, প্রমাণিত
-/// বাগ-মুক্ত প্যাটার্ন): সার্চ বক্স + ক্যাটাগরি গ্রিড + "All Tests"
-/// রো — এই পুরো উপরের অংশটা ফিক্সড থাকে (কোনো ListView-এর ভেতরে না), শুধু
-/// নিচের টেস্ট গ্রিডটা আলাদা `Expanded` স্ক্রলযোগ্য অংশ। আগে পুরো স্ক্রিনটা
-/// (২১৪-আইটেমের shrinkWrap গ্রিডসহ) একটাই ListView-এর ভেতরে নেস্টেড ছিল —
-/// এই নেস্টিং-ই রিলিজ বিল্ডে (এডিটর প্রিভিউতে না) একটা বড় ফাঁকা গ্যাপ
-/// তৈরি করছিল। এখন এই নেস্টিং সম্পূর্ণ সরিয়ে দেওয়া হয়েছে।
+/// 📌 স্ক্রল বিহেভিয়ার: শুধু সার্চ বক্স ফিক্সড থাকে। ক্যাটাগরি সংখ্যা বেশি
+/// (১৭টা) হওয়ায় ক্যাটাগরি গ্রিড + "All Tests" রো + টেস্ট গ্রিড — সবগুলো
+/// একটাই `CustomScrollView`-এ (`SliverGrid`/`SliverToBoxAdapter` দিয়ে)
+/// একসাথে স্ক্রল হয়। কোনো নেস্টেড shrinkWrap GridView ব্যবহার করা হয়নি,
+/// তাই আগের রিলিজ-বিল্ড গ্যাপ বাগও তৈরি হবে না।
 class LabTestScreen extends StatefulWidget {
   const LabTestScreen({super.key});
 
@@ -111,180 +109,205 @@ class _LabTestScreenState extends State<LabTestScreen> {
                     ),
                     const SizedBox(height: 14),
 
-                    // 📌 ফিক্সড অংশ — সার্চ বক্স + ক্যাটাগরি গ্রিড +
-                    // "All Tests" রো, এগুলো স্ক্রল হয় না (কোনো ListView-এর
-                    // ভেতরে না, তাই shrinkWrap-জনিত গ্যাপ বাগ হবে না)
+                    // 📌 ফিক্সড অংশ — শুধু সার্চ বক্স, এটাই একমাত্র অংশ যা
+                    // স্ক্রল হয় না। ক্যাটাগরি অনেকগুলো (১৭টা) হওয়ায় সেটা
+                    // এখন নিচের স্ক্রলযোগ্য অংশের সাথেই স্ক্রল হবে।
                     Padding(
                       padding: fixedSectionPadding,
-                      child: Column(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black.withOpacity(0.05),
-                                    blurRadius: 6,
-                                    offset: const Offset(0, 2)),
-                              ],
-                            ),
-                            child: TextField(
-                              onChanged: (v) => setState(() => _query = v),
-                              style: const TextStyle(fontSize: 11.5),
-                              decoration: InputDecoration(
-                                isDense: true,
-                                hintText:
-                                    'Search test name (e.g. Colorfastness, GSM...)',
-                                hintStyle: const TextStyle(
-                                    fontSize: 10.5, color: Colors.black38),
-                                prefixIcon: const Icon(Icons.search_rounded,
-                                    color: Colors.black45, size: 16),
-                                prefixIconConstraints: const BoxConstraints(
-                                    minWidth: 32, minHeight: 0),
-                                suffixIcon: _query.isEmpty
-                                    ? null
-                                    : IconButton(
-                                        icon: const Icon(Icons.close_rounded,
-                                            size: 14, color: Colors.black45),
-                                        onPressed: () =>
-                                            setState(() => _query = ''),
-                                      ),
-                                border: InputBorder.none,
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 11, horizontal: 4),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black.withOpacity(0.05),
+                                blurRadius: 6,
+                                offset: const Offset(0, 2)),
+                          ],
+                        ),
+                        child: TextField(
+                          onChanged: (v) => setState(() => _query = v),
+                          style: const TextStyle(fontSize: 11.5),
+                          decoration: InputDecoration(
+                            isDense: true,
+                            hintText:
+                                'Search test name (e.g. Colorfastness, GSM...)',
+                            hintStyle: const TextStyle(
+                                fontSize: 10.5, color: Colors.black38),
+                            prefixIcon: const Icon(Icons.search_rounded,
+                                color: Colors.black45, size: 16),
+                            prefixIconConstraints: const BoxConstraints(
+                                minWidth: 32, minHeight: 0),
+                            suffixIcon: _query.isEmpty
+                                ? null
+                                : IconButton(
+                                    icon: const Icon(Icons.close_rounded,
+                                        size: 14, color: Colors.black45),
+                                    onPressed: () =>
+                                        setState(() => _query = ''),
+                                  ),
+                            border: InputBorder.none,
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 11, horizontal: 4),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: searchBoxBottomGap),
+
+                    // 📜 এখন থেকে ক্যাটাগরি গ্রিড + "All Tests" রো + টেস্ট
+                    // গ্রিড — সবগুলো একসাথে একটাই CustomScrollView-এ, তাই
+                    // ক্যাটাগরি ব্লকগুলোও কন্টেন্টের সাথে স্ক্রল হবে (আগের
+                    // মতো ফিক্সড থাকবে না)। এটা নেস্টেড shrinkWrap GridView
+                    // নয় (SliverGrid ব্যবহার করা হয়েছে) — তাই আগের গ্যাপ
+                    // বাগও ফিরে আসবে না।
+                    Expanded(
+                      child: Scrollbar(
+                        controller: _listScrollController,
+                        thumbVisibility: true,
+                        thickness: listScrollbarThickness,
+                        radius: const Radius.circular(10),
+                        child: CustomScrollView(
+                          controller: _listScrollController,
+                          slivers: [
+                            SliverPadding(
+                              padding: fixedSectionPadding,
+                              sliver: SliverGrid(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 4,
+                                  mainAxisSpacing: categoryGridSpacing,
+                                  crossAxisSpacing: categoryGridSpacing,
+                                  mainAxisExtent: categoryGridTileHeight,
+                                ),
+                                delegate: SliverChildBuilderDelegate(
+                                  (context, index) {
+                                    if (index == 0) {
+                                      return _CategoryGridTile(
+                                        icon: Icons.apps_rounded,
+                                        title: 'All',
+                                        subtitle: '${kLabTests.length}',
+                                        color: _accentGreen,
+                                        selected: _selectedCategory == null,
+                                        onTap: () => setState(
+                                            () => _selectedCategory = null),
+                                      );
+                                    }
+                                    final cat =
+                                        kLabTestCategories[index - 1];
+                                    return _CategoryGridTile(
+                                      icon: cat.icon,
+                                      title: _isEnglish
+                                          ? cat.nameEn
+                                          : cat.nameBn,
+                                      color: cat.color,
+                                      selected: _selectedCategory == cat.id,
+                                      onTap: () => setState(
+                                          () => _selectedCategory = cat.id),
+                                    );
+                                  },
+                                  childCount: kLabTestCategories.length + 1,
+                                ),
                               ),
                             ),
-                          ),
-                          const SizedBox(height: searchBoxBottomGap),
-
-                          // 🔲 ক্যাটাগরি গ্রিড — ১৬টা ক্যাটাগরি + All
-                          GridView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: kLabTestCategories.length + 1,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 4,
-                              mainAxisSpacing: categoryGridSpacing,
-                              crossAxisSpacing: categoryGridSpacing,
-                              mainAxisExtent: categoryGridTileHeight,
+                            SliverToBoxAdapter(
+                              child: SizedBox(height: categoryGridBottomGap),
                             ),
-                            itemBuilder: (context, index) {
-                              if (index == 0) {
-                                return _CategoryGridTile(
-                                  icon: Icons.apps_rounded,
-                                  title: 'All',
-                                  subtitle: '${kLabTests.length}',
-                                  color: _accentGreen,
-                                  selected: _selectedCategory == null,
-                                  onTap: () =>
-                                      setState(() => _selectedCategory = null),
-                                );
-                              }
-                              final cat = kLabTestCategories[index - 1];
-                              return _CategoryGridTile(
-                                icon: cat.icon,
-                                title: _isEnglish ? cat.nameEn : cat.nameBn,
-                                color: cat.color,
-                                selected: _selectedCategory == cat.id,
-                                onTap: () =>
-                                    setState(() => _selectedCategory = cat.id),
-                              );
-                            },
-                          ),
-                          const SizedBox(height: categoryGridBottomGap),
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'All Tests',
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w800,
-                                    color: _darkGreenText),
-                              ),
-                              Text.rich(
-                                TextSpan(
-                                  style: const TextStyle(
-                                      fontSize: 10, color: Colors.black54),
+                            SliverPadding(
+                              padding: fixedSectionPadding,
+                              sliver: SliverToBoxAdapter(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const TextSpan(text: 'Total: '),
-                                    TextSpan(
-                                      text: '${filtered.length} Tests',
-                                      style: const TextStyle(
+                                    const Text(
+                                      'All Tests',
+                                      style: TextStyle(
+                                          fontSize: 12,
                                           fontWeight: FontWeight.w800,
-                                          color: _accentGreen),
+                                          color: _darkGreenText),
+                                    ),
+                                    Text.rich(
+                                      TextSpan(
+                                        style: const TextStyle(
+                                            fontSize: 10,
+                                            color: Colors.black54),
+                                        children: [
+                                          const TextSpan(text: 'Total: '),
+                                          TextSpan(
+                                            text: '${filtered.length} Tests',
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.w800,
+                                                color: _accentGreen),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),
                               ),
-                            ],
-                          ),
-                          const SizedBox(height: allTestsBottomGap),
-                        ],
-                      ),
-                    ),
-
-                    // 📜 শুধুমাত্র এই অংশটুকু স্ক্রল হয় — টেস্ট গ্রিড।
-                    // আগে shrinkWrap:true + NeverScrollableScrollPhysics
-                    // দিয়ে বাইরের ListView-এর ভেতরে ছিল (গ্যাপ বাগের কারণ) —
-                    // এখন এটাই নিজে সরাসরি স্ক্রলযোগ্য, কোনো নেস্টিং নেই।
-                    Expanded(
-                      child: filtered.isEmpty
-                          ? Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 30, horizontal: 14),
-                              child: Column(
-                                children: [
-                                  const Icon(Icons.search_off_rounded,
-                                      size: 38, color: Colors.black26),
-                                  const SizedBox(height: 8),
-                                  Text(
-                                    _isEnglish
-                                        ? 'No matching test found.'
-                                        : 'কোনো মিলে যাওয়া টেস্ট পাওয়া যায়নি।',
-                                    style: const TextStyle(
-                                        color: Colors.black45, fontSize: 11),
+                            ),
+                            SliverToBoxAdapter(
+                              child: SizedBox(height: allTestsBottomGap),
+                            ),
+                            if (filtered.isEmpty)
+                              SliverToBoxAdapter(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 30, horizontal: 14),
+                                  child: Column(
+                                    children: [
+                                      const Icon(Icons.search_off_rounded,
+                                          size: 38, color: Colors.black26),
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        _isEnglish
+                                            ? 'No matching test found.'
+                                            : 'কোনো মিলে যাওয়া টেস্ট পাওয়া যায়নি।',
+                                        style: const TextStyle(
+                                            color: Colors.black45,
+                                            fontSize: 11),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                            )
-                          : Scrollbar(
-                              controller: _listScrollController,
-                              thumbVisibility: true,
-                              thickness: listScrollbarThickness,
-                              radius: const Radius.circular(10),
-                              child: GridView.builder(
-                                controller: _listScrollController,
-                                padding: listPadding,
-                                itemCount: filtered.length,
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: _crossAxisCount,
-                                  crossAxisSpacing: _gridSpacing,
-                                  mainAxisSpacing: _gridSpacing,
-                                  childAspectRatio: _cardAspectRatio,
                                 ),
-                                itemBuilder: (context, i) {
-                                  final t = filtered[i];
-                                  return _LabTestCard(
-                                    test: t,
-                                    onTap: () {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (_) => LabTestDetailScreen(
-                                            test: t,
-                                            initialIsEnglish: _isEnglish,
-                                          ),
-                                        ),
+                              )
+                            else
+                              SliverPadding(
+                                padding: listPadding,
+                                sliver: SliverGrid(
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: _crossAxisCount,
+                                    crossAxisSpacing: _gridSpacing,
+                                    mainAxisSpacing: _gridSpacing,
+                                    childAspectRatio: _cardAspectRatio,
+                                  ),
+                                  delegate: SliverChildBuilderDelegate(
+                                    (context, i) {
+                                      final t = filtered[i];
+                                      return _LabTestCard(
+                                        test: t,
+                                        onTap: () {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (_) =>
+                                                  LabTestDetailScreen(
+                                                test: t,
+                                                initialIsEnglish: _isEnglish,
+                                              ),
+                                            ),
+                                          );
+                                        },
                                       );
                                     },
-                                  );
-                                },
+                                    childCount: filtered.length,
+                                  ),
+                                ),
                               ),
-                            ),
+                          ],
+                        ),
+                      ),
                     ),
 
                     const ClipRRect(
