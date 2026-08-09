@@ -363,7 +363,7 @@ class _ChemicalHeader extends StatelessWidget {
   static const EdgeInsets homeIconPadding =
       EdgeInsets.only(top: 0, right: 0, bottom: 0, left: 0);
   static const EdgeInsets titlePadding =
-      EdgeInsets.only(top: 60, right: 0, bottom: 0, left: 40);
+      EdgeInsets.only(top: 60, right: 0, bottom: 0, left: 32);
   static const EdgeInsets togglePadding =
       EdgeInsets.only(top: 105, right: 0, bottom: 0, left: 8);
 
