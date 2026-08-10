@@ -85,7 +85,7 @@ class _YarnToFabricScreenState extends State<YarnToFabricScreen> {
         _recalc();
       }),
       content: Padding(
-        // আপনার পছন্দমতো প্যাডিং সেট করার জায়গা
+        // আপনার পছন্দমতো প্যাডিং সেট করার জায়গা
         padding: const EdgeInsets.only(
           left: 9.0,
           right: 9.0,
@@ -106,6 +106,8 @@ class _YarnToFabricScreenState extends State<YarnToFabricScreen> {
                     iconGradient: AppColors.greenIconGradient,
                     accentColor: AppColors.green,
                     active: ctrl.activeId == 'yarnWeight',
+                    labelFontSize: 9.5,
+                    labelMaxLines: 2,
                     onTap: () => setState(() => ctrl.setActive('yarnWeight')),
                   ),
                 ),
@@ -119,6 +121,8 @@ class _YarnToFabricScreenState extends State<YarnToFabricScreen> {
                     iconGradient: AppColors.tealIconGradient,
                     accentColor: AppColors.teal,
                     active: ctrl.activeId == 'wastage',
+                    labelFontSize: 9.5,
+                    labelMaxLines: 2,
                     onTap: () => setState(() => ctrl.setActive('wastage')),
                   ),
                 ),
@@ -137,6 +141,8 @@ class _YarnToFabricScreenState extends State<YarnToFabricScreen> {
                     iconGradient: AppColors.purpleIconGradient,
                     accentColor: AppColors.purple,
                     active: ctrl.activeId == 'gsm',
+                    labelFontSize: 9.5,
+                    labelMaxLines: 2,
                     onTap: () => setState(() => ctrl.setActive('gsm')),
                   ),
                 ),
@@ -150,6 +156,8 @@ class _YarnToFabricScreenState extends State<YarnToFabricScreen> {
                     iconGradient: AppColors.darkTealIconGradient,
                     accentColor: AppColors.darkTeal,
                     active: ctrl.activeId == 'width',
+                    labelFontSize: 9.5,
+                    labelMaxLines: 2,
                     onTap: () => setState(() => ctrl.setActive('width')),
                   ),
                 ),
