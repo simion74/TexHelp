@@ -59,13 +59,13 @@ class _ChemicalScreenState extends State<ChemicalScreen> {
       EdgeInsets.fromLTRB(14, 0, 14, 0);
 
   // --- সার্চ বক্স ---
-  static const double searchBoxBottomGap = 5; // সার্চ বক্স ↔ ক্যাটাগরি গ্রিড
+  static const double searchBoxBottomGap = 10; // সার্চ বক্স ↔ ক্যাটাগরি গ্রিড
 
   // --- ক্যাটাগরি ফিল্টার ---
   static const double categoryGridTileHeight = 30; // প্রতিটা ব্লকের হাইট
   static const double categoryGridSpacing =
       8; // ব্লকগুলোর মাঝের গ্যাপ (আনুভূমিক+উলম্ব)
-  static const double categoryGridBottomGap = 0; // গ্রিড ↔ "All Chemicals" রো
+  static const double categoryGridBottomGap = 10; // গ্রিড ↔ "All Chemicals" রো
 
   // --- "All Chemicals" রো ---
   static const double allChemicalsBottomGap = 0; // এই রো ↔ স্ক্রলযোগ্য লিস্ট
@@ -364,7 +364,7 @@ class _ChemicalHeader extends StatelessWidget {
   static const EdgeInsets homeIconPadding =
       EdgeInsets.only(top: 0, right: 0, bottom: 0, left: 0);
   static const EdgeInsets titlePadding =
-      EdgeInsets.only(top: 60, right: 0, bottom: 0, left: 40);
+      EdgeInsets.only(top: 60, right: 0, bottom: 0, left: 30);
   static const EdgeInsets togglePadding =
       EdgeInsets.only(top: 105, right: 0, bottom: 0, left: 8);
 
@@ -417,7 +417,7 @@ class _ChemicalHeader extends StatelessWidget {
                   style: TextStyle(
                     fontSize: titleFontSize,
                     fontWeight: FontWeight.w900,
-                    color: Color(0x8a24700d),
+                    color: Color(0xff228904),
                     height: 1.1,
                   ),
                 ),
@@ -429,7 +429,7 @@ class _ChemicalHeader extends StatelessWidget {
                   style: TextStyle(
                     fontSize: subtitleFontSize,
                     fontWeight: FontWeight.w500,
-                    color: Color(0x8a144206),
+                    color: Color(0xff134e01),
                   ),
                 ),
               ],
