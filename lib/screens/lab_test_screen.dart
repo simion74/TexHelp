@@ -42,11 +42,11 @@ class _LabTestScreenState extends State<LabTestScreen> {
   // ==========================================================================
   static const EdgeInsets fixedSectionPadding =
       EdgeInsets.fromLTRB(14, 0, 14, 0);
-  static const double searchBoxBottomGap = 0;
+  static const double searchBoxBottomGap = 10;
   static const double categoryGridTileHeight = 30;
   static const double categoryGridSpacing = 8;
   // 👇 ক্যাটাগরি গ্রিড ↔ "All Tests" রো — এখন 0, কোনো ফাঁকা জায়গা নেই
-  static const double categoryGridBottomGap = 0;
+  static const double categoryGridBottomGap = 10;
   static const double allTestsBottomGap = 0;
 
   static const EdgeInsets listPadding = EdgeInsets.fromLTRB(14, 8, 10, 12);
@@ -193,13 +193,11 @@ class _LabTestScreenState extends State<LabTestScreen> {
                                             () => _selectedCategory = null),
                                       );
                                     }
-                                    final cat =
-                                        kLabTestCategories[index - 1];
+                                    final cat = kLabTestCategories[index - 1];
                                     return _CategoryGridTile(
                                       icon: cat.icon,
-                                      title: _isEnglish
-                                          ? cat.nameEn
-                                          : cat.nameBn,
+                                      title:
+                                          _isEnglish ? cat.nameEn : cat.nameBn,
                                       color: cat.color,
                                       selected: _selectedCategory == cat.id,
                                       onTap: () => setState(
@@ -403,7 +401,7 @@ class _LabTestHeader extends StatelessWidget {
                   style: TextStyle(
                     fontSize: titleFontSize,
                     fontWeight: FontWeight.w900,
-                    color: Color(0x8a24700d),
+                    color: Color(0xff207f02),
                     height: 1.1,
                   ),
                 ),
@@ -415,7 +413,7 @@ class _LabTestHeader extends StatelessWidget {
                   style: TextStyle(
                     fontSize: subtitleFontSize,
                     fontWeight: FontWeight.w500,
-                    color: Color(0x8a144206),
+                    color: Color(0xff135001),
                   ),
                 ),
               ],
