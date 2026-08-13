@@ -306,7 +306,7 @@ class _HomeScreenState extends State<HomeScreen>
       imagePath: '${_kIconBasePath}Process_loss.webp',
       builder: () => const ProcessLossScreen(),
     ),
-    
+
     // ============================= Spinning =============================
     _CalcItem(
       title: 'Twist Calculator',
@@ -440,7 +440,7 @@ class _HomeScreenState extends State<HomeScreen>
       imagePath: '${_kIconBasePath}cutting_sheet.webp',
       builder: () => const CuttingSheetScreen(),
     ),
-    
+
     const _CalcItem(
       title: 'Exit',
       icon: Icons.exit_to_app_rounded,
@@ -972,18 +972,27 @@ class _HomeScreenState extends State<HomeScreen>
 const String _aboutText = '''
 TexHelp – Smart Textile Solution
 
-TexHelp is a modern and lightweight offline utility app designed to simplify daily calculations for textile quality controllers (QC), merchandisers, and textile students.
+TexHelp is a modern, all-in-one utility app built for textile quality controllers (QC), merchandisers, production staff, and textile students. It brings together dozens of everyday textile calculations, reference libraries, and smart tools in one place — so you can get instant, accurate results on the production floor or on the go.
 
-Get instant and accurate results directly on the production floor or on the go, without needing any internet connection.
+Key Feature Areas:
+- Quick Calculators – Calculator, Percent Calculator, Roll Length, Roll Dia/Width, Fabric GSM, Fabric Weight (Kg), Body to Rib Ratio, and more.
+- Libraries – Machine Library, Chemical Library, Lab Test reference, Fabric Fault, and Fabric Type. These include reference images to help you visually identify machines, fabric types, and common fabric faults.
+- Quality & Testing Tools – 4 Point Inspection, Shrinkage Measurement, Twisting Measurement, Stripe Size Converter, Seam Efficiency, DHU, RFT, and AQL Sampling calculators.
+- Spinning, Knitting, Weaving, Dyeing & Finishing Tools – Twist, Hank Count, Draft, CSP, Blend Ratio, Stitch Density, Tightness Factor, Knitting/Loom Production, Fabric Crimp, Warp Yarn Requirement, Liquor Ratio, Dye Recipe, Chemical Dosing, Wet Pickup, Chemical Add-on, GSM Change, and more.
+- Garments & Merchandising Tools – Hourly Target, Line Efficiency, CM Costing, Marker Efficiency/Consumption, Costing Sheet, and Cutting Sheet.
+- Process Loss Calculator – Quickly work out process loss quantity and percentage.
 
-Key Features:
-- 4 Point Fabric Inspection – Easily calculate fabric quality grades and penalty points on the go.
-- Fabric Weight (KG) Calculator – Find the accurate weight of fabric by entering GSM, Width, and Length.
-- Fabric Length Calculator – Find the required length of fabric based on weight, GSM, and Width.
-- And Many More Calculators – A complete suite of textile calculation tools at your fingertips, operating 100% offline.
+AI Features (Optional, Requires Internet, Your Own API Key):
+TexHelp includes optional AI-powered smart features (via AI Settings) to help answer textile-related queries. To use these features, you connect your own free Google AI Studio (Gemini) API key. Your key is stored only on your device and is used to talk directly to Google's AI service — we never see or collect it. Since your query and the AI's response travel over the internet to Google's servers, an active internet/mobile data or Wi-Fi connection is required only while using an AI feature. If you don't set up a key or have no internet connection, the rest of the app is completely unaffected.
+
+Fully Offline Core App:
+Every calculator, converter, library, and reference tool in TexHelp (apart from the optional AI features) works 100% offline. No internet connection is needed, and your inputs stay on your device.
+
+Advertisements:
+TexHelp is a free app supported by a small Google AdMob banner shown in a compact container at the bottom of certain screens. Ads do not appear inside your calculation results or interrupt your workflow.
 
 Our Mission:
-Textile formulas can be complex and time-consuming to calculate manually. TexHelp aims to automate these calculations with a single tap, ensuring precision and saving valuable time during processing.
+Textile formulas can be complex and time-consuming to calculate manually. TexHelp automates these calculations with a single tap, ensuring precision and saving valuable time during processing.
 
 Version: 1.0.0
 Developer: Simion Basky
@@ -992,25 +1001,28 @@ Support Email: simionbasky@gmail.com
 
 const String _privacyPolicyText = '''
 Privacy Policy for TexHelp – Smart Textile Solution
-Last updated: July 2026
+Last updated: August 2026
 
 1. Information We Collect
-TexHelp is primarily an offline Textile Calculator app. We do not directly collect, store, or share any personal identifiable information (such as your name, email, phone number, or device location).
+TexHelp is primarily an offline textile calculator and reference app. We do not directly collect, store, or share any personally identifiable information (such as your name, email, phone number, or precise device location) through the app's core calculation and library features.
 
-2. Third-Party Services and Ads
-To keep our app free, we use third-party advertising services (specifically Google AdMob). These third-party vendors may collect and use certain non-personal data, such as your device's unique advertising ID, to show you relevant advertisements.
+2. Offline Functionality
+The core features of TexHelp — including all calculators, converters, the Machine Library, Chemical Library, Lab Test reference, Fabric Fault, Fabric Type, and every other calculation tool — run completely offline. No internet connection is required, and your input data is processed and stored locally on your own device. Reference images used in Fabric Type, Fabric Fault, and Machine Library are bundled within the app itself and are not uploaded anywhere.
 
-3. Offline Functionality (Complete Offline Operation)
-The core calculation features of TexHelp (including 4 Point Fabric Inspection, Fabric Weight, Fabric Length calculation, and all other available calculators) run completely offline. No internet connection or online server is required for any of these calculations, and your input data remains securely stored on your local device.
+3. AI Features (Requires Internet, Uses Your Own API Key)
+TexHelp offers optional AI-powered features under AI Settings. To use them, you enter your own free Google AI Studio (Gemini) API key. This key is stored securely only on your own device — we do not collect, see, or store it on any server of ours. When you use an AI feature, the text you enter and your API key are sent directly from your device over the internet to Google's Gemini AI service to generate a response, so an active internet or Wi-Fi/mobile data connection is required only during that use; it does not run in the background. Please avoid entering sensitive personal information into AI features, as that data is processed by Google's AI service under Google's own privacy terms, outside of our control.
 
-4. Security
-We value your trust in using our app. Since all calculations and data processing happen locally on your device, your inputs are completely private and secure.
+4. Third-Party Services and Ads
+To keep our app free, we display a small Google AdMob banner in a compact container on certain screens. Google AdMob, as a third-party advertising vendor, may collect certain non-personal data, such as your device's advertising ID, to show relevant ads. AdMob's own privacy practices apply to this data collection.
 
-5. Changes to This Privacy Policy
-We may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. Any updates are effective immediately after being posted.
+5. Security
+Since all core calculations and data processing happen locally on your device, your inputs remain private and secure. Your Gemini API key is stored only on your device; data sent when you actively use an AI feature travels over an encrypted internet connection directly to Google's AI service.
 
-6. Contact Us
-If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us at: simionbasky@gmail.com
+6. Changes to This Privacy Policy
+We may update this Privacy Policy from time to time as we add new features. Please review this page periodically for any changes. Updates are effective immediately after being posted.
+
+7. Contact Us
+If you have any questions or suggestions about our Privacy Policy, please contact us at: simionbasky@gmail.com
 ''';
 
 class _DotGrid extends StatelessWidget {
