@@ -308,12 +308,7 @@ class _HomeScreenState extends State<HomeScreen>
       imagePath: '${_kIconBasePath}Process_loss.webp',
       builder: () => const ProcessLossScreen(),
     ),
-    _CalcItem(
-      title: 'AI Color Finder',
-      imagePath: '${_kIconBasePath}TCX_Color_Finder.webp',
-      builder: () => const AiColorFinderScreen(),
-    ),
-
+    
     // ============================= Spinning =============================
     _CalcItem(
       title: 'Twist Calculator',
@@ -447,12 +442,7 @@ class _HomeScreenState extends State<HomeScreen>
       imagePath: '${_kIconBasePath}cutting_sheet.webp',
       builder: () => const CuttingSheetScreen(),
     ),
-    _CalcItem(
-      title: 'Order Sheet',
-      imagePath: '${_kIconBasePath}order_sheet.webp',
-      builder: () => const OrderSheetScreen(),
-    ),
-
+    
     const _CalcItem(
       title: 'Exit',
       icon: Icons.exit_to_app_rounded,
