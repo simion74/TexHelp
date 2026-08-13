@@ -93,7 +93,7 @@ const List<LabTestCategory> kLabTestCategories = [
 const List<LabTestItem> kLabTests = [
   LabTestItem(
     id: 'color_fastness_to_wash',
-    image: 'assets/images/lab/color_fastness_to_wash.webp',
+    image: 'assets/images/Lab/color_fastness_to_wash.webp',
     categoryId: 'ltcat_0',
     categoryEn: 'Color Fastness',
     categoryBn: 'রঙের স্থায়িত্ব',
@@ -119,7 +119,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'color_fastness_to_water',
-    image: 'assets/images/lab/color_fastness_to_water.webp',
+    image: 'assets/images/Lab/color_fastness_to_water.webp',
     categoryId: 'ltcat_0',
     categoryEn: 'Color Fastness',
     categoryBn: 'রঙের স্থায়িত্ব',
@@ -145,7 +145,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'color_fastness_to_perspiration',
-    image: 'assets/images/lab/color_fastness_to_perspiration.webp',
+    image: 'assets/images/Lab/color_fastness_to_perspiration.webp',
     categoryId: 'ltcat_0',
     categoryEn: 'Color Fastness',
     categoryBn: 'রঙের স্থায়িত্ব',
@@ -171,7 +171,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'color_fastness_to_saliva',
-    image: 'assets/images/lab/color_fastness_to_saliva.webp',
+    image: 'assets/images/Lab/color_fastness_to_saliva.webp',
     categoryId: 'ltcat_0',
     categoryEn: 'Color Fastness',
     categoryBn: 'রঙের স্থায়িত্ব',
@@ -197,7 +197,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'rubbing_crocking',
-    image: 'assets/images/lab/rubbing_crocking.webp',
+    image: 'assets/images/Lab/rubbing_crocking.webp',
     categoryId: 'ltcat_0',
     categoryEn: 'Color Fastness',
     categoryBn: 'রঙের স্থায়িত্ব',
@@ -223,7 +223,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'color_fastness_to_light',
-    image: 'assets/images/lab/color_fastness_to_light.webp',
+    image: 'assets/images/Lab/color_fastness_to_light.webp',
     categoryId: 'ltcat_0',
     categoryEn: 'Color Fastness',
     categoryBn: 'রঙের স্থায়িত্ব',
@@ -249,7 +249,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'color_fastness_to_artificial_weathering',
-    image: 'assets/images/lab/color_fastness_to_artificial_weathering.webp',
+    image: 'assets/images/Lab/color_fastness_to_artificial_weathering.webp',
     categoryId: 'ltcat_0',
     categoryEn: 'Color Fastness',
     categoryBn: 'রঙের স্থায়িত্ব',
@@ -275,7 +275,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'color_fastness_to_sea_water',
-    image: 'assets/images/lab/color_fastness_to_sea_water.webp',
+    image: 'assets/images/Lab/color_fastness_to_sea_water.webp',
     categoryId: 'ltcat_0',
     categoryEn: 'Color Fastness',
     categoryBn: 'রঙের স্থায়িত্ব',
@@ -301,7 +301,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'color_fastness_to_chlorinated_water',
-    image: 'assets/images/lab/color_fastness_to_chlorinated_water.webp',
+    image: 'assets/images/Lab/color_fastness_to_chlorinated_water.webp',
     categoryId: 'ltcat_0',
     categoryEn: 'Color Fastness',
     categoryBn: 'রঙের স্থায়িত্ব',
@@ -327,7 +327,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'color_fastness_to_dry_cleaning',
-    image: 'assets/images/lab/color_fastness_to_dry_cleaning.webp',
+    image: 'assets/images/Lab/color_fastness_to_dry_cleaning.webp',
     categoryId: 'ltcat_0',
     categoryEn: 'Color Fastness',
     categoryBn: 'রঙের স্থায়িত্ব',
@@ -353,7 +353,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'color_fastness_to_hot_pressing',
-    image: 'assets/images/lab/color_fastness_to_hot_pressing.webp',
+    image: 'assets/images/Lab/color_fastness_to_hot_pressing.webp',
     categoryId: 'ltcat_0',
     categoryEn: 'Color Fastness',
     categoryBn: 'রঙের স্থায়িত্ব',
@@ -379,7 +379,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'color_fastness_to_organic_solvent_rubbing',
-    image: 'assets/images/lab/color_fastness_to_organic_solvent_rubbing.webp',
+    image: 'assets/images/Lab/color_fastness_to_organic_solvent_rubbing.webp',
     categoryId: 'ltcat_0',
     categoryEn: 'Color Fastness',
     categoryBn: 'রঙের স্থায়িত্ব',
@@ -405,7 +405,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'phenolic_yellowing',
-    image: 'assets/images/lab/phenolic_yellowing.webp',
+    image: 'assets/images/Lab/phenolic_yellowing.webp',
     categoryId: 'ltcat_0',
     categoryEn: 'Color Fastness',
     categoryBn: 'রঙের স্থায়িত্ব',
@@ -431,7 +431,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'dye_transfer',
-    image: 'assets/images/lab/dye_transfer.webp',
+    image: 'assets/images/Lab/dye_transfer.webp',
     categoryId: 'ltcat_0',
     categoryEn: 'Color Fastness',
     categoryBn: 'রঙের স্থায়িত্ব',
@@ -457,7 +457,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'color_fastness_to_bleaching',
-    image: 'assets/images/lab/color_fastness_to_bleaching.webp',
+    image: 'assets/images/Lab/color_fastness_to_bleaching.webp',
     categoryId: 'ltcat_0',
     categoryEn: 'Color Fastness',
     categoryBn: 'রঙের স্থায়িত্ব',
@@ -483,7 +483,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'color_fastness_to_sublimation',
-    image: 'assets/images/lab/color_fastness_to_sublimation.webp',
+    image: 'assets/images/Lab/color_fastness_to_sublimation.webp',
     categoryId: 'ltcat_0',
     categoryEn: 'Color Fastness',
     categoryBn: 'রঙের স্থায়িত্ব',
@@ -509,7 +509,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'color_fastness_to_ozone',
-    image: 'assets/images/lab/color_fastness_to_ozone.webp',
+    image: 'assets/images/Lab/color_fastness_to_ozone.webp',
     categoryId: 'ltcat_0',
     categoryEn: 'Color Fastness',
     categoryBn: 'রঙের স্থায়িত্ব',
@@ -535,7 +535,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'color_fastness_to_gas_fading',
-    image: 'assets/images/lab/color_fastness_to_gas_fading.webp',
+    image: 'assets/images/Lab/color_fastness_to_gas_fading.webp',
     categoryId: 'ltcat_0',
     categoryEn: 'Color Fastness',
     categoryBn: 'রঙের স্থায়িত্ব',
@@ -561,7 +561,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'color_fastness_to_water_spotting',
-    image: 'assets/images/lab/color_fastness_to_water_spotting.webp',
+    image: 'assets/images/Lab/color_fastness_to_water_spotting.webp',
     categoryId: 'ltcat_0',
     categoryEn: 'Color Fastness',
     categoryBn: 'রঙের স্থায়িত্ব',
@@ -587,7 +587,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'gsm_test',
-    image: 'assets/images/lab/gsm_test.webp',
+    image: 'assets/images/Lab/gsm_test.webp',
     categoryId: 'ltcat_1',
     categoryEn: 'Physical & Mechanical',
     categoryBn: 'শারীরিক ও যান্ত্রিক',
@@ -615,7 +615,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fabric_width',
-    image: 'assets/images/lab/fabric_width.webp',
+    image: 'assets/images/Lab/fabric_width.webp',
     categoryId: 'ltcat_1',
     categoryEn: 'Physical & Mechanical',
     categoryBn: 'শারীরিক ও যান্ত্রিক',
@@ -641,7 +641,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fabric_thickness',
-    image: 'assets/images/lab/fabric_thickness.webp',
+    image: 'assets/images/Lab/fabric_thickness.webp',
     categoryId: 'ltcat_1',
     categoryEn: 'Physical & Mechanical',
     categoryBn: 'শারীরিক ও যান্ত্রিক',
@@ -667,7 +667,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'tensile_strength',
-    image: 'assets/images/lab/tensile_strength.webp',
+    image: 'assets/images/Lab/tensile_strength.webp',
     categoryId: 'ltcat_1',
     categoryEn: 'Physical & Mechanical',
     categoryBn: 'শারীরিক ও যান্ত্রিক',
@@ -695,7 +695,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'tear_strength',
-    image: 'assets/images/lab/tear_strength.webp',
+    image: 'assets/images/Lab/tear_strength.webp',
     categoryId: 'ltcat_1',
     categoryEn: 'Physical & Mechanical',
     categoryBn: 'শারীরিক ও যান্ত্রিক',
@@ -721,7 +721,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'bursting_strength',
-    image: 'assets/images/lab/bursting_strength.webp',
+    image: 'assets/images/Lab/bursting_strength.webp',
     categoryId: 'ltcat_1',
     categoryEn: 'Physical & Mechanical',
     categoryBn: 'শারীরিক ও যান্ত্রিক',
@@ -747,7 +747,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'seam_strength',
-    image: 'assets/images/lab/seam_strength.webp',
+    image: 'assets/images/Lab/seam_strength.webp',
     categoryId: 'ltcat_1',
     categoryEn: 'Physical & Mechanical',
     categoryBn: 'শারীরিক ও যান্ত্রিক',
@@ -773,7 +773,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'seam_slippage',
-    image: 'assets/images/lab/seam_slippage.webp',
+    image: 'assets/images/Lab/seam_slippage.webp',
     categoryId: 'ltcat_1',
     categoryEn: 'Physical & Mechanical',
     categoryBn: 'শারীরিক ও যান্ত্রিক',
@@ -799,7 +799,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'abrasion_resistance',
-    image: 'assets/images/lab/abrasion_resistance.webp',
+    image: 'assets/images/Lab/abrasion_resistance.webp',
     categoryId: 'ltcat_1',
     categoryEn: 'Physical & Mechanical',
     categoryBn: 'শারীরিক ও যান্ত্রিক',
@@ -825,7 +825,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'pilling_resistance',
-    image: 'assets/images/lab/pilling_resistance.webp',
+    image: 'assets/images/Lab/pilling_resistance.webp',
     categoryId: 'ltcat_1',
     categoryEn: 'Physical & Mechanical',
     categoryBn: 'শারীরিক ও যান্ত্রিক',
@@ -851,7 +851,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'snagging_resistance',
-    image: 'assets/images/lab/snagging_resistance.webp',
+    image: 'assets/images/Lab/snagging_resistance.webp',
     categoryId: 'ltcat_1',
     categoryEn: 'Physical & Mechanical',
     categoryBn: 'শারীরিক ও যান্ত্রিক',
@@ -877,7 +877,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'stretch_recovery',
-    image: 'assets/images/lab/stretch_recovery.webp',
+    image: 'assets/images/Lab/stretch_recovery.webp',
     categoryId: 'ltcat_1',
     categoryEn: 'Physical & Mechanical',
     categoryBn: 'শারীরিক ও যান্ত্রিক',
@@ -905,7 +905,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'flexural_stiffness',
-    image: 'assets/images/lab/flexural_stiffness.webp',
+    image: 'assets/images/Lab/flexural_stiffness.webp',
     categoryId: 'ltcat_1',
     categoryEn: 'Physical & Mechanical',
     categoryBn: 'শারীরিক ও যান্ত্রিক',
@@ -931,7 +931,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'drape',
-    image: 'assets/images/lab/drape.webp',
+    image: 'assets/images/Lab/drape.webp',
     categoryId: 'ltcat_1',
     categoryEn: 'Physical & Mechanical',
     categoryBn: 'শারীরিক ও যান্ত্রিক',
@@ -959,7 +959,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'air_permeability',
-    image: 'assets/images/lab/air_permeability.webp',
+    image: 'assets/images/Lab/air_permeability.webp',
     categoryId: 'ltcat_1',
     categoryEn: 'Physical & Mechanical',
     categoryBn: 'শারীরিক ও যান্ত্রিক',
@@ -985,7 +985,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'hydrostatic_pressure',
-    image: 'assets/images/lab/hydrostatic_pressure.webp',
+    image: 'assets/images/Lab/hydrostatic_pressure.webp',
     categoryId: 'ltcat_1',
     categoryEn: 'Physical & Mechanical',
     categoryBn: 'শারীরিক ও যান্ত্রিক',
@@ -1011,7 +1011,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'spray_rating',
-    image: 'assets/images/lab/spray_rating.webp',
+    image: 'assets/images/Lab/spray_rating.webp',
     categoryId: 'ltcat_1',
     categoryEn: 'Physical & Mechanical',
     categoryBn: 'শারীরিক ও যান্ত্রিক',
@@ -1037,7 +1037,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'wicking',
-    image: 'assets/images/lab/wicking.webp',
+    image: 'assets/images/Lab/wicking.webp',
     categoryId: 'ltcat_1',
     categoryEn: 'Physical & Mechanical',
     categoryBn: 'শারীরিক ও যান্ত্রিক',
@@ -1065,7 +1065,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'water_absorbency',
-    image: 'assets/images/lab/water_absorbency.webp',
+    image: 'assets/images/Lab/water_absorbency.webp',
     categoryId: 'ltcat_1',
     categoryEn: 'Physical & Mechanical',
     categoryBn: 'শারীরিক ও যান্ত্রিক',
@@ -1091,7 +1091,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'wet_pick_up',
-    image: 'assets/images/lab/wet_pick_up.webp',
+    image: 'assets/images/Lab/wet_pick_up.webp',
     categoryId: 'ltcat_1',
     categoryEn: 'Physical & Mechanical',
     categoryBn: 'শারীরিক ও যান্ত্রিক',
@@ -1119,7 +1119,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'wrinkle_crease_recovery_angle',
-    image: 'assets/images/lab/wrinkle_crease_recovery_angle.webp',
+    image: 'assets/images/Lab/wrinkle_crease_recovery_angle.webp',
     categoryId: 'ltcat_1',
     categoryEn: 'Physical & Mechanical',
     categoryBn: 'শারীরিক ও যান্ত্রিক',
@@ -1145,7 +1145,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'dimensional_stability',
-    image: 'assets/images/lab/dimensional_stability.webp',
+    image: 'assets/images/Lab/dimensional_stability.webp',
     categoryId: 'ltcat_2',
     categoryEn: 'Dimensional Stability / Washing',
     categoryBn: 'মাত্রিক স্থিতিশীলতা ও ওয়াশিং',
@@ -1173,7 +1173,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'spirality_torque',
-    image: 'assets/images/lab/spirality_torque.webp',
+    image: 'assets/images/Lab/spirality_torque.webp',
     categoryId: 'ltcat_2',
     categoryEn: 'Dimensional Stability / Washing',
     categoryBn: 'মাত্রিক স্থিতিশীলতা ও ওয়াশিং',
@@ -1199,7 +1199,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'bow',
-    image: 'assets/images/lab/bow.webp',
+    image: 'assets/images/Lab/bow.webp',
     categoryId: 'ltcat_2',
     categoryEn: 'Dimensional Stability / Washing',
     categoryBn: 'মাত্রিক স্থিতিশীলতা ও ওয়াশিং',
@@ -1225,7 +1225,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'skewness',
-    image: 'assets/images/lab/skewness.webp',
+    image: 'assets/images/Lab/skewness.webp',
     categoryId: 'ltcat_2',
     categoryEn: 'Dimensional Stability / Washing',
     categoryBn: 'মাত্রিক স্থিতিশীলতা ও ওয়াশিং',
@@ -1253,7 +1253,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'appearance_after_washing',
-    image: 'assets/images/lab/appearance_after_washing.webp',
+    image: 'assets/images/Lab/appearance_after_washing.webp',
     categoryId: 'ltcat_2',
     categoryEn: 'Dimensional Stability / Washing',
     categoryBn: 'মাত্রিক স্থিতিশীলতা ও ওয়াশিং',
@@ -1279,7 +1279,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'gsm_change_after_wash',
-    image: 'assets/images/lab/gsm_change_after_wash.webp',
+    image: 'assets/images/Lab/gsm_change_after_wash.webp',
     categoryId: 'ltcat_2',
     categoryEn: 'Dimensional Stability / Washing',
     categoryBn: 'মাত্রিক স্থিতিশীলতা ও ওয়াশিং',
@@ -1307,7 +1307,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'thickness_change_after_wash',
-    image: 'assets/images/lab/thickness_change_after_wash.webp',
+    image: 'assets/images/Lab/thickness_change_after_wash.webp',
     categoryId: 'ltcat_2',
     categoryEn: 'Dimensional Stability / Washing',
     categoryBn: 'মাত্রিক স্থিতিশীলতা ও ওয়াশিং',
@@ -1335,7 +1335,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'ph_value_test',
-    image: 'assets/images/lab/ph_value_test.webp',
+    image: 'assets/images/Lab/ph_value_test.webp',
     categoryId: 'ltcat_3',
     categoryEn: 'Chemical / RSL / Safety',
     categoryBn: 'রাসায়নিক ও RSL সেফটি',
@@ -1361,7 +1361,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'formaldehyde',
-    image: 'assets/images/lab/formaldehyde.webp',
+    image: 'assets/images/Lab/formaldehyde.webp',
     categoryId: 'ltcat_3',
     categoryEn: 'Chemical / RSL / Safety',
     categoryBn: 'রাসায়নিক ও RSL সেফটি',
@@ -1387,7 +1387,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'azo_aromatic_amines',
-    image: 'assets/images/lab/azo_aromatic_amines.webp',
+    image: 'assets/images/Lab/azo_aromatic_amines.webp',
     categoryId: 'ltcat_3',
     categoryEn: 'Chemical / RSL / Safety',
     categoryBn: 'রাসায়নিক ও RSL সেফটি',
@@ -1413,7 +1413,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'heavy_metals',
-    image: 'assets/images/lab/heavy_metals.webp',
+    image: 'assets/images/Lab/heavy_metals.webp',
     categoryId: 'ltcat_3',
     categoryEn: 'Chemical / RSL / Safety',
     categoryBn: 'রাসায়নিক ও RSL সেফটি',
@@ -1439,7 +1439,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'phthalates',
-    image: 'assets/images/lab/phthalates.webp',
+    image: 'assets/images/Lab/phthalates.webp',
     categoryId: 'ltcat_3',
     categoryEn: 'Chemical / RSL / Safety',
     categoryBn: 'রাসায়নিক ও RSL সেফটি',
@@ -1465,7 +1465,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'apeo_npeo',
-    image: 'assets/images/lab/apeo_npeo.webp',
+    image: 'assets/images/Lab/apeo_npeo.webp',
     categoryId: 'ltcat_3',
     categoryEn: 'Chemical / RSL / Safety',
     categoryBn: 'রাসায়নিক ও RSL সেফটি',
@@ -1491,7 +1491,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'pfas_pfc',
-    image: 'assets/images/lab/pfas_pfc.webp',
+    image: 'assets/images/Lab/pfas_pfc.webp',
     categoryId: 'ltcat_3',
     categoryEn: 'Chemical / RSL / Safety',
     categoryBn: 'রাসায়নিক ও RSL সেফটি',
@@ -1517,7 +1517,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'chlorinated_phenols',
-    image: 'assets/images/lab/chlorinated_phenols.webp',
+    image: 'assets/images/Lab/chlorinated_phenols.webp',
     categoryId: 'ltcat_3',
     categoryEn: 'Chemical / RSL / Safety',
     categoryBn: 'রাসায়নিক ও RSL সেফটি',
@@ -1543,7 +1543,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'organotin_compounds',
-    image: 'assets/images/lab/organotin_compounds.webp',
+    image: 'assets/images/Lab/organotin_compounds.webp',
     categoryId: 'ltcat_3',
     categoryEn: 'Chemical / RSL / Safety',
     categoryBn: 'রাসায়নিক ও RSL সেফটি',
@@ -1569,7 +1569,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'voc_residual_solvents',
-    image: 'assets/images/lab/voc_residual_solvents.webp',
+    image: 'assets/images/Lab/voc_residual_solvents.webp',
     categoryId: 'ltcat_3',
     categoryEn: 'Chemical / RSL / Safety',
     categoryBn: 'রাসায়নিক ও RSL সেফটি',
@@ -1595,7 +1595,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'optical_brightener',
-    image: 'assets/images/lab/optical_brightener.webp',
+    image: 'assets/images/Lab/optical_brightener.webp',
     categoryId: 'ltcat_3',
     categoryEn: 'Chemical / RSL / Safety',
     categoryBn: 'রাসায়নিক ও RSL সেফটি',
@@ -1621,7 +1621,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'pesticide_residue_cotton',
-    image: 'assets/images/lab/pesticide_residue_cotton.webp',
+    image: 'assets/images/Lab/pesticide_residue_cotton.webp',
     categoryId: 'ltcat_3',
     categoryEn: 'Chemical / RSL / Safety',
     categoryBn: 'রাসায়নিক ও RSL সেফটি',
@@ -1647,7 +1647,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'bpa_bps_content',
-    image: 'assets/images/lab/bpa_bps_content.webp',
+    image: 'assets/images/Lab/bpa_bps_content.webp',
     categoryId: 'ltcat_3',
     categoryEn: 'Chemical / RSL / Safety',
     categoryBn: 'রাসায়নিক ও RSL সেফটি',
@@ -1673,7 +1673,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'extractable_matter_fat_wax',
-    image: 'assets/images/lab/extractable_matter_fat_wax.webp',
+    image: 'assets/images/Lab/extractable_matter_fat_wax.webp',
     categoryId: 'ltcat_3',
     categoryEn: 'Chemical / RSL / Safety',
     categoryBn: 'রাসায়নিক ও RSL সেফটি',
@@ -1701,7 +1701,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'ash_content',
-    image: 'assets/images/lab/ash_content.webp',
+    image: 'assets/images/Lab/ash_content.webp',
     categoryId: 'ltcat_3',
     categoryEn: 'Chemical / RSL / Safety',
     categoryBn: 'রাসায়নিক ও RSL সেফটি',
@@ -1729,7 +1729,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fiber_identification_microscopy',
-    image: 'assets/images/lab/fiber_identification_microscopy.webp',
+    image: 'assets/images/Lab/fiber_identification_microscopy.webp',
     categoryId: 'ltcat_4',
     categoryEn: 'Fiber / Yarn / Construction',
     categoryBn: 'ফাইবার, সুতা ও গঠন',
@@ -1755,7 +1755,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fiber_identification_solubility',
-    image: 'assets/images/lab/fiber_identification_solubility.webp',
+    image: 'assets/images/Lab/fiber_identification_solubility.webp',
     categoryId: 'ltcat_4',
     categoryEn: 'Fiber / Yarn / Construction',
     categoryBn: 'ফাইবার, সুতা ও গঠন',
@@ -1781,7 +1781,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'quantitative_fiber_composition',
-    image: 'assets/images/lab/quantitative_fiber_composition.webp',
+    image: 'assets/images/Lab/quantitative_fiber_composition.webp',
     categoryId: 'ltcat_4',
     categoryEn: 'Fiber / Yarn / Construction',
     categoryBn: 'ফাইবার, সুতা ও গঠন',
@@ -1809,7 +1809,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'yarn_count',
-    image: 'assets/images/lab/yarn_count.webp',
+    image: 'assets/images/Lab/yarn_count.webp',
     categoryId: 'ltcat_4',
     categoryEn: 'Fiber / Yarn / Construction',
     categoryBn: 'ফাইবার, সুতা ও গঠন',
@@ -1837,7 +1837,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'yarn_twist',
-    image: 'assets/images/lab/yarn_twist.webp',
+    image: 'assets/images/Lab/yarn_twist.webp',
     categoryId: 'ltcat_4',
     categoryEn: 'Fiber / Yarn / Construction',
     categoryBn: 'ফাইবার, সুতা ও গঠন',
@@ -1863,7 +1863,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'yarn_strength',
-    image: 'assets/images/lab/yarn_strength.webp',
+    image: 'assets/images/Lab/yarn_strength.webp',
     categoryId: 'ltcat_4',
     categoryEn: 'Fiber / Yarn / Construction',
     categoryBn: 'ফাইবার, সুতা ও গঠন',
@@ -1889,7 +1889,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'csp',
-    image: 'assets/images/lab/csp.webp',
+    image: 'assets/images/Lab/csp.webp',
     categoryId: 'ltcat_4',
     categoryEn: 'Fiber / Yarn / Construction',
     categoryBn: 'ফাইবার, সুতা ও গঠন',
@@ -1917,7 +1917,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'yarn_elongation',
-    image: 'assets/images/lab/yarn_elongation.webp',
+    image: 'assets/images/Lab/yarn_elongation.webp',
     categoryId: 'ltcat_4',
     categoryEn: 'Fiber / Yarn / Construction',
     categoryBn: 'ফাইবার, সুতা ও গঠন',
@@ -1945,7 +1945,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'yarn_unevenness',
-    image: 'assets/images/lab/yarn_unevenness.webp',
+    image: 'assets/images/Lab/yarn_unevenness.webp',
     categoryId: 'ltcat_4',
     categoryEn: 'Fiber / Yarn / Construction',
     categoryBn: 'ফাইবার, সুতা ও গঠন',
@@ -1971,7 +1971,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'yarn_hairiness',
-    image: 'assets/images/lab/yarn_hairiness.webp',
+    image: 'assets/images/Lab/yarn_hairiness.webp',
     categoryId: 'ltcat_4',
     categoryEn: 'Fiber / Yarn / Construction',
     categoryBn: 'ফাইবার, সুতা ও গঠন',
@@ -1997,7 +1997,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'woven_epi_ppi',
-    image: 'assets/images/lab/woven_epi_ppi.webp',
+    image: 'assets/images/Lab/woven_epi_ppi.webp',
     categoryId: 'ltcat_4',
     categoryEn: 'Fiber / Yarn / Construction',
     categoryBn: 'ফাইবার, সুতা ও গঠন',
@@ -2023,7 +2023,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'knit_course_wale',
-    image: 'assets/images/lab/knit_course_wale.webp',
+    image: 'assets/images/Lab/knit_course_wale.webp',
     categoryId: 'ltcat_4',
     categoryEn: 'Fiber / Yarn / Construction',
     categoryBn: 'ফাইবার, সুতা ও গঠন',
@@ -2049,7 +2049,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'loop_length',
-    image: 'assets/images/lab/loop_length.webp',
+    image: 'assets/images/Lab/loop_length.webp',
     categoryId: 'ltcat_4',
     categoryEn: 'Fiber / Yarn / Construction',
     categoryBn: 'ফাইবার, সুতা ও গঠন',
@@ -2075,7 +2075,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'weave_knit_structure',
-    image: 'assets/images/lab/weave_knit_structure.webp',
+    image: 'assets/images/Lab/weave_knit_structure.webp',
     categoryId: 'ltcat_4',
     categoryEn: 'Fiber / Yarn / Construction',
     categoryBn: 'ফাইবার, সুতা ও গঠন',
@@ -2101,7 +2101,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'elastane_spandex_quantitative_content',
-    image: 'assets/images/lab/elastane_spandex_quantitative_content.webp',
+    image: 'assets/images/Lab/elastane_spandex_quantitative_content.webp',
     categoryId: 'ltcat_4',
     categoryEn: 'Fiber / Yarn / Construction',
     categoryBn: 'ফাইবার, সুতা ও গঠন',
@@ -2129,7 +2129,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'moisture_management',
-    image: 'assets/images/lab/moisture_management.webp',
+    image: 'assets/images/Lab/moisture_management.webp',
     categoryId: 'ltcat_5',
     categoryEn: 'Functional / Performance / Flammability',
     categoryBn: 'কার্যকারিতা, পারফরম্যান্স ও দাহ্যতা',
@@ -2155,7 +2155,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'quick_drying',
-    image: 'assets/images/lab/quick_drying.webp',
+    image: 'assets/images/Lab/quick_drying.webp',
     categoryId: 'ltcat_5',
     categoryEn: 'Functional / Performance / Flammability',
     categoryBn: 'কার্যকারিতা, পারফরম্যান্স ও দাহ্যতা',
@@ -2183,7 +2183,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'water_repellency',
-    image: 'assets/images/lab/water_repellency.webp',
+    image: 'assets/images/Lab/water_repellency.webp',
     categoryId: 'ltcat_5',
     categoryEn: 'Functional / Performance / Flammability',
     categoryBn: 'কার্যকারিতা, পারফরম্যান্স ও দাহ্যতা',
@@ -2209,7 +2209,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'oil_repellency',
-    image: 'assets/images/lab/oil_repellency.webp',
+    image: 'assets/images/Lab/oil_repellency.webp',
     categoryId: 'ltcat_5',
     categoryEn: 'Functional / Performance / Flammability',
     categoryBn: 'কার্যকারিতা, পারফরম্যান্স ও দাহ্যতা',
@@ -2235,7 +2235,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'stain_resistance',
-    image: 'assets/images/lab/stain_resistance.webp',
+    image: 'assets/images/Lab/stain_resistance.webp',
     categoryId: 'ltcat_5',
     categoryEn: 'Functional / Performance / Flammability',
     categoryBn: 'কার্যকারিতা, পারফরম্যান্স ও দাহ্যতা',
@@ -2261,7 +2261,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'soil_release',
-    image: 'assets/images/lab/soil_release.webp',
+    image: 'assets/images/Lab/soil_release.webp',
     categoryId: 'ltcat_5',
     categoryEn: 'Functional / Performance / Flammability',
     categoryBn: 'কার্যকারিতা, পারফরম্যান্স ও দাহ্যতা',
@@ -2287,7 +2287,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'antimicrobial_performance',
-    image: 'assets/images/lab/antimicrobial_performance.webp',
+    image: 'assets/images/Lab/antimicrobial_performance.webp',
     categoryId: 'ltcat_5',
     categoryEn: 'Functional / Performance / Flammability',
     categoryBn: 'কার্যকারিতা, পারফরম্যান্স ও দাহ্যতা',
@@ -2315,7 +2315,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'upf_uv_protection',
-    image: 'assets/images/lab/upf_uv_protection.webp',
+    image: 'assets/images/Lab/upf_uv_protection.webp',
     categoryId: 'ltcat_5',
     categoryEn: 'Functional / Performance / Flammability',
     categoryBn: 'কার্যকারিতা, পারফরম্যান্স ও দাহ্যতা',
@@ -2343,7 +2343,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'thermal_resistance',
-    image: 'assets/images/lab/thermal_resistance.webp',
+    image: 'assets/images/Lab/thermal_resistance.webp',
     categoryId: 'ltcat_5',
     categoryEn: 'Functional / Performance / Flammability',
     categoryBn: 'কার্যকারিতা, পারফরম্যান্স ও দাহ্যতা',
@@ -2369,7 +2369,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'flammability_vertical',
-    image: 'assets/images/lab/flammability_vertical.webp',
+    image: 'assets/images/Lab/flammability_vertical.webp',
     categoryId: 'ltcat_5',
     categoryEn: 'Functional / Performance / Flammability',
     categoryBn: 'কার্যকারিতা, পারফরম্যান্স ও দাহ্যতা',
@@ -2395,7 +2395,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'flammability_horizontal',
-    image: 'assets/images/lab/flammability_horizontal.webp',
+    image: 'assets/images/Lab/flammability_horizontal.webp',
     categoryId: 'ltcat_5',
     categoryEn: 'Functional / Performance / Flammability',
     categoryBn: 'কার্যকারিতা, পারফরম্যান্স ও দাহ্যতা',
@@ -2423,7 +2423,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'afterflame',
-    image: 'assets/images/lab/afterflame.webp',
+    image: 'assets/images/Lab/afterflame.webp',
     categoryId: 'ltcat_5',
     categoryEn: 'Functional / Performance / Flammability',
     categoryBn: 'কার্যকারিতা, পারফরম্যান্স ও দাহ্যতা',
@@ -2449,7 +2449,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'afterglow',
-    image: 'assets/images/lab/afterglow.webp',
+    image: 'assets/images/Lab/afterglow.webp',
     categoryId: 'ltcat_5',
     categoryEn: 'Functional / Performance / Flammability',
     categoryBn: 'কার্যকারিতা, পারফরম্যান্স ও দাহ্যতা',
@@ -2475,7 +2475,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'char_length',
-    image: 'assets/images/lab/char_length.webp',
+    image: 'assets/images/Lab/char_length.webp',
     categoryId: 'ltcat_5',
     categoryEn: 'Functional / Performance / Flammability',
     categoryBn: 'কার্যকারিতা, পারফরম্যান্স ও দাহ্যতা',
@@ -2501,7 +2501,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'electrostatic_propensity',
-    image: 'assets/images/lab/electrostatic_propensity.webp',
+    image: 'assets/images/Lab/electrostatic_propensity.webp',
     categoryId: 'ltcat_5',
     categoryEn: 'Functional / Performance / Flammability',
     categoryBn: 'কার্যকারিতা, পারফরম্যান্স ও দাহ্যতা',
@@ -2527,7 +2527,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'wind_resistance_air_penetration',
-    image: 'assets/images/lab/wind_resistance_air_penetration.webp',
+    image: 'assets/images/Lab/wind_resistance_air_penetration.webp',
     categoryId: 'ltcat_5',
     categoryEn: 'Functional / Performance / Flammability',
     categoryBn: 'কার্যকারিতা, পারফরম্যান্স ও দাহ্যতা',
@@ -2553,7 +2553,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'special_finish_durability',
-    image: 'assets/images/lab/special_finish_durability.webp',
+    image: 'assets/images/Lab/special_finish_durability.webp',
     categoryId: 'ltcat_5',
     categoryEn: 'Functional / Performance / Flammability',
     categoryBn: 'কার্যকারিতা, পারফরম্যান্স ও দাহ্যতা',
@@ -2579,7 +2579,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fabric_density',
-    image: 'assets/images/lab/fabric_density.webp',
+    image: 'assets/images/Lab/fabric_density.webp',
     categoryId: 'ltcat_6',
     categoryEn: 'Fabric Construction / Advanced Physical',
     categoryBn: 'ফেব্রিক কনস্ট্রাকশন ও অ্যাডভান্সড ফিজিক্যাল',
@@ -2605,7 +2605,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'cover_factor',
-    image: 'assets/images/lab/cover_factor.webp',
+    image: 'assets/images/Lab/cover_factor.webp',
     categoryId: 'ltcat_6',
     categoryEn: 'Fabric Construction / Advanced Physical',
     categoryBn: 'ফেব্রিক কনস্ট্রাকশন ও অ্যাডভান্সড ফিজিক্যাল',
@@ -2633,7 +2633,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fabric_weight_variation',
-    image: 'assets/images/lab/fabric_weight_variation.webp',
+    image: 'assets/images/Lab/fabric_weight_variation.webp',
     categoryId: 'ltcat_6',
     categoryEn: 'Fabric Construction / Advanced Physical',
     categoryBn: 'ফেব্রিক কনস্ট্রাকশন ও অ্যাডভান্সড ফিজিক্যাল',
@@ -2661,7 +2661,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fabric_compression_resistance',
-    image: 'assets/images/lab/fabric_compression_resistance.webp',
+    image: 'assets/images/Lab/fabric_compression_resistance.webp',
     categoryId: 'ltcat_6',
     categoryEn: 'Fabric Construction / Advanced Physical',
     categoryBn: 'ফেব্রিক কনস্ট্রাকশন ও অ্যাডভান্সড ফিজিক্যাল',
@@ -2689,7 +2689,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fabric_compression_recovery',
-    image: 'assets/images/lab/fabric_compression_recovery.webp',
+    image: 'assets/images/Lab/fabric_compression_recovery.webp',
     categoryId: 'ltcat_6',
     categoryEn: 'Fabric Construction / Advanced Physical',
     categoryBn: 'ফেব্রিক কনস্ট্রাকশন ও অ্যাডভান্সড ফিজিক্যাল',
@@ -2717,7 +2717,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fabric_surface_roughness',
-    image: 'assets/images/lab/fabric_surface_roughness.webp',
+    image: 'assets/images/Lab/fabric_surface_roughness.webp',
     categoryId: 'ltcat_6',
     categoryEn: 'Fabric Construction / Advanced Physical',
     categoryBn: 'ফেব্রিক কনস্ট্রাকশন ও অ্যাডভান্সড ফিজিক্যাল',
@@ -2743,7 +2743,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fabric_coefficient_friction',
-    image: 'assets/images/lab/fabric_coefficient_friction.webp',
+    image: 'assets/images/Lab/fabric_coefficient_friction.webp',
     categoryId: 'ltcat_6',
     categoryEn: 'Fabric Construction / Advanced Physical',
     categoryBn: 'ফেব্রিক কনস্ট্রাকশন ও অ্যাডভান্সড ফিজিক্যাল',
@@ -2771,7 +2771,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fabric_edge_fray_resistance',
-    image: 'assets/images/lab/fabric_edge_fray_resistance.webp',
+    image: 'assets/images/Lab/fabric_edge_fray_resistance.webp',
     categoryId: 'ltcat_6',
     categoryEn: 'Fabric Construction / Advanced Physical',
     categoryBn: 'ফেব্রিক কনস্ট্রাকশন ও অ্যাডভান্সড ফিজিক্যাল',
@@ -2797,7 +2797,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'yarn_pull_out_resistance_fabric',
-    image: 'assets/images/lab/yarn_pull_out_resistance_fabric.webp',
+    image: 'assets/images/Lab/yarn_pull_out_resistance_fabric.webp',
     categoryId: 'ltcat_6',
     categoryEn: 'Fabric Construction / Advanced Physical',
     categoryBn: 'ফেব্রিক কনস্ট্রাকশন ও অ্যাডভান্সড ফিজিক্যাল',
@@ -2823,7 +2823,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fabric_hydrostatic_dynamic',
-    image: 'assets/images/lab/fabric_hydrostatic_dynamic.webp',
+    image: 'assets/images/Lab/fabric_hydrostatic_dynamic.webp',
     categoryId: 'ltcat_6',
     categoryEn: 'Fabric Construction / Advanced Physical',
     categoryBn: 'ফেব্রিক কনস্ট্রাকশন ও অ্যাডভান্সড ফিজিক্যাল',
@@ -2849,7 +2849,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fabric_water_vapour_permeability',
-    image: 'assets/images/lab/fabric_water_vapour_permeability.webp',
+    image: 'assets/images/Lab/fabric_water_vapour_permeability.webp',
     categoryId: 'ltcat_6',
     categoryEn: 'Fabric Construction / Advanced Physical',
     categoryBn: 'ফেব্রিক কনস্ট্রাকশন ও অ্যাডভান্সড ফিজিক্যাল',
@@ -2875,7 +2875,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fabric_water_vapour_resistance',
-    image: 'assets/images/lab/fabric_water_vapour_resistance.webp',
+    image: 'assets/images/Lab/fabric_water_vapour_resistance.webp',
     categoryId: 'ltcat_6',
     categoryEn: 'Fabric Construction / Advanced Physical',
     categoryBn: 'ফেব্রিক কনস্ট্রাকশন ও অ্যাডভান্সড ফিজিক্যাল',
@@ -2901,7 +2901,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fabric_breathability_index',
-    image: 'assets/images/lab/fabric_breathability_index.webp',
+    image: 'assets/images/Lab/fabric_breathability_index.webp',
     categoryId: 'ltcat_6',
     categoryEn: 'Fabric Construction / Advanced Physical',
     categoryBn: 'ফেব্রিক কনস্ট্রাকশন ও অ্যাডভান্সড ফিজিক্যাল',
@@ -2927,7 +2927,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fabric_growth',
-    image: 'assets/images/lab/fabric_growth.webp',
+    image: 'assets/images/Lab/fabric_growth.webp',
     categoryId: 'ltcat_6',
     categoryEn: 'Fabric Construction / Advanced Physical',
     categoryBn: 'ফেব্রিক কনস্ট্রাকশন ও অ্যাডভান্সড ফিজিক্যাল',
@@ -2955,7 +2955,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fabric_permanent_deformation',
-    image: 'assets/images/lab/fabric_permanent_deformation.webp',
+    image: 'assets/images/Lab/fabric_permanent_deformation.webp',
     categoryId: 'ltcat_6',
     categoryEn: 'Fabric Construction / Advanced Physical',
     categoryBn: 'ফেব্রিক কনস্ট্রাকশন ও অ্যাডভান্সড ফিজিক্যাল',
@@ -2983,7 +2983,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fiber_burning_test',
-    image: 'assets/images/lab/fiber_burning_test.webp',
+    image: 'assets/images/Lab/fiber_burning_test.webp',
     categoryId: 'ltcat_7',
     categoryEn: 'Advanced Fiber & Yarn Testing',
     categoryBn: 'ইয়ার্ন ও ফাইবার অ্যাডভান্সড টেস্ট',
@@ -3009,7 +3009,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fiber_length',
-    image: 'assets/images/lab/fiber_length.webp',
+    image: 'assets/images/Lab/fiber_length.webp',
     categoryId: 'ltcat_7',
     categoryEn: 'Advanced Fiber & Yarn Testing',
     categoryBn: 'ইয়ার্ন ও ফাইবার অ্যাডভান্সড টেস্ট',
@@ -3035,7 +3035,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fiber_fineness',
-    image: 'assets/images/lab/fiber_fineness.webp',
+    image: 'assets/images/Lab/fiber_fineness.webp',
     categoryId: 'ltcat_7',
     categoryEn: 'Advanced Fiber & Yarn Testing',
     categoryBn: 'ইয়ার্ন ও ফাইবার অ্যাডভান্সড টেস্ট',
@@ -3061,7 +3061,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fiber_moisture_regain',
-    image: 'assets/images/lab/fiber_moisture_regain.webp',
+    image: 'assets/images/Lab/fiber_moisture_regain.webp',
     categoryId: 'ltcat_7',
     categoryEn: 'Advanced Fiber & Yarn Testing',
     categoryBn: 'ইয়ার্ন ও ফাইবার অ্যাডভান্সড টেস্ট',
@@ -3089,7 +3089,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'yarn_twist_direction',
-    image: 'assets/images/lab/yarn_twist_direction.webp',
+    image: 'assets/images/Lab/yarn_twist_direction.webp',
     categoryId: 'ltcat_7',
     categoryEn: 'Advanced Fiber & Yarn Testing',
     categoryBn: 'ইয়ার্ন ও ফাইবার অ্যাডভান্সড টেস্ট',
@@ -3115,7 +3115,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'yarn_package_density',
-    image: 'assets/images/lab/yarn_package_density.webp',
+    image: 'assets/images/Lab/yarn_package_density.webp',
     categoryId: 'ltcat_7',
     categoryEn: 'Advanced Fiber & Yarn Testing',
     categoryBn: 'ইয়ার্ন ও ফাইবার অ্যাডভান্সড টেস্ট',
@@ -3143,7 +3143,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'yarn_friction',
-    image: 'assets/images/lab/yarn_friction.webp',
+    image: 'assets/images/Lab/yarn_friction.webp',
     categoryId: 'ltcat_7',
     categoryEn: 'Advanced Fiber & Yarn Testing',
     categoryBn: 'ইয়ার্ন ও ফাইবার অ্যাডভান্সড টেস্ট',
@@ -3169,7 +3169,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'yarn_abrasion_resistance',
-    image: 'assets/images/lab/yarn_abrasion_resistance.webp',
+    image: 'assets/images/Lab/yarn_abrasion_resistance.webp',
     categoryId: 'ltcat_7',
     categoryEn: 'Advanced Fiber & Yarn Testing',
     categoryBn: 'ইয়ার্ন ও ফাইবার অ্যাডভান্সড টেস্ট',
@@ -3195,7 +3195,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'yarn_moisture_content',
-    image: 'assets/images/lab/yarn_moisture_content.webp',
+    image: 'assets/images/Lab/yarn_moisture_content.webp',
     categoryId: 'ltcat_7',
     categoryEn: 'Advanced Fiber & Yarn Testing',
     categoryBn: 'ইয়ার্ন ও ফাইবার অ্যাডভান্সড টেস্ট',
@@ -3223,7 +3223,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'yarn_appearance',
-    image: 'assets/images/lab/yarn_appearance.webp',
+    image: 'assets/images/Lab/yarn_appearance.webp',
     categoryId: 'ltcat_7',
     categoryEn: 'Advanced Fiber & Yarn Testing',
     categoryBn: 'ইয়ার্ন ও ফাইবার অ্যাডভান্সড টেস্ট',
@@ -3249,7 +3249,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'yarn_imperfections',
-    image: 'assets/images/lab/yarn_imperfections.webp',
+    image: 'assets/images/Lab/yarn_imperfections.webp',
     categoryId: 'ltcat_7',
     categoryEn: 'Advanced Fiber & Yarn Testing',
     categoryBn: 'ইয়ার্ন ও ফাইবার অ্যাডভান্সড টেস্ট',
@@ -3275,7 +3275,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'yarn_crimp',
-    image: 'assets/images/lab/yarn_crimp.webp',
+    image: 'assets/images/Lab/yarn_crimp.webp',
     categoryId: 'ltcat_7',
     categoryEn: 'Advanced Fiber & Yarn Testing',
     categoryBn: 'ইয়ার্ন ও ফাইবার অ্যাডভান্সড টেস্ট',
@@ -3303,7 +3303,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'yarn_tension_uniformity',
-    image: 'assets/images/lab/yarn_tension_uniformity.webp',
+    image: 'assets/images/Lab/yarn_tension_uniformity.webp',
     categoryId: 'ltcat_7',
     categoryEn: 'Advanced Fiber & Yarn Testing',
     categoryBn: 'ইয়ার্ন ও ফাইবার অ্যাডভান্সড টেস্ট',
@@ -3329,7 +3329,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'residual_peroxide',
-    image: 'assets/images/lab/residual_peroxide.webp',
+    image: 'assets/images/Lab/residual_peroxide.webp',
     categoryId: 'ltcat_8',
     categoryEn: 'Dyeing / Finishing / Process Control',
     categoryBn: 'ডাইং, ফিনিশিং ও কেমিক্যাল প্রসেস কন্ট্রোল',
@@ -3355,7 +3355,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'residual_alkali',
-    image: 'assets/images/lab/residual_alkali.webp',
+    image: 'assets/images/Lab/residual_alkali.webp',
     categoryId: 'ltcat_8',
     categoryEn: 'Dyeing / Finishing / Process Control',
     categoryBn: 'ডাইং, ফিনিশিং ও কেমিক্যাল প্রসেস কন্ট্রোল',
@@ -3381,7 +3381,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'residual_chlorine',
-    image: 'assets/images/lab/residual_chlorine.webp',
+    image: 'assets/images/Lab/residual_chlorine.webp',
     categoryId: 'ltcat_8',
     categoryEn: 'Dyeing / Finishing / Process Control',
     categoryBn: 'ডাইং, ফিনিশিং ও কেমিক্যাল প্রসেস কন্ট্রোল',
@@ -3407,7 +3407,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'residual_salt',
-    image: 'assets/images/lab/residual_salt.webp',
+    image: 'assets/images/Lab/residual_salt.webp',
     categoryId: 'ltcat_8',
     categoryEn: 'Dyeing / Finishing / Process Control',
     categoryBn: 'ডাইং, ফিনিশিং ও কেমিক্যাল প্রসেস কন্ট্রোল',
@@ -3433,7 +3433,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fabric_absorbency',
-    image: 'assets/images/lab/fabric_absorbency.webp',
+    image: 'assets/images/Lab/fabric_absorbency.webp',
     categoryId: 'ltcat_8',
     categoryEn: 'Dyeing / Finishing / Process Control',
     categoryBn: 'ডাইং, ফিনিশিং ও কেমিক্যাল প্রসেস কন্ট্রোল',
@@ -3459,7 +3459,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'whiteness_index',
-    image: 'assets/images/lab/whiteness_index.webp',
+    image: 'assets/images/Lab/whiteness_index.webp',
     categoryId: 'ltcat_8',
     categoryEn: 'Dyeing / Finishing / Process Control',
     categoryBn: 'ডাইং, ফিনিশিং ও কেমিক্যাল প্রসেস কন্ট্রোল',
@@ -3485,7 +3485,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'yellowness_index',
-    image: 'assets/images/lab/yellowness_index.webp',
+    image: 'assets/images/Lab/yellowness_index.webp',
     categoryId: 'ltcat_8',
     categoryEn: 'Dyeing / Finishing / Process Control',
     categoryBn: 'ডাইং, ফিনিশিং ও কেমিক্যাল প্রসেস কন্ট্রোল',
@@ -3511,7 +3511,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fabric_handle',
-    image: 'assets/images/lab/fabric_handle.webp',
+    image: 'assets/images/Lab/fabric_handle.webp',
     categoryId: 'ltcat_8',
     categoryEn: 'Dyeing / Finishing / Process Control',
     categoryBn: 'ডাইং, ফিনিশিং ও কেমিক্যাল প্রসেস কন্ট্রোল',
@@ -3537,7 +3537,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fabric_smoothness',
-    image: 'assets/images/lab/fabric_smoothness.webp',
+    image: 'assets/images/Lab/fabric_smoothness.webp',
     categoryId: 'ltcat_8',
     categoryEn: 'Dyeing / Finishing / Process Control',
     categoryBn: 'ডাইং, ফিনিশিং ও কেমিক্যাল প্রসেস কন্ট্রোল',
@@ -3563,7 +3563,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'finish_add_on',
-    image: 'assets/images/lab/finish_add_on.webp',
+    image: 'assets/images/Lab/finish_add_on.webp',
     categoryId: 'ltcat_8',
     categoryEn: 'Dyeing / Finishing / Process Control',
     categoryBn: 'ডাইং, ফিনিশিং ও কেমিক্যাল প্রসেস কন্ট্রোল',
@@ -3591,7 +3591,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'softener_add_on',
-    image: 'assets/images/lab/softener_add_on.webp',
+    image: 'assets/images/Lab/softener_add_on.webp',
     categoryId: 'ltcat_8',
     categoryEn: 'Dyeing / Finishing / Process Control',
     categoryBn: 'ডাইং, ফিনিশিং ও কেমিক্যাল প্রসেস কন্ট্রোল',
@@ -3617,7 +3617,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'resin_finish_durability',
-    image: 'assets/images/lab/resin_finish_durability.webp',
+    image: 'assets/images/Lab/resin_finish_durability.webp',
     categoryId: 'ltcat_8',
     categoryEn: 'Dyeing / Finishing / Process Control',
     categoryBn: 'ডাইং, ফিনিশিং ও কেমিক্যাল প্রসেস কন্ট্রোল',
@@ -3643,7 +3643,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fluorine_content',
-    image: 'assets/images/lab/fluorine_content.webp',
+    image: 'assets/images/Lab/fluorine_content.webp',
     categoryId: 'ltcat_8',
     categoryEn: 'Dyeing / Finishing / Process Control',
     categoryBn: 'ডাইং, ফিনিশিং ও কেমিক্যাল প্রসেস কন্ট্রোল',
@@ -3669,7 +3669,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'finish_retention_after_wash',
-    image: 'assets/images/lab/finish_retention_after_wash.webp',
+    image: 'assets/images/Lab/finish_retention_after_wash.webp',
     categoryId: 'ltcat_8',
     categoryEn: 'Dyeing / Finishing / Process Control',
     categoryBn: 'ডাইং, ফিনিশিং ও কেমিক্যাল প্রসেস কন্ট্রোল',
@@ -3697,7 +3697,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'carcinogenic_dyes',
-    image: 'assets/images/lab/carcinogenic_dyes.webp',
+    image: 'assets/images/Lab/carcinogenic_dyes.webp',
     categoryId: 'ltcat_9',
     categoryEn: 'Advanced Chemical / RSL / MRSL Screening',
     categoryBn: 'কেমিক্যাল RSL/MRSL — অতিরিক্ত স্ক্রিনিং',
@@ -3723,7 +3723,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'allergenic_dispersed_dyes',
-    image: 'assets/images/lab/allergenic_dispersed_dyes.webp',
+    image: 'assets/images/Lab/allergenic_dispersed_dyes.webp',
     categoryId: 'ltcat_9',
     categoryEn: 'Advanced Chemical / RSL / MRSL Screening',
     categoryBn: 'কেমিক্যাল RSL/MRSL — অতিরিক্ত স্ক্রিনিং',
@@ -3749,7 +3749,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'chromium_vi',
-    image: 'assets/images/lab/chromium_vi.webp',
+    image: 'assets/images/Lab/chromium_vi.webp',
     categoryId: 'ltcat_9',
     categoryEn: 'Advanced Chemical / RSL / MRSL Screening',
     categoryBn: 'কেমিক্যাল RSL/MRSL — অতিরিক্ত স্ক্রিনিং',
@@ -3775,7 +3775,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'nickel_release',
-    image: 'assets/images/lab/nickel_release.webp',
+    image: 'assets/images/Lab/nickel_release.webp',
     categoryId: 'ltcat_9',
     categoryEn: 'Advanced Chemical / RSL / MRSL Screening',
     categoryBn: 'কেমিক্যাল RSL/MRSL — অতিরিক্ত স্ক্রিনিং',
@@ -3801,7 +3801,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'lead_cadmium_separate',
-    image: 'assets/images/lab/lead_cadmium_separate.webp',
+    image: 'assets/images/Lab/lead_cadmium_separate.webp',
     categoryId: 'ltcat_9',
     categoryEn: 'Advanced Chemical / RSL / MRSL Screening',
     categoryBn: 'কেমিক্যাল RSL/MRSL — অতিরিক্ত স্ক্রিনিং',
@@ -3827,7 +3827,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'arsenic_mercury_antimony',
-    image: 'assets/images/lab/arsenic_mercury_antimony.webp',
+    image: 'assets/images/Lab/arsenic_mercury_antimony.webp',
     categoryId: 'ltcat_9',
     categoryEn: 'Advanced Chemical / RSL / MRSL Screening',
     categoryBn: 'কেমিক্যাল RSL/MRSL — অতিরিক্ত স্ক্রিনিং',
@@ -3853,7 +3853,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'pah_screening',
-    image: 'assets/images/lab/pah_screening.webp',
+    image: 'assets/images/Lab/pah_screening.webp',
     categoryId: 'ltcat_9',
     categoryEn: 'Advanced Chemical / RSL / MRSL Screening',
     categoryBn: 'কেমিক্যাল RSL/MRSL — অতিরিক্ত স্ক্রিনিং',
@@ -3879,7 +3879,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'chlorinated_paraffins',
-    image: 'assets/images/lab/chlorinated_paraffins.webp',
+    image: 'assets/images/Lab/chlorinated_paraffins.webp',
     categoryId: 'ltcat_9',
     categoryEn: 'Advanced Chemical / RSL / MRSL Screening',
     categoryBn: 'কেমিক্যাল RSL/MRSL — অতিরিক্ত স্ক্রিনিং',
@@ -3905,7 +3905,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'alkylphenols',
-    image: 'assets/images/lab/alkylphenols.webp',
+    image: 'assets/images/Lab/alkylphenols.webp',
     categoryId: 'ltcat_9',
     categoryEn: 'Advanced Chemical / RSL / MRSL Screening',
     categoryBn: 'কেমিক্যাল RSL/MRSL — অতিরিক্ত স্ক্রিনিং',
@@ -3931,7 +3931,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'dmf_dmac_nmp',
-    image: 'assets/images/lab/dmf_dmac_nmp.webp',
+    image: 'assets/images/Lab/dmf_dmac_nmp.webp',
     categoryId: 'ltcat_9',
     categoryEn: 'Advanced Chemical / RSL / MRSL Screening',
     categoryBn: 'কেমিক্যাল RSL/MRSL — অতিরিক্ত স্ক্রিনিং',
@@ -3957,7 +3957,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'benzene_toluene',
-    image: 'assets/images/lab/benzene_toluene.webp',
+    image: 'assets/images/Lab/benzene_toluene.webp',
     categoryId: 'ltcat_9',
     categoryEn: 'Advanced Chemical / RSL / MRSL Screening',
     categoryBn: 'কেমিক্যাল RSL/MRSL — অতিরিক্ত স্ক্রিনিং',
@@ -3983,7 +3983,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'biocides',
-    image: 'assets/images/lab/biocides.webp',
+    image: 'assets/images/Lab/biocides.webp',
     categoryId: 'ltcat_9',
     categoryEn: 'Advanced Chemical / RSL / MRSL Screening',
     categoryBn: 'কেমিক্যাল RSL/MRSL — অতিরিক্ত স্ক্রিনিং',
@@ -4009,7 +4009,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'free_formaldehyde',
-    image: 'assets/images/lab/free_formaldehyde.webp',
+    image: 'assets/images/Lab/free_formaldehyde.webp',
     categoryId: 'ltcat_9',
     categoryEn: 'Advanced Chemical / RSL / MRSL Screening',
     categoryBn: 'কেমিক্যাল RSL/MRSL — অতিরিক্ত স্ক্রিনিং',
@@ -4035,7 +4035,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'odor_assessment_textile',
-    image: 'assets/images/lab/odor_assessment_textile.webp',
+    image: 'assets/images/Lab/odor_assessment_textile.webp',
     categoryId: 'ltcat_9',
     categoryEn: 'Advanced Chemical / RSL / MRSL Screening',
     categoryBn: 'কেমিক্যাল RSL/MRSL — অতিরিক্ত স্ক্রিনিং',
@@ -4061,7 +4061,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'button_pull_test',
-    image: 'assets/images/lab/button_pull_test.webp',
+    image: 'assets/images/Lab/button_pull_test.webp',
     categoryId: 'ltcat_10',
     categoryEn: 'Garment / Trim Performance',
     categoryBn: 'গার্মেন্টস ও ট্রিম পারফরম্যান্স',
@@ -4087,7 +4087,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'snap_pull_test',
-    image: 'assets/images/lab/snap_pull_test.webp',
+    image: 'assets/images/Lab/snap_pull_test.webp',
     categoryId: 'ltcat_10',
     categoryEn: 'Garment / Trim Performance',
     categoryBn: 'গার্মেন্টস ও ট্রিম পারফরম্যান্স',
@@ -4113,7 +4113,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'zipper_strength',
-    image: 'assets/images/lab/zipper_strength.webp',
+    image: 'assets/images/Lab/zipper_strength.webp',
     categoryId: 'ltcat_10',
     categoryEn: 'Garment / Trim Performance',
     categoryBn: 'গার্মেন্টস ও ট্রিম পারফরম্যান্স',
@@ -4139,7 +4139,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'zipper_reciprocation',
-    image: 'assets/images/lab/zipper_reciprocation.webp',
+    image: 'assets/images/Lab/zipper_reciprocation.webp',
     categoryId: 'ltcat_10',
     categoryEn: 'Garment / Trim Performance',
     categoryBn: 'গার্মেন্টস ও ট্রিম পারফরম্যান্স',
@@ -4165,7 +4165,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'zipper_slider_lock',
-    image: 'assets/images/lab/zipper_slider_lock.webp',
+    image: 'assets/images/Lab/zipper_slider_lock.webp',
     categoryId: 'ltcat_10',
     categoryEn: 'Garment / Trim Performance',
     categoryBn: 'গার্মেন্টস ও ট্রিম পারফরম্যান্স',
@@ -4191,7 +4191,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'drawcord_strength',
-    image: 'assets/images/lab/drawcord_strength.webp',
+    image: 'assets/images/Lab/drawcord_strength.webp',
     categoryId: 'ltcat_10',
     categoryEn: 'Garment / Trim Performance',
     categoryBn: 'গার্মেন্টস ও ট্রিম পারফরম্যান্স',
@@ -4217,7 +4217,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'hook_loop_peel',
-    image: 'assets/images/lab/hook_loop_peel.webp',
+    image: 'assets/images/Lab/hook_loop_peel.webp',
     categoryId: 'ltcat_10',
     categoryEn: 'Garment / Trim Performance',
     categoryBn: 'গার্মেন্টস ও ট্রিম পারফরম্যান্স',
@@ -4243,7 +4243,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'hook_loop_shear',
-    image: 'assets/images/lab/hook_loop_shear.webp',
+    image: 'assets/images/Lab/hook_loop_shear.webp',
     categoryId: 'ltcat_10',
     categoryEn: 'Garment / Trim Performance',
     categoryBn: 'গার্মেন্টস ও ট্রিম পারফরম্যান্স',
@@ -4269,7 +4269,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'label_adhesion',
-    image: 'assets/images/lab/label_adhesion.webp',
+    image: 'assets/images/Lab/label_adhesion.webp',
     categoryId: 'ltcat_10',
     categoryEn: 'Garment / Trim Performance',
     categoryBn: 'গার্মেন্টস ও ট্রিম পারফরম্যান্স',
@@ -4295,7 +4295,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'seam_fatigue',
-    image: 'assets/images/lab/seam_fatigue.webp',
+    image: 'assets/images/Lab/seam_fatigue.webp',
     categoryId: 'ltcat_10',
     categoryEn: 'Garment / Trim Performance',
     categoryBn: 'গার্মেন্টস ও ট্রিম পারফরম্যান্স',
@@ -4321,7 +4321,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'seam_puckering',
-    image: 'assets/images/lab/seam_puckering.webp',
+    image: 'assets/images/Lab/seam_puckering.webp',
     categoryId: 'ltcat_10',
     categoryEn: 'Garment / Trim Performance',
     categoryBn: 'গার্মেন্টস ও ট্রিম পারফরম্যান্স',
@@ -4347,7 +4347,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'seam_appearance',
-    image: 'assets/images/lab/seam_appearance.webp',
+    image: 'assets/images/Lab/seam_appearance.webp',
     categoryId: 'ltcat_10',
     categoryEn: 'Garment / Trim Performance',
     categoryBn: 'গার্মেন্টস ও ট্রিম পারফরম্যান্স',
@@ -4373,7 +4373,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'stitch_density',
-    image: 'assets/images/lab/stitch_density.webp',
+    image: 'assets/images/Lab/stitch_density.webp',
     categoryId: 'ltcat_10',
     categoryEn: 'Garment / Trim Performance',
     categoryBn: 'গার্মেন্টস ও ট্রিম পারফরম্যান্স',
@@ -4399,7 +4399,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'stitch_strength',
-    image: 'assets/images/lab/stitch_strength.webp',
+    image: 'assets/images/Lab/stitch_strength.webp',
     categoryId: 'ltcat_10',
     categoryEn: 'Garment / Trim Performance',
     categoryBn: 'গার্মেন্টস ও ট্রিম পারফরম্যান্স',
@@ -4425,7 +4425,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'embroidery_adhesion',
-    image: 'assets/images/lab/embroidery_adhesion.webp',
+    image: 'assets/images/Lab/embroidery_adhesion.webp',
     categoryId: 'ltcat_10',
     categoryEn: 'Garment / Trim Performance',
     categoryBn: 'গার্মেন্টস ও ট্রিম পারফরম্যান্স',
@@ -4451,7 +4451,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'garment_dimensional_stability',
-    image: 'assets/images/lab/garment_dimensional_stability.webp',
+    image: 'assets/images/Lab/garment_dimensional_stability.webp',
     categoryId: 'ltcat_10',
     categoryEn: 'Garment / Trim Performance',
     categoryBn: 'গার্মেন্টস ও ট্রিম পারফরম্যান্স',
@@ -4479,7 +4479,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'garment_twisting',
-    image: 'assets/images/lab/garment_twisting.webp',
+    image: 'assets/images/Lab/garment_twisting.webp',
     categoryId: 'ltcat_10',
     categoryEn: 'Garment / Trim Performance',
     categoryBn: 'গার্মেন্টস ও ট্রিম পারফরম্যান্স',
@@ -4505,7 +4505,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'print_adhesion',
-    image: 'assets/images/lab/print_adhesion.webp',
+    image: 'assets/images/Lab/print_adhesion.webp',
     categoryId: 'ltcat_11',
     categoryEn: 'Printing / Coating / Lamination',
     categoryBn: 'প্রিন্ট, কোটিং ও ল্যামিনেশন',
@@ -4531,7 +4531,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'print_crack_resistance',
-    image: 'assets/images/lab/print_crack_resistance.webp',
+    image: 'assets/images/Lab/print_crack_resistance.webp',
     categoryId: 'ltcat_11',
     categoryEn: 'Printing / Coating / Lamination',
     categoryBn: 'প্রিন্ট, কোটিং ও ল্যামিনেশন',
@@ -4557,7 +4557,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'print_abrasion',
-    image: 'assets/images/lab/print_abrasion.webp',
+    image: 'assets/images/Lab/print_abrasion.webp',
     categoryId: 'ltcat_11',
     categoryEn: 'Printing / Coating / Lamination',
     categoryBn: 'প্রিন্ট, কোটিং ও ল্যামিনেশন',
@@ -4583,7 +4583,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'print_wash_durability',
-    image: 'assets/images/lab/print_wash_durability.webp',
+    image: 'assets/images/Lab/print_wash_durability.webp',
     categoryId: 'ltcat_11',
     categoryEn: 'Printing / Coating / Lamination',
     categoryBn: 'প্রিন্ট, কোটিং ও ল্যামিনেশন',
@@ -4609,7 +4609,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'print_migration',
-    image: 'assets/images/lab/print_migration.webp',
+    image: 'assets/images/Lab/print_migration.webp',
     categoryId: 'ltcat_11',
     categoryEn: 'Printing / Coating / Lamination',
     categoryBn: 'প্রিন্ট, কোটিং ও ল্যামিনেশন',
@@ -4635,7 +4635,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'foil_adhesion',
-    image: 'assets/images/lab/foil_adhesion.webp',
+    image: 'assets/images/Lab/foil_adhesion.webp',
     categoryId: 'ltcat_11',
     categoryEn: 'Printing / Coating / Lamination',
     categoryBn: 'প্রিন্ট, কোটিং ও ল্যামিনেশন',
@@ -4661,7 +4661,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'foil_abrasion',
-    image: 'assets/images/lab/foil_abrasion.webp',
+    image: 'assets/images/Lab/foil_abrasion.webp',
     categoryId: 'ltcat_11',
     categoryEn: 'Printing / Coating / Lamination',
     categoryBn: 'প্রিন্ট, কোটিং ও ল্যামিনেশন',
@@ -4687,7 +4687,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'coating_thickness',
-    image: 'assets/images/lab/coating_thickness.webp',
+    image: 'assets/images/Lab/coating_thickness.webp',
     categoryId: 'ltcat_11',
     categoryEn: 'Printing / Coating / Lamination',
     categoryBn: 'প্রিন্ট, কোটিং ও ল্যামিনেশন',
@@ -4713,7 +4713,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'coating_weight',
-    image: 'assets/images/lab/coating_weight.webp',
+    image: 'assets/images/Lab/coating_weight.webp',
     categoryId: 'ltcat_11',
     categoryEn: 'Printing / Coating / Lamination',
     categoryBn: 'প্রিন্ট, কোটিং ও ল্যামিনেশন',
@@ -4741,7 +4741,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'coating_uniformity',
-    image: 'assets/images/lab/coating_uniformity.webp',
+    image: 'assets/images/Lab/coating_uniformity.webp',
     categoryId: 'ltcat_11',
     categoryEn: 'Printing / Coating / Lamination',
     categoryBn: 'প্রিন্ট, কোটিং ও ল্যামিনেশন',
@@ -4767,7 +4767,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'coating_delamination',
-    image: 'assets/images/lab/coating_delamination.webp',
+    image: 'assets/images/Lab/coating_delamination.webp',
     categoryId: 'ltcat_11',
     categoryEn: 'Printing / Coating / Lamination',
     categoryBn: 'প্রিন্ট, কোটিং ও ল্যামিনেশন',
@@ -4793,7 +4793,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'lamination_bond_strength',
-    image: 'assets/images/lab/lamination_bond_strength.webp',
+    image: 'assets/images/Lab/lamination_bond_strength.webp',
     categoryId: 'ltcat_11',
     categoryEn: 'Printing / Coating / Lamination',
     categoryBn: 'প্রিন্ট, কোটিং ও ল্যামিনেশন',
@@ -4819,7 +4819,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'lamination_waterproof_integrity',
-    image: 'assets/images/lab/lamination_waterproof_integrity.webp',
+    image: 'assets/images/Lab/lamination_waterproof_integrity.webp',
     categoryId: 'ltcat_11',
     categoryEn: 'Printing / Coating / Lamination',
     categoryBn: 'প্রিন্ট, কোটিং ও ল্যামিনেশন',
@@ -4845,7 +4845,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'denim_indigo_migration',
-    image: 'assets/images/lab/denim_indigo_migration.webp',
+    image: 'assets/images/Lab/denim_indigo_migration.webp',
     categoryId: 'ltcat_12',
     categoryEn: 'Denim / Garment Washing / Finish Performance',
     categoryBn: 'ডেনিম, গার্মেন্ট ওয়াশ ও ফিনিশ পারফরম্যান্স',
@@ -4871,7 +4871,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'denim_back_staining',
-    image: 'assets/images/lab/denim_back_staining.webp',
+    image: 'assets/images/Lab/denim_back_staining.webp',
     categoryId: 'ltcat_12',
     categoryEn: 'Denim / Garment Washing / Finish Performance',
     categoryBn: 'ডেনিম, গার্মেন্ট ওয়াশ ও ফিনিশ পারফরম্যান্স',
@@ -4897,7 +4897,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'denim_ozone_wash_effect',
-    image: 'assets/images/lab/denim_ozone_wash_effect.webp',
+    image: 'assets/images/Lab/denim_ozone_wash_effect.webp',
     categoryId: 'ltcat_12',
     categoryEn: 'Denim / Garment Washing / Finish Performance',
     categoryBn: 'ডেনিম, গার্মেন্ট ওয়াশ ও ফিনিশ পারফরম্যান্স',
@@ -4923,7 +4923,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'denim_bleach_effect',
-    image: 'assets/images/lab/denim_bleach_effect.webp',
+    image: 'assets/images/Lab/denim_bleach_effect.webp',
     categoryId: 'ltcat_12',
     categoryEn: 'Denim / Garment Washing / Finish Performance',
     categoryBn: 'ডেনিম, গার্মেন্ট ওয়াশ ও ফিনিশ পারফরম্যান্স',
@@ -4949,7 +4949,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'denim_enzyme_effect',
-    image: 'assets/images/lab/denim_enzyme_effect.webp',
+    image: 'assets/images/Lab/denim_enzyme_effect.webp',
     categoryId: 'ltcat_12',
     categoryEn: 'Denim / Garment Washing / Finish Performance',
     categoryBn: 'ডেনিম, গার্মেন্ট ওয়াশ ও ফিনিশ পারফরম্যান্স',
@@ -4975,7 +4975,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'denim_stone_wash_effect',
-    image: 'assets/images/lab/denim_stone_wash_effect.webp',
+    image: 'assets/images/Lab/denim_stone_wash_effect.webp',
     categoryId: 'ltcat_12',
     categoryEn: 'Denim / Garment Washing / Finish Performance',
     categoryBn: 'ডেনিম, গার্মেন্ট ওয়াশ ও ফিনিশ পারফরম্যান্স',
@@ -5001,7 +5001,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'denim_acid_wash_effect',
-    image: 'assets/images/lab/denim_acid_wash_effect.webp',
+    image: 'assets/images/Lab/denim_acid_wash_effect.webp',
     categoryId: 'ltcat_12',
     categoryEn: 'Denim / Garment Washing / Finish Performance',
     categoryBn: 'ডেনিম, গার্মেন্ট ওয়াশ ও ফিনিশ পারফরম্যান্স',
@@ -5027,7 +5027,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'denim_appearance_after_wash',
-    image: 'assets/images/lab/denim_appearance_after_wash.webp',
+    image: 'assets/images/Lab/denim_appearance_after_wash.webp',
     categoryId: 'ltcat_12',
     categoryEn: 'Denim / Garment Washing / Finish Performance',
     categoryBn: 'ডেনিম, গার্মেন্ট ওয়াশ ও ফিনিশ পারফরম্যান্স',
@@ -5053,7 +5053,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'wash_fastness_multicycle',
-    image: 'assets/images/lab/wash_fastness_multicycle.webp',
+    image: 'assets/images/Lab/wash_fastness_multicycle.webp',
     categoryId: 'ltcat_12',
     categoryEn: 'Denim / Garment Washing / Finish Performance',
     categoryBn: 'ডেনিম, গার্মেন্ট ওয়াশ ও ফিনিশ পারফরম্যান্স',
@@ -5079,7 +5079,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fungal_resistance',
-    image: 'assets/images/lab/fungal_resistance.webp',
+    image: 'assets/images/Lab/fungal_resistance.webp',
     categoryId: 'ltcat_13',
     categoryEn: 'Microbiology / Antistatic / Comfort',
     categoryBn: 'মাইক্রোবায়োলজি, অ্যান্টি-স্ট্যাটিক ও কমফোর্ট',
@@ -5105,7 +5105,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'mildew_resistance',
-    image: 'assets/images/lab/mildew_resistance.webp',
+    image: 'assets/images/Lab/mildew_resistance.webp',
     categoryId: 'ltcat_13',
     categoryEn: 'Microbiology / Antistatic / Comfort',
     categoryBn: 'মাইক্রোবায়োলজি, অ্যান্টি-স্ট্যাটিক ও কমফোর্ট',
@@ -5131,7 +5131,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'microbial_reduction_wash_durability',
-    image: 'assets/images/lab/microbial_reduction_wash_durability.webp',
+    image: 'assets/images/Lab/microbial_reduction_wash_durability.webp',
     categoryId: 'ltcat_13',
     categoryEn: 'Microbiology / Antistatic / Comfort',
     categoryBn: 'মাইক্রোবায়োলজি, অ্যান্টি-স্ট্যাটিক ও কমফোর্ট',
@@ -5157,7 +5157,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'static_charge_decay',
-    image: 'assets/images/lab/static_charge_decay.webp',
+    image: 'assets/images/Lab/static_charge_decay.webp',
     categoryId: 'ltcat_13',
     categoryEn: 'Microbiology / Antistatic / Comfort',
     categoryBn: 'মাইক্রোবায়োলজি, অ্যান্টি-স্ট্যাটিক ও কমফোর্ট',
@@ -5183,7 +5183,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'surface_resistivity',
-    image: 'assets/images/lab/surface_resistivity.webp',
+    image: 'assets/images/Lab/surface_resistivity.webp',
     categoryId: 'ltcat_13',
     categoryEn: 'Microbiology / Antistatic / Comfort',
     categoryBn: 'মাইক্রোবায়োলজি, অ্যান্টি-স্ট্যাটিক ও কমফোর্ট',
@@ -5209,7 +5209,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'volume_resistivity',
-    image: 'assets/images/lab/volume_resistivity.webp',
+    image: 'assets/images/Lab/volume_resistivity.webp',
     categoryId: 'ltcat_13',
     categoryEn: 'Microbiology / Antistatic / Comfort',
     categoryBn: 'মাইক্রোবায়োলজি, অ্যান্টি-স্ট্যাটিক ও কমফোর্ট',
@@ -5235,7 +5235,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'thermal_conductivity',
-    image: 'assets/images/lab/thermal_conductivity.png',
+    image: 'assets/images/Lab/thermal_conductivity.png',
     categoryId: 'ltcat_13',
     categoryEn: 'Microbiology / Antistatic / Comfort',
     categoryBn: 'মাইক্রোবায়োলজি, অ্যান্টি-স্ট্যাটিক ও কমফোর্ট',
@@ -5263,7 +5263,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'thermal_transmittance',
-    image: 'assets/images/lab/thermal_transmittance.webp',
+    image: 'assets/images/Lab/thermal_transmittance.webp',
     categoryId: 'ltcat_13',
     categoryEn: 'Microbiology / Antistatic / Comfort',
     categoryBn: 'মাইক্রোবায়োলজি, অ্যান্টি-স্ট্যাটিক ও কমফোর্ট',
@@ -5289,7 +5289,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'contact_coolness',
-    image: 'assets/images/lab/contact_coolness.webp',
+    image: 'assets/images/Lab/contact_coolness.webp',
     categoryId: 'ltcat_13',
     categoryEn: 'Microbiology / Antistatic / Comfort',
     categoryBn: 'মাইক্রোবায়োলজি, অ্যান্টি-স্ট্যাটিক ও কমফোর্ট',
@@ -5315,7 +5315,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fabric_drying_rate',
-    image: 'assets/images/lab/fabric_drying_rate.webp',
+    image: 'assets/images/Lab/fabric_drying_rate.webp',
     categoryId: 'ltcat_13',
     categoryEn: 'Microbiology / Antistatic / Comfort',
     categoryBn: 'মাইক্রোবায়োলজি, অ্যান্টি-স্ট্যাটিক ও কমফোর্ট',
@@ -5341,7 +5341,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'recycled_content_verification',
-    image: 'assets/images/lab/recycled_content_verification.webp',
+    image: 'assets/images/Lab/recycled_content_verification.webp',
     categoryId: 'ltcat_14',
     categoryEn: 'Sustainability / Advanced Material Testing',
     categoryBn: 'সাসটেইনেবিলিটি ও অ্যাডভান্সড ম্যাটেরিয়াল টেস্ট',
@@ -5367,7 +5367,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'organic_cotton_verification',
-    image: 'assets/images/lab/organic_cotton_verification.webp',
+    image: 'assets/images/Lab/organic_cotton_verification.webp',
     categoryId: 'ltcat_14',
     categoryEn: 'Sustainability / Advanced Material Testing',
     categoryBn: 'সাসটেইনেবিলিটি ও অ্যাডভান্সড ম্যাটেরিয়াল টেস্ট',
@@ -5393,7 +5393,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'recycled_polyester_verification',
-    image: 'assets/images/lab/recycled_polyester_verification.webp',
+    image: 'assets/images/Lab/recycled_polyester_verification.webp',
     categoryId: 'ltcat_14',
     categoryEn: 'Sustainability / Advanced Material Testing',
     categoryBn: 'সাসটেইনেবিলিটি ও অ্যাডভান্সড ম্যাটেরিয়াল টেস্ট',
@@ -5419,7 +5419,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'microfiber_release',
-    image: 'assets/images/lab/microfiber_release.webp',
+    image: 'assets/images/Lab/microfiber_release.webp',
     categoryId: 'ltcat_14',
     categoryEn: 'Sustainability / Advanced Material Testing',
     categoryBn: 'সাসটেইনেবিলিটি ও অ্যাডভান্সড ম্যাটেরিয়াল টেস্ট',
@@ -5445,7 +5445,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'microplastic_release',
-    image: 'assets/images/lab/microplastic_release.webp',
+    image: 'assets/images/Lab/microplastic_release.webp',
     categoryId: 'ltcat_14',
     categoryEn: 'Sustainability / Advanced Material Testing',
     categoryBn: 'সাসটেইনেবিলিটি ও অ্যাডভান্সড ম্যাটেরিয়াল টেস্ট',
@@ -5471,7 +5471,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'biodegradability_textile',
-    image: 'assets/images/lab/biodegradability_textile.webp',
+    image: 'assets/images/Lab/biodegradability_textile.webp',
     categoryId: 'ltcat_14',
     categoryEn: 'Sustainability / Advanced Material Testing',
     categoryBn: 'সাসটেইনেবিলিটি ও অ্যাডভান্সড ম্যাটেরিয়াল টেস্ট',
@@ -5497,7 +5497,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'compostability_textile',
-    image: 'assets/images/lab/compostability_textile.webp',
+    image: 'assets/images/Lab/compostability_textile.webp',
     categoryId: 'ltcat_14',
     categoryEn: 'Sustainability / Advanced Material Testing',
     categoryBn: 'সাসটেইনেবিলিটি ও অ্যাডভান্সড ম্যাটেরিয়াল টেস্ট',
@@ -5523,7 +5523,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fiber_identification_ftir',
-    image: 'assets/images/lab/fiber_identification_ftir.webp',
+    image: 'assets/images/Lab/fiber_identification_ftir.webp',
     categoryId: 'ltcat_14',
     categoryEn: 'Sustainability / Advanced Material Testing',
     categoryBn: 'সাসটেইনেবিলিটি ও অ্যাডভান্সড ম্যাটেরিয়াল টেস্ট',
@@ -5549,7 +5549,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'fiber_identification_raman',
-    image: 'assets/images/lab/fiber_identification_raman.webp',
+    image: 'assets/images/Lab/fiber_identification_raman.webp',
     categoryId: 'ltcat_14',
     categoryEn: 'Sustainability / Advanced Material Testing',
     categoryBn: 'সাসটেইনেবিলিটি ও অ্যাডভান্সড ম্যাটেরিয়াল টেস্ট',
@@ -5575,7 +5575,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'polymer_identification',
-    image: 'assets/images/lab/polymer_identification.webp',
+    image: 'assets/images/Lab/polymer_identification.webp',
     categoryId: 'ltcat_14',
     categoryEn: 'Sustainability / Advanced Material Testing',
     categoryBn: 'সাসটেইনেবিলিটি ও অ্যাডভান্সড ম্যাটেরিয়াল টেস্ট',
@@ -5601,7 +5601,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'thermal_degradation_tga',
-    image: 'assets/images/lab/thermal_degradation_tga.webp',
+    image: 'assets/images/Lab/thermal_degradation_tga.webp',
     categoryId: 'ltcat_14',
     categoryEn: 'Sustainability / Advanced Material Testing',
     categoryBn: 'সাসটেইনেবিলিটি ও অ্যাডভান্সড ম্যাটেরিয়াল টেস্ট',
@@ -5627,7 +5627,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'small_parts_choking_hazard',
-    image: 'assets/images/lab/small_parts_choking_hazard.webp',
+    image: 'assets/images/Lab/small_parts_choking_hazard.webp',
     categoryId: 'ltcat_15',
     categoryEn: 'Children\'s Product Safety',
     categoryBn: 'শিশুদের পণ্যের নিরাপত্তা পরীক্ষা',
@@ -5653,7 +5653,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'sharp_points_edges',
-    image: 'assets/images/lab/sharp_points_edges.png',
+    image: 'assets/images/Lab/sharp_points_edges.png',
     categoryId: 'ltcat_15',
     categoryEn: 'Children\'s Product Safety',
     categoryBn: 'শিশুদের পণ্যের নিরাপত্তা পরীক্ষা',
@@ -5679,7 +5679,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'drawstring_safety_compliance',
-    image: 'assets/images/lab/drawstring_safety_compliance.png',
+    image: 'assets/images/Lab/drawstring_safety_compliance.png',
     categoryId: 'ltcat_15',
     categoryEn: 'Children\'s Product Safety',
     categoryBn: 'শিশুদের পণ্যের নিরাপত্তা পরীক্ষা',
@@ -5705,7 +5705,7 @@ const List<LabTestItem> kLabTests = [
   ),
   LabTestItem(
     id: 'childrens_sleepwear_flammability',
-    image: 'assets/images/lab/childrens_sleepwear_flammability.png',
+    image: 'assets/images/Lab/childrens_sleepwear_flammability.png',
     categoryId: 'ltcat_15',
     categoryEn: 'Children\'s Product Safety',
     categoryBn: 'শিশুদের পণ্যের নিরাপত্তা পরীক্ষা',
