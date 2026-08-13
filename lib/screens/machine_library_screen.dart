@@ -5,7 +5,6 @@ import '../services/gemini_service.dart';
 import '../theme/app_colors.dart';
 import '../widgets/ai_icon.dart';
 import '../widgets/ai_result_card.dart';
-import '../widgets/department_filter_chips.dart';
 import '../widgets/library_scaffold.dart';
 import '../widgets/library_thumbnail.dart';
 import '../widgets/library_wave_header.dart';
@@ -20,7 +19,6 @@ class MachineLibraryScreen extends StatefulWidget {
 
 class _MachineLibraryScreenState extends State<MachineLibraryScreen> {
   bool _isEnglish = true;
-  String? _selectedDept; // null = All
   String _query = '';
 
   // 🤖 AI Support সার্চের স্টেট — এখানে যা সার্চ করা হবে তা আমাদের বিল্ড-ইন
@@ -35,19 +33,19 @@ class _MachineLibraryScreenState extends State<MachineLibraryScreen> {
   static const double _cardAspectRatio = 0.86;
 
   // 🔎 টাইপ করার সাথে সাথেই বিল্ড-ইন তালিকা ফিল্টার হবে (অফলাইনেও কাজ করে)
+  // ⚠️ Department filter সরিয়ে দেওয়া হয়েছে — এখন শুধু সার্চ কোয়েরি দিয়েই
+  // ফিল্টার হয়, সব মেশিন একসাথে একটাই লিস্টে দেখানো হয়।
   List<MachineItem> get _filtered {
+    final q = _query.toLowerCase();
+    if (q.isEmpty) return kMachines;
     return kMachines.where((m) {
-      final matchesDept =
-          _selectedDept == null || m.departmentId == _selectedDept;
-      final q = _query.toLowerCase();
-      final matchesQuery = _query.isEmpty ||
-          m.nameEn.toLowerCase().contains(q) ||
-          m.nameBn.contains(_query);
-      return matchesDept && matchesQuery;
+      return m.nameEn.toLowerCase().contains(q) || m.nameBn.contains(_query);
     }).toList();
   }
 
   Future<void> _searchMachineWithAi(String query) async {
+    if (query.trim().isEmpty) return;
+
     setState(() {
       _aiLoading = true;
       _aiError = null;
@@ -213,14 +211,6 @@ based on the closest matching real textile/garments machine.
                 description: _aiMachine!['primary_function'] as String?,
                 sections: [
                   AiInfoSection(
-                    heading: 'Input / Output',
-                    icon: Icons.compare_arrows_rounded,
-                    items: [
-                      'Input: ${_aiMachine!['inputs'] ?? '—'}',
-                      'Output: ${_aiMachine!['outputs'] ?? '—'}',
-                    ],
-                  ),
-                  AiInfoSection(
                     heading: _isEnglish ? 'Input / Output' : 'ইনপুট / আউটপুট',
                     icon: Icons.compare_arrows_rounded,
                     items: [
@@ -243,27 +233,16 @@ based on the closest matching real textile/garments machine.
               ),
           ],
           const SizedBox(height: 16),
-          const Text(
-            'Department Filter',
-            style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-                color: Colors.black54),
-          ),
-          const SizedBox(height: 8),
-          DepartmentFilterChips(
-            selectedId: _selectedDept,
-            onSelected: (id) => setState(() => _selectedDept = id),
-          ),
-          const SizedBox(height: 14),
+
+          // 📋 এখন সরাসরি সার্চ বক্সের নিচেই সম্পূর্ণ মেশিন লিস্ট — কোনো
+          // department filter chip নেই, কারণ মেশিন সংখ্যা কম এবং AI Support
+          // দিয়ে যেকোনো মেশিন খোঁজা সম্ভব।
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                _selectedDept == null
-                    ? 'All'
-                    : findDepartment(_selectedDept!)?.nameEn ?? '',
-                style: const TextStyle(
+              const Text(
+                'All Machines',
+                style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w800,
                     color: AppColors.darkGreen),
@@ -284,36 +263,49 @@ based on the closest matching real textile/garments machine.
             ],
           ),
           const SizedBox(height: 10),
-          GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: filtered.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: _crossAxisCount,
-              crossAxisSpacing: _gridSpacing,
-              mainAxisSpacing: _gridSpacing,
-              childAspectRatio: _cardAspectRatio,
-            ),
-            itemBuilder: (context, i) {
-              final m = filtered[i];
-              final dept = findDepartment(m.departmentId);
-              return _MachineCard(
-                machine: m,
-                deptColor: dept?.color ?? AppColors.green,
-                deptIcon: dept?.icon ?? Icons.factory_rounded,
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => MachineDetailScreen(
-                        machine: m,
-                        initialIsEnglish: _isEnglish,
+          if (filtered.isEmpty)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 30),
+              child: Center(
+                child: Text(
+                  _isEnglish
+                      ? 'No machine found. Try Ask AI above.'
+                      : 'কোনো মেশিন পাওয়া যায়নি। উপরে Ask AI ব্যবহার করুন।',
+                  style: const TextStyle(fontSize: 12, color: Colors.black45),
+                ),
+              ),
+            )
+          else
+            GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: filtered.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: _crossAxisCount,
+                crossAxisSpacing: _gridSpacing,
+                mainAxisSpacing: _gridSpacing,
+                childAspectRatio: _cardAspectRatio,
+              ),
+              itemBuilder: (context, i) {
+                final m = filtered[i];
+                final dept = findDepartment(m.departmentId);
+                return _MachineCard(
+                  machine: m,
+                  deptColor: dept?.color ?? AppColors.green,
+                  deptIcon: dept?.icon ?? Icons.factory_rounded,
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => MachineDetailScreen(
+                          machine: m,
+                          initialIsEnglish: _isEnglish,
+                        ),
                       ),
-                    ),
-                  );
-                },
-              );
-            },
-          ),
+                    );
+                  },
+                );
+              },
+            ),
           const SizedBox(height: 12),
         ],
       ),
@@ -350,7 +342,9 @@ class _MachineCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisSize: MainAxisSize.min,
             children: [
-              // 🖼️ থাম্বনেইল — সবসময় ১৬:৯ অনুপাতে
+              // 🖼️ থাম্বনেইল — machine.images এর প্রথম ছবিটাই এখানে দেখানো
+              // হয়, ডিটেইলস স্ক্রিনেও একই images লিস্ট ব্যবহার হয় বলে
+              // প্রথম ছবিটা দুই স্ক্রিনেই এক থাকে।
               AspectRatio(
                 aspectRatio: 16 / 9,
                 child: LibraryThumbnail(
