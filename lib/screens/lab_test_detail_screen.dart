@@ -46,7 +46,7 @@ class _LabTestDetailScreenState extends State<LabTestDetailScreen> {
           AspectRatio(
             aspectRatio: 16 / 9,
             child: LibraryThumbnail(
-              imagePath: null,
+              imagePath: t.image,
               icon: t.categoryIcon,
               color: t.categoryColor,
               borderRadius: 16,

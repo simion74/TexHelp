@@ -586,7 +586,7 @@ class _LabTestCard extends StatelessWidget {
               AspectRatio(
                 aspectRatio: 16 / 9,
                 child: LibraryThumbnail(
-                  imagePath: null,
+                  imagePath: test.image,
                   icon: test.categoryIcon,
                   color: test.categoryColor,
                   borderRadius: 3,
