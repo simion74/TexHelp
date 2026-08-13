@@ -74,7 +74,7 @@ class _AiSettingsScreenState extends State<AiSettingsScreen> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
         title: const Text('Key মুছে ফেলবেন?'),
         content: const Text(
-            'API Key মুছে ফেললে সব AI ফিচার (AI Color Finder, Machine Library AI Support, ইত্যাদি) বন্ধ হয়ে যাবে।'),
+            'API Key মুছে ফেললে সব AI ফিচার (Machine Library, Fabric Type,Fabric Fault AI Support, ইত্যাদি) বন্ধ হয়ে যাবে।'),
         actions: [
           TextButton(
               onPressed: () => Navigator.pop(ctx, false),
@@ -233,7 +233,7 @@ class _AiSettingsScreenState extends State<AiSettingsScreen> {
           ),
           const SizedBox(height: 6),
           const Text(
-            'TexHelp-এর AI ফিচারগুলো (AI Color Finder, Machine Library, Fabric Fault, Fabric Type) চালাতে Google-এর Gemini AI ব্যবহার হয়। এটি সম্পূর্ণ ফ্রি — শুধু আপনার নিজের Google অ্যাকাউন্ট দিয়ে একটা API Key তৈরি করে এখানে একবার বসিয়ে দিলেই হবে।',
+            'TexHelp-এর AI ফিচারগুলো (Machine Library, Fabric Fault, Fabric Type) চালাতে Google-এর Gemini AI ব্যবহার হয়। এটি সম্পূর্ণ ফ্রি — শুধু আপনার নিজের Google অ্যাকাউন্ট দিয়ে একটা API Key তৈরি করে এখানে একবার বসিয়ে দিলেই হবে।',
             style: TextStyle(fontSize: 12, color: Colors.black87, height: 1.5),
           ),
           const SizedBox(height: 14),
