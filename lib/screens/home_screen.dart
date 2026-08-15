@@ -2,91 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../theme/app_colors.dart'; // theme ফোল্ডারটি বাইরে থাকায় ../ ব্যবহার করা হয়েছে
 
-//  screens/ ফোল্ডারের ভেতরের ফাইলগুলো সরাসরি ইমপোর্ট করা হলো
-import 'four_point_screen.dart';
-import 'calculator_screen.dart';
-import 'roll_length_screen.dart';
-import 'roll_dia_width_screen.dart';
-import 'fabric_gsm_screen.dart';
-import 'fabric_weight_screen.dart';
-import 'shrinkage_screen.dart';
-import 'twisting_measurement_screen.dart';
-import 'stripe_converter_screen.dart';
-import 'yarn_requirement_screen.dart';
-import 'yarn_count_converter_screen.dart';
-import 'fabric_consumption_screen.dart';
-import 'body_to_rib_screen.dart';
-import 'gsm_without_cutter_screen.dart';
-import 'gsm_by_yarn_count_screen.dart';
-import 'yarn_to_fabric_screen.dart';
-import 'machine_library_screen.dart';
-import 'fabric_fault_screen.dart';
-import 'fabric_type_screen.dart';
-import 'chemical_screen.dart';
-import 'lab_test_screen.dart';
-import 'process_loss_screen.dart';
-import 'average_gsm_calculate_screen.dart';
+// 🆕 ফিচার লিস্ট (CalcItem + calcMenuItems) এখন এই শেয়ার্ড ফাইলে —
+// Favorites সিলেকশন স্ক্রিনও একই লিস্ট ব্যবহার করে, তাই এখানে সব
+// স্ক্রিন আলাদা করে ইমপোর্ট করার দরকার নেই।
+import '../data/calc_menu_items.dart';
 import 'ai_settings_screen.dart';
-import 'twist_calculator_screen.dart';
-import 'hank_count_calculator_screen.dart';
-import 'draft_calculator_screen.dart';
-import 'csp_calculator_screen.dart';
-import 'blend_ratio_calculator_screen.dart';
-import 'chemical_addon_calculator_screen.dart';
-import 'chemical_dosing_calculator_screen.dart';
-import 'cm_costing_calculator_screen.dart';
-import 'dhu_calculator_screen.dart';
-import 'dye_recipe_calculator_screen.dart';
-import 'fabric_crimp_calculator_screen.dart';
-import 'gsm_change_calculator_screen.dart';
-import 'hourly_target_calculator_screen.dart';
-import 'knitting_production_calculator_screen.dart';
-import 'line_efficiency_calculator_screen.dart';
-import 'liquor_ratio_calculator_screen.dart';
-import 'loom_production_calculator_screen.dart';
-import 'percent_calculator_screen.dart';
-import 'rft_calculator_screen.dart';
-import 'seam_efficiency_calculator_screen.dart';
-import 'stitch_density_calculator_screen.dart';
-import 'tightness_factor_calculator_screen.dart';
-import 'warp_yarn_requirement_calculator_screen.dart';
-import 'wet_pickup_calculator_screen.dart';
-import 'aql_sampling_calculator_screen.dart';
-import 'costing_sheet_screen.dart';
-import 'cutting_sheet_screen.dart';
-import 'marker_consumption_calculator_screen.dart';
-import 'marker_efficiency_calculator_screen.dart';
-import 'length_unit_converter_screen.dart';
-import 'small_measurement_converter_screen.dart';
+import 'favorites_settings_screen.dart';
+import '../services/favorites_service.dart';
 import '../widgets/ai_home_banner.dart';
 import '../widgets/ai_icon.dart';
 import '../services/gemini_service.dart';
-
-class _CalcItem {
-  final String title;
-  // 🔧 ছবি আইকনের পাথ (homeicon ফোল্ডার থেকে) — এটি থাকলে ছবি দেখানো হবে
-  final String? imagePath;
-  // 🔧 ছবি না থাকলে (যেমন Exit) fallback হিসেবে এই আইকন/রঙ ব্যবহার হবে
-  final IconData? icon;
-  final Color? color;
-  final Widget Function()? builder;
-  // 🔧 শুধু Exit বাটনের জন্য — builder null থাকলেও এটি সত্য হলে exit ডায়ালগ দেখাবে,
-  // মিথ্যা হলে "Coming Soon" দেখাবে (নতুন ফিচার যেগুলোর স্ক্রিন এখনো তৈরি হয়নি)
-  final bool isExit;
-  // 🏷️ ঐচ্ছিক ছোট বিভাগের নাম (Spinning/Knitting/Dyeing ইত্যাদি) — দিলে
-  // কার্ডের নিচে অতি ছোট ফন্টে দেখাবে, না দিলে কিছু দেখাবে না
-  final String? department;
-
-  const _CalcItem({
-    required this.title,
-    this.imagePath,
-    this.icon,
-    this.color,
-    this.builder,
-    this.isExit = false,
-    this.department,
-  });
-}
 
 // 🔧 হোম হেডারে AI ব্যানারের অবস্থান — এই স্পেসিং বাড়ালে/কমালে ব্যানারটা
 // আরও উপরে বা নিচে সরে যাবে (ঢেউ ডিজাইনের উপরে যেকোনো জায়গায় বসাতে পারবেন)
@@ -103,9 +28,8 @@ const int _kGridCrossAxisCount =
 const double _kGridSpacing = 13; // কার্ডগুলোর মাঝের ফাঁকা জায়গা
 const double _kCardAspectRatio = 3 / 2; // কার্ড রেশিও ৩:২ (width:height = 3:2)
 
-// 🔧 homeicon ফোল্ডারের পাথ — pubspec.yaml এ assets: এর নিচে
-// "assets/homeicon/" যোগ করতে হবে (নিচে নোট দেখুন)
-const String _kIconBasePath = 'assets/homeicon/';
+// 🔧 homeicon ফোল্ডারের পাথ — kIconBasePath এখন data/calc_menu_items.dart এ
+// সংজ্ঞায়িত, এখানে আর দরকার নেই।
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -129,6 +53,11 @@ class _HomeScreenState extends State<HomeScreen>
   // 🤖 সাইড মেনুতে "AI Settings" এর নিচে ছোট স্ট্যাটাস দেখানোর জন্য
   bool _isAiKeyActive = false;
 
+  // ⭐ ইউজারের বেছে নেওয়া ফেভারিট ফিচার — সেভ করা ক্রম অনুযায়ী।
+  // খালি থাকলে হোম স্ক্রিন ঠিক আগের মতোই (ডিফল্ট) দেখাবে, কোনো
+  // "My Favorites" সেকশন দেখাবে না।
+  List<String> _favoriteTitles = [];
+
   @override
   void initState() {
     super.initState();
@@ -138,6 +67,20 @@ class _HomeScreenState extends State<HomeScreen>
       value: 0,
     )..addListener(() => setState(() {}));
     _refreshAiStatus();
+    _loadFavorites();
+  }
+
+  Future<void> _loadFavorites() async {
+    final titles = await FavoritesService.getFavoriteTitles();
+    if (!mounted) return;
+    setState(() => _favoriteTitles = titles);
+  }
+
+  Future<void> _openFavoritesSettings() async {
+    await Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const FavoritesSettingsScreen()),
+    );
+    _loadFavorites();
   }
 
   Future<void> _refreshAiStatus() async {
@@ -159,307 +102,6 @@ class _HomeScreenState extends State<HomeScreen>
     _menuController.dispose();
     super.dispose();
   }
-
-  static final List<_CalcItem> _items = [
-    // ========================= কুইক ক্যালকুলেটর =========================
-    _CalcItem(
-      title: 'Calculator',
-      imagePath: '${_kIconBasePath}Calculator.webp',
-      builder: () => const CalculatorScreen(),
-    ),
-    _CalcItem(
-      title: 'Percent Calculator',
-      imagePath: '${_kIconBasePath}percent_calculator.webp',
-      builder: () => const PercentCalculatorScreen(),
-    ),
-    _CalcItem(
-      title: 'Meter/Yard/Feet',
-      imagePath: '${_kIconBasePath}LengthUnitConverter.webp',
-      builder: () => const LengthUnitConverterScreen(),
-    ),
-    _CalcItem(
-      title: 'MM/CM/Inch',
-      imagePath: '${_kIconBasePath}SmallMeasurement.webp',
-      builder: () => const SmallMeasurementConverterScreen(),
-    ),
-    _CalcItem(
-      title: 'Roll Length',
-      imagePath: '${_kIconBasePath}Roll_Length.webp',
-      builder: () => const RollLengthScreen(),
-    ),
-    _CalcItem(
-      title: 'Roll Dia/Width',
-      imagePath: '${_kIconBasePath}Roll_DIA_Width_Calculator.webp',
-      builder: () => const RollDiaWidthScreen(),
-    ),
-    _CalcItem(
-      title: 'Fabric GSM',
-      imagePath: '${_kIconBasePath}Fabric_GSM.webp',
-      builder: () => const FabricGsmScreen(),
-    ),
-    _CalcItem(
-      title: 'Fabric Weight (Kg)',
-      imagePath: '${_kIconBasePath}Fabric weight (kg).webp',
-      builder: () => const FabricWeightScreen(),
-    ),
-    _CalcItem(
-      title: 'Body to Rib Fabric Ratio',
-      imagePath: '${_kIconBasePath}Rib_to_body_fabric_ratio.webp',
-      builder: () => const BodyToRibScreen(),
-    ),
-
-    // ============================ লাইব্রেরি ============================
-    _CalcItem(
-      title: 'Machine Library',
-      imagePath: '${_kIconBasePath}Machine_Library.webp',
-      builder: () => const MachineLibraryScreen(),
-    ),
-    _CalcItem(
-      title: 'Chemical Library',
-      imagePath: '${_kIconBasePath}Chemicali.webp',
-      builder: () => const ChemicalScreen(),
-    ),
-    _CalcItem(
-      title: 'Lab Test',
-      imagePath: '${_kIconBasePath}Lab_test.webp',
-      builder: () => const LabTestScreen(),
-    ),
-    _CalcItem(
-      title: 'Fabric Fault',
-      imagePath: '${_kIconBasePath}Fabric_Fault.webp',
-      builder: () => const FabricFaultScreen(),
-    ),
-    _CalcItem(
-      title: 'Fabric Type',
-      imagePath: '${_kIconBasePath}Fabric_Type.webp',
-      builder: () => const FabricTypeScreen(),
-    ),
-
-    // ========================= Quality / Test =========================
-    _CalcItem(
-      title: '4 Point Inspection',
-      imagePath: '${_kIconBasePath}4_point_inspection.webp',
-      builder: () => const FourPointScreen(),
-    ),
-    _CalcItem(
-      title: 'Stripe Size Converter',
-      imagePath: '${_kIconBasePath}Stripe_Size converter.webp',
-      builder: () => const StripeConverterScreen(),
-    ),
-    _CalcItem(
-      title: 'Shrinkage Measurement',
-      imagePath: '${_kIconBasePath}Shrinkage_measurement.webp',
-      builder: () => const ShrinkageScreen(),
-    ),
-    _CalcItem(
-      title: 'Twisting Measurement',
-      imagePath: '${_kIconBasePath}twisting_measurement.webp',
-      builder: () => const TwistingMeasurementScreen(),
-    ),
-    _CalcItem(
-      title: 'Seam Efficiency',
-      imagePath: '${_kIconBasePath}seam_efficiency_calculator.webp',
-      builder: () => const SeamEfficiencyCalculatorScreen(),
-    ),
-    _CalcItem(
-      title: 'DHU Calculator',
-      imagePath: '${_kIconBasePath}dhu_calculator.webp',
-      builder: () => const DhuCalculatorScreen(),
-    ),
-    _CalcItem(
-      title: 'RFT Calculator',
-      imagePath: '${_kIconBasePath}rft_calculator.webp',
-      builder: () => const RftCalculatorScreen(),
-    ),
-    _CalcItem(
-      title: 'AQL Sampling',
-      imagePath: '${_kIconBasePath}aql_sampling.webp',
-      builder: () => const AqlSamplingCalculatorScreen(),
-    ),
-
-    // =========================== General Tools ===========================
-    _CalcItem(
-      title: 'Yarn Requirement',
-      imagePath: '${_kIconBasePath}Yarn_Requirement.webp',
-      builder: () => const YarnRequirementScreen(),
-    ),
-    _CalcItem(
-      title: 'Yarn Count Converter',
-      imagePath: '${_kIconBasePath}Yarn_count_converter.webp',
-      builder: () => const YarnCountConverterScreen(),
-    ),
-    _CalcItem(
-      title: 'Fabric Consumption',
-      imagePath: '${_kIconBasePath}Fabric_consumption.webp',
-      builder: () => const FabricConsumptionScreen(),
-    ),
-    _CalcItem(
-      title: 'GSM (Without GSM Cutter)',
-      imagePath: '${_kIconBasePath}GSM _without_gsm_cutter.webp',
-      builder: () => const GsmWithoutCutterScreen(),
-    ),
-    _CalcItem(
-      title: 'GSM (By Yarn Count)',
-      imagePath: '${_kIconBasePath}GSM_By_yarn_count.webp',
-      builder: () => const GsmByYarnCountScreen(),
-    ),
-    _CalcItem(
-      title: 'Average GSM',
-      imagePath: '${_kIconBasePath}average_gsm_calculate.webp',
-      builder: () => const AverageGsmCalculateScreen(),
-    ),
-    _CalcItem(
-      title: 'Yarn to Knit Fabric',
-      imagePath: '${_kIconBasePath}Yarn_to_knit_fabric.webp',
-      builder: () => const YarnToFabricScreen(),
-    ),
-    _CalcItem(
-      title: 'Process Loss',
-      imagePath: '${_kIconBasePath}Process_loss.webp',
-      builder: () => const ProcessLossScreen(),
-    ),
-
-    // ============================= Spinning =============================
-    _CalcItem(
-      title: 'Twist Calculator',
-      imagePath: '${_kIconBasePath}twist_calculator.webp',
-      builder: () => const TwistCalculatorScreen(),
-    ),
-    _CalcItem(
-      title: 'Hank Count Calculator',
-      imagePath: '${_kIconBasePath}hank_count_calculator.webp',
-      builder: () => const HankCountCalculatorScreen(),
-    ),
-    _CalcItem(
-      title: 'Draft Calculator',
-      imagePath: '${_kIconBasePath}draft_calculator.webp',
-      builder: () => const DraftCalculatorScreen(),
-    ),
-    _CalcItem(
-      title: 'CSP Calculator',
-      imagePath: '${_kIconBasePath}csp_calculator.webp',
-      builder: () => const CspCalculatorScreen(),
-    ),
-    _CalcItem(
-      title: 'Blend Ratio',
-      imagePath: '${_kIconBasePath}blend_ratio_calculator.webp',
-      builder: () => const BlendRatioCalculatorScreen(),
-    ),
-
-    // ============================= Knitting =============================
-    _CalcItem(
-      title: 'Stitch Density',
-      imagePath: '${_kIconBasePath}stitch_density_calculator.webp',
-      builder: () => const StitchDensityCalculatorScreen(),
-    ),
-    _CalcItem(
-      title: 'Tightness Factor',
-      imagePath: '${_kIconBasePath}tightness_factor_calculator.webp',
-      builder: () => const TightnessFactorCalculatorScreen(),
-    ),
-    _CalcItem(
-      title: 'Knitting Production',
-      imagePath: '${_kIconBasePath}knitting_production_calculator.webp',
-      builder: () => const KnittingProductionCalculatorScreen(),
-    ),
-
-    // ============================= Weaving =============================
-    _CalcItem(
-      title: 'Fabric Crimp',
-      imagePath: '${_kIconBasePath}fabric_crimp_calculator.webp',
-      builder: () => const FabricCrimpCalculatorScreen(),
-    ),
-    _CalcItem(
-      title: 'Warp Yarn Requirement',
-      imagePath: '${_kIconBasePath}warp_yarn_requirement_calculator.webp',
-      builder: () => const WarpYarnRequirementCalculatorScreen(),
-    ),
-    _CalcItem(
-      title: 'Loom Production',
-      imagePath: '${_kIconBasePath}loom_production_calculator.webp',
-      builder: () => const LoomProductionCalculatorScreen(),
-    ),
-
-    // ============================= Dyeing =============================
-    _CalcItem(
-      title: 'Liquor Ratio',
-      imagePath: '${_kIconBasePath}liquor_ratio_calculator.webp',
-      builder: () => const LiquorRatioCalculatorScreen(),
-    ),
-    _CalcItem(
-      title: 'Dye Recipe',
-      imagePath: '${_kIconBasePath}dye_recipe_calculator.webp',
-      builder: () => const DyeRecipeCalculatorScreen(),
-    ),
-    _CalcItem(
-      title: 'Chemical Dosing',
-      imagePath: '${_kIconBasePath}chemical_dosing_calculator.webp',
-      builder: () => const ChemicalDosingCalculatorScreen(),
-    ),
-
-    // ============================= Finishing =============================
-    _CalcItem(
-      title: 'Wet Pickup',
-      imagePath: '${_kIconBasePath}wet_pickup_calculator.webp',
-      builder: () => const WetPickupCalculatorScreen(),
-    ),
-    _CalcItem(
-      title: 'Chemical Add-on',
-      imagePath: '${_kIconBasePath}chemical_addon_calculator.webp',
-      builder: () => const ChemicalAddOnCalculatorScreen(),
-    ),
-    _CalcItem(
-      title: 'GSM Change',
-      imagePath: '${_kIconBasePath}gsm_change_calculator.webp',
-      builder: () => const GsmChangeCalculatorScreen(),
-    ),
-
-    // ======================= Garments / Merchandising =======================
-    _CalcItem(
-      title: 'Hourly Target',
-      imagePath: '${_kIconBasePath}hourly_target_calculator.webp',
-      builder: () => const HourlyTargetCalculatorScreen(),
-    ),
-    _CalcItem(
-      title: 'Line Efficiency',
-      imagePath: '${_kIconBasePath}line_efficiency_calculator.webp',
-      builder: () => const LineEfficiencyCalculatorScreen(),
-    ),
-    _CalcItem(
-      title: 'CM Costing',
-      imagePath: '${_kIconBasePath}cm_costing_calculator.webp',
-      builder: () => const CmCostingCalculatorScreen(),
-    ),
-    _CalcItem(
-      title: 'Marker Efficiency',
-      imagePath: '${_kIconBasePath}marker_efficiency.webp',
-      builder: () => const MarkerEfficiencyCalculatorScreen(),
-    ),
-    _CalcItem(
-      title: 'Marker Consumption',
-      imagePath: '${_kIconBasePath}marker_consumption.webp',
-      builder: () => const MarkerConsumptionCalculatorScreen(),
-    ),
-
-    // ============================ Export Sheets ============================
-    _CalcItem(
-      title: 'Costing Sheet',
-      imagePath: '${_kIconBasePath}costing_sheet.webp',
-      builder: () => const CostingSheetScreen(),
-    ),
-    _CalcItem(
-      title: 'Cutting Sheet',
-      imagePath: '${_kIconBasePath}cutting_sheet.webp',
-      builder: () => const CuttingSheetScreen(),
-    ),
-
-    const _CalcItem(
-      title: 'Exit',
-      icon: Icons.exit_to_app_rounded,
-      color: Color(0xFFC62828),
-      isExit: true,
-    ),
-  ];
 
   void _openMenu() =>
       _menuController.animateTo(1.0, curve: Curves.easeOutCubic);
@@ -494,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen>
     }
   }
 
-  void _openCalc(_CalcItem item) {
+  void _openCalc(CalcItem item) {
     if (item.builder == null) {
       if (item.isExit) {
         _confirmExit();
@@ -646,34 +288,19 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                 ),
                 const Spacer(),
+                // ⚙️ আগে এখানে নোটিফিকেশন বেল ছিল — এখন সেটিংস আইকন, যেখান
+                // থেকে ইউজার তার ফেভারিট ফিচার বেছে নিয়ে সাজাতে পারবে।
                 Material(
                   color: Colors.white,
                   shape: const CircleBorder(),
                   elevation: 3,
                   child: InkWell(
                     customBorder: const CircleBorder(),
-                    onTap: () =>
-                        _showInfo('Notification', 'No new notifications yet.'),
-                    child: Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Icon(Icons.notifications_none_rounded,
-                              color: AppColors.darkGreen, size: 20),
-                        ),
-                        Positioned(
-                          top: 8,
-                          right: 8,
-                          child: Container(
-                            width: 8,
-                            height: 8,
-                            decoration: const BoxDecoration(
-                                color: AppColors.lightGreen,
-                                shape: BoxShape.circle),
-                          ),
-                        ),
-                      ],
+                    onTap: _openFavoritesSettings,
+                    child: const Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Icon(Icons.settings_rounded,
+                          color: AppColors.darkGreen, size: 20),
                     ),
                   ),
                 ),
@@ -738,17 +365,115 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   Widget _buildGrid({required double topPadding}) {
-    return GridView.builder(
-      padding: EdgeInsets.fromLTRB(14, topPadding + 10, 14, 16),
-      itemCount: _items.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: _kGridCrossAxisCount,
-        crossAxisSpacing: _kGridSpacing,
-        mainAxisSpacing: _kGridSpacing,
-        childAspectRatio: _kCardAspectRatio,
+    // ⭐ সেভ করা টাইটেল অনুযায়ী ফেভারিট আইটেমগুলো (ক্রম বজায় রেখে) বের করা
+    // হচ্ছে। কোনো টাইটেল যদি আর calcMenuItems-এ না থাকে (যেমন ফিচার সরানো
+    // হয়েছে) সেটা নিরাপদে বাদ পড়ে যাবে।
+    final favoriteItems = _favoriteTitles
+        .map((t) {
+          for (final item in calcMenuItems) {
+            if (item.title == t) return item;
+          }
+          return null;
+        })
+        .whereType<CalcItem>()
+        .toList();
+
+    return CustomScrollView(
+      slivers: [
+        SliverPadding(
+          padding: EdgeInsets.fromLTRB(14, topPadding + 10, 14, 0),
+          sliver: SliverToBoxAdapter(
+            child: favoriteItems.isEmpty
+                ? const SizedBox.shrink()
+                : _buildFavoritesSection(favoriteItems),
+          ),
+        ),
+        SliverPadding(
+          padding: const EdgeInsets.fromLTRB(14, 0, 14, 16),
+          sliver: SliverGrid(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: _kGridCrossAxisCount,
+              crossAxisSpacing: _kGridSpacing,
+              mainAxisSpacing: _kGridSpacing,
+              childAspectRatio: _kCardAspectRatio,
+            ),
+            delegate: SliverChildBuilderDelegate(
+              (context, i) => _CalcCard(
+                item: calcMenuItems[i],
+                onTap: () => _openCalc(calcMenuItems[i]),
+              ),
+              childCount: calcMenuItems.length,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // ⭐ "My Favorites" কুইক-অ্যাক্সেস সেকশন — এটা শুধু তখনই দেখায় যখন
+  // ইউজার সেটিংস থেকে অন্তত একটা ফেভারিট বেছে নিয়েছে। নিচের মূল গ্রিড
+  // সবসময় অপরিবর্তিত ডিফল্ট ক্রমেই থাকে (ডুপ্লিকেট শো হওয়া স্বাভাবিক —
+  // এটা শুধু একটা কুইক-অ্যাক্সেস শর্টকাট)।
+  Widget _buildFavoritesSection(List<CalcItem> favoriteItems) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(Icons.star_rounded, size: 16, color: Colors.amber),
+              const SizedBox(width: 6),
+              const Text(
+                'My Favorites',
+                style: TextStyle(
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.w800,
+                  color: AppColors.darkGreen,
+                ),
+              ),
+              const Spacer(),
+              GestureDetector(
+                onTap: _openFavoritesSettings,
+                child: const Text(
+                  'Edit',
+                  style: TextStyle(
+                    fontSize: 11.5,
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.green,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: favoriteItems.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: _kGridCrossAxisCount,
+              crossAxisSpacing: _kGridSpacing,
+              mainAxisSpacing: _kGridSpacing,
+              childAspectRatio: _kCardAspectRatio,
+            ),
+            itemBuilder: (context, i) => _CalcCard(
+              item: favoriteItems[i],
+              onTap: () => _openCalc(favoriteItems[i]),
+            ),
+          ),
+          const SizedBox(height: 4),
+          const Divider(height: 20),
+          const Text(
+            'All Features',
+            style: TextStyle(
+              fontSize: 12.5,
+              fontWeight: FontWeight.w800,
+              color: AppColors.darkGreen,
+            ),
+          ),
+        ],
       ),
-      itemBuilder: (context, i) =>
-          _CalcCard(item: _items[i], onTap: () => _openCalc(_items[i])),
     );
   }
 
@@ -1069,7 +794,7 @@ class _DotGrid extends StatelessWidget {
 }
 
 class _CalcCard extends StatelessWidget {
-  final _CalcItem item;
+  final CalcItem item;
   final VoidCallback onTap;
 
   const _CalcCard({required this.item, required this.onTap});
