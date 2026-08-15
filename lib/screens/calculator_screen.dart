@@ -6,11 +6,14 @@ import '../widgets/calc_scaffold.dart';
 /// মতোই বামদিক থেকে ডানদিকে ক্রমান্বয়ে হিসাব করে (যেমন সাধারণ মোবাইল
 /// ক্যালকুলেটর করে) — জটিল BODMAS/অগ্রাধিকার নিয়ম নেই, এটা ইচ্ছাকৃত।
 ///
-/// 🧾 হিস্ট্রি টেপ: প্রতিটা অপারেটর/সমান চাপার সাথে সাথে সেই নম্বর +
-/// অপারেশনটা উপরে "টেপ" আকারে জমা হতে থাকে (যেমন 10+10+140+120 করলে
-/// দেখাবে "10 +", "10 +", "140 +", "120 =" আর সবশেষে "= 280")। এতে
-/// ইউজার সহজেই চেক করতে পারবে কি কি যোগ/বিয়োগ করেছে। Clear ("C" বা
-/// হেডারের রিফ্রেশ আইকন) চাপলে হিস্ট্রি সহ সবকিছু মুছে যায়।
+/// 🧾 এক্সপ্রেশন টেপ: পুরো হিসাবটা (আগের নম্বর/অপারেটর + এখন যা টাইপ
+/// হচ্ছে) একটানা এক টেক্সট হিসেবে দেখানো হয় — ঠিক স্বাভাবিক
+/// ক্যালকুলেটরের মতো (যেমন "120+125+" — শেষে কার্সর/নতুন সংখ্যা এখানেই
+/// যোগ হতে থাকবে)। জায়গা কম পড়লে এই টেক্সট নিজে থেকেই র‍্যাপ করে
+/// উপরের দিকে বাড়তে থাকে, সবশেষ এন্ট্রি সবসময় নিচেই দেখা যায়। "=" চাপার
+/// পর রেজাল্টও এই একই টেক্সটের অংশ হয়ে যোগ হয় (যেমন "120+125=245"),
+/// পরের হিসাব শুরু হলে নতুন লাইনে বসে। Clear ("C" বা হেডারের রিফ্রেশ
+/// আইকন) চাপলে পুরো টেপ মুছে যায়।
 class CalculatorScreen extends StatefulWidget {
   const CalculatorScreen({super.key});
 
@@ -24,8 +27,11 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   String? _pendingOp; // '+', '-', '×', '÷'
   bool _justEvaluated = false;
 
-  // 🧾 হিস্ট্রি টেপ — প্রতিটা লাইন একটা এন্ট্রি, যেমন "10 +" বা "= 280"
-  final List<String> _historyLines = [];
+  // 🧾 এক্সপ্রেশন টেপ — পুরো হিসাবটা একটানা এক টেক্সট হিসেবে জমা হয়
+  // (যেমন "120+125+45=290"), আলাদা আলাদা লাইনে ভাঙা হয় না। এটা
+  // স্বাভাবিকভাবেই র‍্যাপ করে — জায়গা কম পড়লে টেক্সট এমনিতেই উপরের
+  // দিকে বাড়তে থাকে (নিচে সবসময় সবশেষ এন্ট্রি দেখা যাবে)।
+  String _tape = '';
   final ScrollController _historyScrollController = ScrollController();
 
   static const int _maxDigits = 12;
@@ -47,7 +53,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
       _previousValue = null;
       _pendingOp = null;
       _justEvaluated = false;
-      _historyLines.clear(); // 🧹 ক্লিয়ার করলে হিস্ট্রি সহ সব মুছে যাবে
+      _tape = ''; // 🧹 ক্লিয়ার করলে পুরো টেপ মুছে যাবে
     });
   }
 
@@ -88,13 +94,22 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     return _applyOp(_previousValue!, currentVal, _pendingOp!);
   }
 
-  // ↕️ নতুন হিস্ট্রি লাইন যোগ হলে অটো সবশেষ (নিচের) লাইন পর্যন্ত স্ক্রল
+  // 🧾+🔢 টেপ + বর্তমান ইনপুট মিলিয়ে একটাই টেক্সট — ঠিক যেমন স্বাভাবিক
+  // ক্যালকুলেটরে দেখায় (যেমন "102+123+450+")। "=" চাপার পরপরই রেজাল্ট
+  // টেপে যোগ হয়ে যায় বলে সেটা আবার আলাদাভাবে দেখানোর দরকার হয় না।
+  String get _displayText {
+    final suffix = _justEvaluated ? '' : (_current == '0' ? '' : _current);
+    final text = _tape + suffix;
+    return text.isEmpty ? '0' : text;
+  }
+
+  // ↕️ নতুন কন্টেন্ট যোগ হলে অটো সবশেষ (নিচের) অংশ পর্যন্ত স্ক্রল —
+  // reverse: true থাকায় offset 0 মানেই সবচেয়ে নিচের/সবশেষ কন্টেন্ট
   void _scrollHistoryToEnd() {
     if (!_historyScrollController.hasClients) return;
-    final maxExtent = _historyScrollController.position.maxScrollExtent;
-    if ((_historyScrollController.offset - maxExtent).abs() > 1) {
+    if (_historyScrollController.offset > 1) {
       _historyScrollController.animateTo(
-        maxExtent,
+        0,
         duration: const Duration(milliseconds: 200),
         curve: Curves.easeOut,
       );
@@ -104,6 +119,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   void _onDigit(String d) {
     setState(() {
       if (_justEvaluated) {
+        // আগের হিসাবের রেজাল্টের পর নতুন সংখ্যা টাইপ করা শুরু —
+        // নতুন লাইনে বসবে
+        if (_tape.isNotEmpty) _tape += '\n';
         _current = d;
         _justEvaluated = false;
         return;
@@ -120,6 +138,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   void _onDot() {
     setState(() {
       if (_justEvaluated) {
+        if (_tape.isNotEmpty) _tape += '\n';
         _current = '0.';
         _justEvaluated = false;
         return;
@@ -133,8 +152,15 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   void _onOperator(String op) {
     setState(() {
       final currentVal = double.tryParse(_current) ?? 0;
-      // 🧾 এই নম্বর + অপারেটরটা হিস্ট্রি টেপে যোগ হচ্ছে (যেমন "10 +")
-      _historyLines.add('${_formatNumber(currentVal)} $op');
+
+      if (_justEvaluated) {
+        // রেজাল্ট থেকেই হিসাব চালিয়ে যাওয়া — সংখ্যাটা তো "=" এর পাশে
+        // ইতিমধ্যে দেখা যাচ্ছে, তাই শুধু অপারেটরটা যোগ হবে
+        _tape += op;
+      } else {
+        // 🧾 নম্বর + অপারেটর একসাথে, আগের টেক্সটের সাথে জোড়া লেগে যাবে
+        _tape += '${_formatNumber(currentVal)}$op';
+      }
 
       if (_previousValue != null && _pendingOp != null && !_justEvaluated) {
         _previousValue = _applyOp(_previousValue!, currentVal, _pendingOp!);
@@ -154,9 +180,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
       final result = _applyOp(_previousValue!, currentVal, _pendingOp!);
       final resultText = result.isNaN ? 'Error' : _formatNumber(result);
 
-      // 🧾 শেষ নম্বরটা "=" সহ, তারপর আলাদা লাইনে ফাইনাল রেজাল্ট
-      _historyLines.add('${_formatNumber(currentVal)} =');
-      _historyLines.add('= $resultText');
+      // 🧾 পুরো হিসাবটা একসাথে টেপে যোগ হচ্ছে, যেমন "120+125=245"
+      _tape += '${_formatNumber(currentVal)}=$resultText';
 
       _current = resultText;
       _previousValue = null;
@@ -199,8 +224,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         final result = _applyOp(_previousValue!, percentVal, _pendingOp!);
         final resultText = result.isNaN ? 'Error' : _formatNumber(result);
 
-        _historyLines.add('${_formatNumber(currentVal)}% =');
-        _historyLines.add('= $resultText');
+        _tape += '${_formatNumber(currentVal)}%=$resultText';
 
         _current = resultText;
         _previousValue = null;
@@ -236,9 +260,11 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     );
   }
 
-  // 🧾+🔢 উপরে স্ক্রলযোগ্য হিস্ট্রি টেপ, নিচে বড় করে বর্তমান ইনপুট/রেজাল্ট
+  // 🧾🔢 একটাই টেক্সট — টেপ + বর্তমান ইনপুট একসাথে, স্বাভাবিক
+  // ক্যালকুলেটরের মতো র‍্যাপ করে। reverse: true থাকায় কন্টেন্ট কম হলে
+  // একদম নিচে (কীপ্যাডের কাছে) থাকবে, বেশি হলে সবসময় সবশেষ এন্ট্রি
+  // নিচেই দেখা যাবে আর পুরনোগুলো উপরের দিকে উঠে যাবে।
   Widget _buildDisplay() {
-    // নতুন হিস্ট্রি লাইন এলে অটো সবশেষ পর্যন্ত স্ক্রল
     WidgetsBinding.instance.addPostFrameCallback((_) => _scrollHistoryToEnd());
 
     return Container(
@@ -261,29 +287,21 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisSize: MainAxisSize.max,
         children: [
-          // 🧾 হিস্ট্রি টেপ — খালি থাকলে জায়গা নেয় না, ভরে গেলে
-          // স্ক্রলযোগ্য হয়ে যায়
           Expanded(
-            child: _historyLines.isEmpty
-                ? const SizedBox.shrink()
-                : SingleChildScrollView(
-                    controller: _historyScrollController,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: _historyLines.map(_buildHistoryLine).toList(),
-                    ),
-                  ),
-          ),
-          const SizedBox(height: 6),
-          FittedBox(
-            fit: BoxFit.scaleDown,
-            alignment: Alignment.centerRight,
-            child: Text(
-              _current,
-              style: const TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.w800,
-                  color: AppColors.darkGreen),
+            child: SingleChildScrollView(
+              controller: _historyScrollController,
+              reverse: true,
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: Text(
+                  _displayText,
+                  textAlign: TextAlign.right,
+                  style: const TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.w800,
+                      color: AppColors.darkGreen),
+                ),
+              ),
             ),
           ),
           // 🔴 লাইভ রানিং টোটাল — চেইন চলাকালীন সবসময় দৃশ্যমান, "="
@@ -299,22 +317,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
             ),
           ],
         ],
-      ),
-    );
-  }
-
-  // "= 280" এর মতো রেজাল্ট লাইনগুলো একটু বোল্ড/সবুজ করে আলাদা করে দেখানো
-  Widget _buildHistoryLine(String line) {
-    final isResult = line.startsWith('=');
-    return Padding(
-      padding: EdgeInsets.only(bottom: isResult ? 6 : 2),
-      child: Text(
-        line,
-        style: TextStyle(
-          fontSize: isResult ? 14 : 13,
-          fontWeight: isResult ? FontWeight.w800 : FontWeight.w600,
-          color: isResult ? AppColors.darkGreen : Colors.black45,
-        ),
       ),
     );
   }
