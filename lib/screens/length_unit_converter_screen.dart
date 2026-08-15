@@ -70,6 +70,9 @@ class _LengthUnitConverterScreenState
     return CalcScaffold(
       title: 'METER / YARD / FEET\nCONVERTER',
       icon: Icons.straighten_rounded,
+      // হোম স্ক্রিনে এই ফিচারের জন্য যে ছবিটা ব্যবহার হয়েছে, হেডারের
+      // লোগো বক্সেও এখন সেই একই ছবি দেখাবে।
+      iconAsset: 'assets/homeicon/LengthUnitConverter.webp',
       // 📖 হেডারের ডান কোনায় গাইড আইকন — চাপলে বটম-শিটে সংজ্ঞা, ফরমুলা ও
       // ম্যানুয়ালি হিসাব করার নিয়ম দেখানো হয় (4 Point Inspection এর
       // FormulaGuideButton এর মতোই একই প্যাটার্ন)।

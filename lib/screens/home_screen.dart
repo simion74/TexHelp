@@ -56,6 +56,8 @@ import 'costing_sheet_screen.dart';
 import 'cutting_sheet_screen.dart';
 import 'marker_consumption_calculator_screen.dart';
 import 'marker_efficiency_calculator_screen.dart';
+import 'length_unit_converter_screen.dart';
+import 'small_measurement_converter_screen.dart';
 import '../widgets/ai_home_banner.dart';
 import '../widgets/ai_icon.dart';
 import '../services/gemini_service.dart';
@@ -169,6 +171,16 @@ class _HomeScreenState extends State<HomeScreen>
       title: 'Percent Calculator',
       imagePath: '${_kIconBasePath}percent_calculator.webp',
       builder: () => const PercentCalculatorScreen(),
+    ),
+    _CalcItem(
+      title: 'Meter/Yard/Feet',
+      imagePath: '${_kIconBasePath}LengthUnitConverter.webp',
+      builder: () => const LengthUnitConverterScreen(),
+    ),
+    _CalcItem(
+      title: 'MM/CM/Inch',
+      imagePath: '${_kIconBasePath}SmallMeasurement.webp',
+      builder: () => const SmallMeasurementConverterScreen(),
     ),
     _CalcItem(
       title: 'Roll Length',
