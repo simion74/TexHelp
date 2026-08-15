@@ -173,7 +173,7 @@ class _FavoritesSettingsScreenState extends State<FavoritesSettingsScreen> {
           Text(
             _favTitles.isEmpty
                 ? 'নিচের লিস্ট থেকে ⭐ ট্যাপ করে আপনার বেশি ব্যবহৃত ফিচারগুলো এখানে যোগ করুন।'
-                : 'ধরে টেনে (drag) ক্রম সাজান — হোম স্ক্রিনে এই ক্রমেই দেখাবে।',
+                : 'নিচের লিস্ট থেকে ⭐ ট্যাপ করে সাজান — হোম স্ক্রিনে এই ক্রমেই দেখাবে।',
             style: const TextStyle(fontSize: 11.5, color: Colors.black54),
           ),
           const SizedBox(height: 10),
