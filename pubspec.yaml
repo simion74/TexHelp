@@ -35,6 +35,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
+  # 🚀 App icon জেনারেট করার জন্য
+  flutter_launcher_icons: ^0.13.1
+  # 🎬 Splash screen জেনারেট করার জন্য (Android 12+ সহ সব ভার্সন)
+  flutter_native_splash: ^2.4.1
 
 flutter:
   uses-material-design: true
@@ -47,3 +51,28 @@ flutter:
     - assets/Fabric_fault_image/
     - assets/Ready_garments_fault_image/
     - assets/images/Lab/
+
+# ================================
+# 📱 App Launcher Icon Config
+# ================================
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/app_icon.png"
+  min_sdk_android: 21
+  adaptive_icon_background: "assets/icon/app_icon.png"   # background layer (full-bleed)
+  adaptive_icon_foreground: "assets/icon/app_icon_foreground.png"  # safe-zone padded
+
+# ================================
+# 🎬 Splash Screen Config
+# ================================
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: "assets/icon/splash_icon.png"
+  android_12:
+    image: "assets/icon/splash_icon_android12.png"
+    icon_background_color: "#FFFFFF"
+    color: "#FFFFFF"
+  android: true
+  ios: true
+  fullscreen: true
