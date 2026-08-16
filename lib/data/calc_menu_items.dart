@@ -57,6 +57,15 @@ import '../screens/marker_efficiency_calculator_screen.dart';
 import '../screens/length_unit_converter_screen.dart';
 import '../screens/small_measurement_converter_screen.dart';
 
+// 🆕 আজকে যোগ হওয়া ৭টা নতুন ক্যালকুলেটর
+import '../screens/yarn_weight_screen.dart';
+import '../screens/yarn_consumption_screen.dart';
+import '../screens/moisture_percent_screen.dart';
+import '../screens/cutting_wastage_screen.dart';
+import '../screens/sam_smv_screen.dart';
+import '../screens/carton_cbm_screen.dart';
+import '../screens/profit_markup_screen.dart';
+
 /// হোম গ্রিড ও Favorites সিলেকশন স্ক্রিন — দুই জায়গাতেই ব্যবহৃত একটাই
 /// আইটেম মডেল। আগে এটি home_screen.dart-এ প্রাইভেট (_CalcItem) ছিল,
 /// এখন পাবলিক করে এখানে সরানো হয়েছে।
@@ -209,6 +218,12 @@ final List<CalcItem> calcMenuItems = [
     imagePath: '${kIconBasePath}aql_sampling.webp',
     builder: () => const AqlSamplingCalculatorScreen(),
   ),
+  // 🆕 Moisture % (Lab) — Wet/Dry Weight থেকে MC%, MR% ও Conditioned Weight
+  CalcItem(
+    title: 'Moisture %',
+    imagePath: '${kIconBasePath}moisture%.webp',
+    builder: () => const MoisturePercentScreen(),
+  ),
 
   // =========================== General Tools ===========================
   CalcItem(
@@ -278,6 +293,12 @@ final List<CalcItem> calcMenuItems = [
     imagePath: '${kIconBasePath}blend_ratio_calculator.webp',
     builder: () => const BlendRatioCalculatorScreen(),
   ),
+  // 🆕 Yarn Weight (Spinning) — Count(Ne/Nm/Tex/Denier) + Length → Weight
+  CalcItem(
+    title: 'Yarn Weight',
+    imagePath: '${kIconBasePath}yarn_weight.webp',
+    builder: () => const YarnWeightScreen(),
+  ),
 
   // ============================= Knitting =============================
   CalcItem(
@@ -294,6 +315,12 @@ final List<CalcItem> calcMenuItems = [
     title: 'Knitting Production',
     imagePath: '${kIconBasePath}knitting_production_calculator.webp',
     builder: () => const KnittingProductionCalculatorScreen(),
+  ),
+  // 🆕 Yarn Consumption (Knitting) — GSM + Width + Length + Wastage% → Total Yarn (kg)
+  CalcItem(
+    title: 'Yarn Consumption',
+    imagePath: '${kIconBasePath}yarn_consumption.webp',
+    builder: () => const YarnConsumptionScreen(),
   ),
 
   // ============================= Weaving =============================
@@ -347,6 +374,22 @@ final List<CalcItem> calcMenuItems = [
     builder: () => const GsmChangeCalculatorScreen(),
   ),
 
+  // ============================= Cutting =============================
+  // 🆕 Cutting Wastage — Fabric Issued vs Consumed → Wastage Qty & %
+  CalcItem(
+    title: 'Cutting Wastage',
+    imagePath: '${kIconBasePath}cutting_wastage.webp',
+    builder: () => const CuttingWastageScreen(),
+  ),
+
+  // ============================= Sewing =============================
+  // 🆕 SAM / SMV — Observed Time + Rating + Allowance → SMV & Output/Hour
+  CalcItem(
+    title: 'SAM / SMV',
+    imagePath: '${kIconBasePath}sam_smv.webp',
+    builder: () => const SamSmvScreen(),
+  ),
+
   // ======================= Garments / Merchandising =======================
   CalcItem(
     title: 'Hourly Target',
@@ -374,6 +417,14 @@ final List<CalcItem> calcMenuItems = [
     builder: () => const MarkerConsumptionCalculatorScreen(),
   ),
 
+  // ============================= Costing =============================
+  // 🆕 Profit / Markup — Cost & Selling Price → Profit, Margin% & Markup%
+  CalcItem(
+    title: 'Profit / Markup',
+    imagePath: '${kIconBasePath}profit_markup.webp',
+    builder: () => const ProfitMarkupScreen(),
+  ),
+
   // ============================ Export Sheets ============================
   CalcItem(
     title: 'Costing Sheet',
@@ -384,6 +435,14 @@ final List<CalcItem> calcMenuItems = [
     title: 'Cutting Sheet',
     imagePath: '${kIconBasePath}cutting_sheet.webp',
     builder: () => const CuttingSheetScreen(),
+  ),
+
+  // ============================= Packing =============================
+  // 🆕 Carton / CBM — L×W×H + Cartons → CBM per Carton & Total CBM
+  CalcItem(
+    title: 'Carton / CBM',
+    imagePath: '${kIconBasePath}carton_cbm.webp',
+    builder: () => const CartonCbmScreen(),
   ),
 
   const CalcItem(
