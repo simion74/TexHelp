@@ -64,9 +64,10 @@ class CalcScaffold extends StatelessWidget {
                   ),
                 ),
                 child: Padding(
-                  // নিচে AdMob ব্যানারের (height 50) জন্য জায়গা রাখতে বাকি
-                  // অংশের প্যাডিং/গ্যাপ একটু কমানো হয়েছে, যাতে সব মিলিয়ে
-                  // এক স্ক্রিনেই সুন্দরভাবে ফিট হয়ে যায়, স্ক্রল লাগে না।
+                  // নিচে AdMob ব্যানারের (Adaptive, height ~50-70dp, ডিভাইস
+                  // অনুযায়ী পরিবর্তনশীল — দেখুন ad_banner.dart) জন্য জায়গা
+                  // রাখতে বাকি অংশের প্যাডিং/গ্যাপ একটু কমানো হয়েছে, যাতে সব
+                  // মিলিয়ে এক স্ক্রিনেই সুন্দরভাবে ফিট হয়ে যায়, স্ক্রল লাগে না।
                   padding: const EdgeInsets.fromLTRB(14, 0, 14, 6),
                   child: Column(
                     children: [
@@ -118,8 +119,11 @@ class CalcScaffold extends StatelessWidget {
                       keypad,
                       const SizedBox(height: 4),
                       // Google AdMob মোবাইল ব্যানার বিজ্ঞাপন কন্টেইনার
-                      // height: 50.0, width: double.infinity — যাতে অ্যাড
-                      // দেখানোর সময়ও লে-আউট না ভাঙে এবং কাজের ব্যাঘাত না হয়।
+                      // width: double.infinity সবসময়, height Adaptive
+                      // (ডিভাইস অনুযায়ী ~50-70dp, বড় হলে ফিক্সড 50dp-এ
+                      // ফলব্যাক হয় — দেখুন ad_banner.dart এর
+                      // maxAdaptiveHeight)। এভাবে অ্যাড দেখানোর সময়ও
+                      // লে-আউট না ভাঙে এবং কিপ্যাডের কাজে ব্যাঘাত না হয়।
                       const ClipRRect(
                         borderRadius:
                             BorderRadius.vertical(top: Radius.circular(10)),
