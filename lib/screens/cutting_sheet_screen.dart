@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/export_service.dart';
 import '../theme/app_colors.dart';
-import '../widgets/ai_icon.dart';
 import '../widgets/sheet_field.dart';
 
 /// ✂️ Cutting / Marker Sheet — Marker-এর তথ্য ফিল-আপ করে Marker
@@ -253,10 +252,11 @@ class _CuttingSheetScreenState extends State<CuttingSheetScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                children: const [
-                                  AiIcon(size: 16),
-                                  SizedBox(width: 6),
-                                  Text('TexHelp — Cutting Summary',
+                                children: [
+                                  Image.asset('assets/icon/app_icon.png',
+                                      width: 16, height: 16),
+                                  const SizedBox(width: 6),
+                                  const Text('TexHelp — Cutting Summary',
                                       style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w700,

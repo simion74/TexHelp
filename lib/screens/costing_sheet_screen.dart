@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/export_service.dart';
 import '../theme/app_colors.dart';
-import '../widgets/ai_icon.dart';
 import '../widgets/sheet_field.dart';
 
 /// 💰 Garment Costing Sheet — Merchandiser ফোনেই সম্পূর্ণ কস্টিং শিট
@@ -269,10 +268,11 @@ class _CostingSheetScreenState extends State<CostingSheetScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                children: const [
-                                  AiIcon(size: 16),
-                                  SizedBox(width: 6),
-                                  Text('TexHelp — Costing Summary',
+                                children: [
+                                  Image.asset('assets/icon/app_icon.png',
+                                      width: 16, height: 16),
+                                  const SizedBox(width: 6),
+                                  const Text('TexHelp — Costing Summary',
                                       style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w700,
