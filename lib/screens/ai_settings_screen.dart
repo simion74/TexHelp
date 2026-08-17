@@ -173,7 +173,7 @@ class _AiSettingsScreenState extends State<AiSettingsScreen> {
   }
 
   Widget _statusBanner() {
-    final color = _isActive ? Colors.green : Colors.orange;
+    final color = _isActive ? Colors.green : Colors.red;
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(14),
@@ -197,7 +197,7 @@ class _AiSettingsScreenState extends State<AiSettingsScreen> {
                   fontWeight: FontWeight.w700,
                   color: color == Colors.green
                       ? Colors.green.shade800
-                      : Colors.orange.shade800),
+                      : Colors.red.shade800),
             ),
           ),
         ],
@@ -294,16 +294,16 @@ class _AiSettingsScreenState extends State<AiSettingsScreen> {
       width: double.infinity,
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.amber.shade50,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.amber.shade200),
+        border: Border.all(color: Colors.black12),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(Icons.lightbulb_rounded, size: 16, color: Colors.amber.shade800),
+              const Icon(Icons.lightbulb_rounded, size: 16, color: Colors.red),
               const SizedBox(width: 6),
               Expanded(
                 child: Text(
@@ -311,22 +311,22 @@ class _AiSettingsScreenState extends State<AiSettingsScreen> {
                   style: TextStyle(
                       fontSize: 12.5,
                       fontWeight: FontWeight.w800,
-                      color: Colors.amber.shade900),
+                      color: Colors.red.shade700),
                 ),
               ),
             ],
           ),
           const SizedBox(height: 6),
-          Text(
-            'প্রথমবার AI Studio-তে ঢুকলে আপনার কোনো Google Cloud "Project" থাকে না — তাই বাটনটি প্রথমে কিছু করে না। আপনাকে আগে একটা প্রজেক্ট বানাতে হবে। এভাবে করুন:',
-            style: TextStyle(fontSize: 11.5, color: Colors.amber.shade900, height: 1.45),
+          const Text(
+            'প্রথমবার AI Studio-তে ঢুকলে আপনার কোনো Google Cloud "Project" থাকে না তাই বাটনটি প্রথমে কাজ করবে না। আপনাকে আগে একটা প্রজেক্ট বানাতে হবে। প্রজেক্ট বানানো খুবই সহজ, এভাবে করুন:',
+            style: TextStyle(fontSize: 11.5, color: AppColors.green, height: 1.45, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 8),
-          Text(
+          const Text(
             '• "Create API Key" বাটনের পাশে/নিচে থাকা ড্রপডাউন থেকে "Create API key in new project" অপশনটি বেছে নিন।\n'
             '• সিলেক্ট করলেই Google নিজে থেকে একটি নতুন, ফ্রি প্রজেক্ট বানিয়ে সাথে সাথে আপনার Key জেনারেট করে দেবে — আলাদা করে কিছু সেটআপ করার দরকার নেই।\n'
             '• কোনো Billing/Card যুক্ত করার প্রয়োজন নেই, ফ্রি Tier-এই Key কাজ করে।',
-            style: TextStyle(fontSize: 11.5, color: Colors.amber.shade900, height: 1.5),
+            style: TextStyle(fontSize: 11.5, color: AppColors.green, height: 1.5, fontWeight: FontWeight.w600),
           ),
         ],
       ),
