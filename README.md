@@ -1,172 +1,184 @@
 # TexHelp — Flutter Android App
 
-## 🆕 সর্বশেষ আপডেট (এই সংস্করণে যা যা করা হয়েছে)
+**টেক্সটাইল ও গার্মেন্টস ইন্ডাস্ট্রির জন্য অল-ইন-ওয়ান ক্যালকুলেটর ও রেফারেন্স অ্যাপ।**
+স্পিনিং, নিটিং/উইভিং, ডাইং-ফিনিশিং, গার্মেন্টস/কাটিং-সুইং ও কস্টিং — প্রতিটি
+ডিপার্টমেন্টের দরকারি ফর্মুলা একটাই অ্যাপে, সাথে AI-পাওয়ারড আইডেন্টিফিকেশন
+টুলও আছে।
 
-- **Home Screen** ও **Side Menu**-এর ব্যাকগ্রাউন্ডে আপনার দেওয়া নতুন ছবি
-  (`assets/images/home_bg.png`, `assets/images/side_menu_bg.jpg`) বসানো
-  হয়েছে, সুন্দরভাবে ক্রপ/ফিট করে (`BoxFit.cover`)।
-- **অ্যাপ আইকন সম্পূর্ণ পরিবর্তন**: পুরনো আইকন ডিলিট করে আপনার দেওয়া নতুন
-  সেলাই-থিমের আইকন বসানো হয়েছে —
-  - `assets/icon/app_icon.png` — স্কয়ার/রাউন্ড-কর্নার ভার্সন (হোম পেজের টপ বারে ব্যবহৃত)
-  - `assets/icon/app_icon_round.png` — গোল ভার্সন (সাইড মেনুর লোগোতে ব্যবহৃত)
-  - Android (`mipmap-*`) এবং iOS (`AppIcon.appiconset`) — দুই জায়গার
-    আসল লঞ্চার আইকনও রিজেনারেট করে বসানো হয়েছে, তাই আলাদা করে
-    `flutter_launcher_icons` চালানোর দরকার নেই।
-- **Home গ্রিড** এখন উদাহরণ ডিজাইনের মতো ৩টি করে এক লাইনে (৩ কলাম), গোল
-  গ্রেডিয়েন্ট আইকন + টাইটেল + রঙিন আন্ডারলাইন সহ।
-- **সাইড মেনু** এখন হাত দিয়ে সোয়াইপ করে খোলা/বন্ধ করা যায় (বাম কিনারা থেকে
-  ডানে সোয়াইপ করলে খুলবে, মেনু খোলা অবস্থায় বামে সোয়াইপ করলে বন্ধ হবে) —
-  পাশাপাশি হ্যামবার্গার (☰) বাটনও আগের মতোই কাজ করে।
-- **প্রতিটি ক্যালকুলেটর স্ক্রিনের নিচে Google AdMob ব্যানার**: `height: 50.0`,
-  `width: double.infinity` — `lib/widgets/ad_banner.dart`-এ বানানো হয়েছে এবং
-  `lib/widgets/calc_scaffold.dart`-এ যুক্ত করা হয়েছে (সব স্ক্রিন শেয়ার করে
-  বলে একবার যোগ করলেই সবগুলোতে চলে এসেছে)। এখন Google-এর **টেস্ট Ad Unit
-  ID** বসানো আছে — Play Store/App Store-এ প্রকাশ করার আগে অবশ্যই
-  `lib/widgets/ad_banner.dart`-এর `_androidTestUnitId` / `_iosTestUnitId`
-  এবং `AndroidManifest.xml` / `Info.plist`-এর App ID নিজের AdMob অ্যাকাউন্টের
-  আসল আইডি দিয়ে বদলে নিন, নাহলে রিয়েল বিজ্ঞাপন দেখাবে না।
-- অ্যাডের জন্য জায়গা রাখতে হেডার/ইনপুট-কার্ডের মাঝের গ্যাপ সামান্য কমানো
-  হয়েছে, এবং কন্টেন্ট এরিয়া এখন প্রয়োজনে হালকা স্ক্রল হতে পারে (স্বাভাবিক
-  অবস্থায় বোঝা যাবে না) — যাতে কোনো স্ক্রিনে অ্যাড দেখানোর সময় লে-আউট
-  ভেঙে/ওভারফ্লো না হয়।
-- **নতুন dependency**: `pubspec.yaml`-এ `google_mobile_ads` যোগ করা হয়েছে —
-  চালানোর আগে `flutter pub get` দিতে ভুলবেন না।
+> ⚠️ এই README প্রজেক্টের **বর্তমান কোড দেখে** নতুন করে লেখা হয়েছে (আগের
+> ভার্সনে মাত্র ৭টা ক্যালকুলেটরের কথা লেখা ছিল, যেটা অনেক আগেই পুরনো
+> হয়ে গিয়েছিল)।
 
 ---
 
+## ✨ মূল ফিচার
 
-আপনার ৭টি HTML ক্যালকুলেটর একটি Flutter প্রজেক্টে কনভার্ট করা হয়েছে, যেখানে
-কমন ডিজাইন (হেডার, ইনপুট কার্ড, রেজাল্ট বক্স, কিপ্যাড, কালার) একবার লেখা হয়েছে
-এবং সবগুলো ক্যালকুলেটর স্ক্রিন সেটাই রিইউজ করে — তাই কোড অনেক ছোট ও সহজে
-মেইনটেইন করা যায়।
+### ১. ৬০+ ক্যালকুলেটর, ৬টি ডিপার্টমেন্টে ভাগ করা
+Spinning · Knitting · Dyeing · Finishing · Garments · Printing · Testing —
+হোম স্ক্রিনে ডিপার্টমেন্ট-ভিত্তিক ফিল্টার চিপ দিয়ে সহজে খুঁজে বের করা যায়।
+এর মধ্যে আছে (উদাহরণস্বরূপ):
 
-## যা যা করা হয়েছে
+- **কমন**: Calculator, Percent Calculator, Meter/Yard/Feet, MM/CM/Inch
+- **ফেব্রিক/নিটিং**: Fabric GSM, Fabric Weight, GSM (Without Cutter),
+  GSM (By Yarn Count), Average GSM, Fabric Consumption, Fabric Crimp,
+  Stitch Density, Tightness Factor, Knitting Production, Body to Rib
+  Fabric Ratio, Yarn to Knit Fabric
+- **ইয়ার্ন/স্পিনিং**: Yarn Requirement, Yarn Count Converter, Yarn Weight,
+  Yarn Consumption, Twist Calculator, Hank Count, Draft Calculator,
+  CSP Calculator, Blend Ratio, Warp Yarn Requirement, Loom Production
+- **ডাইং/ফিনিশিং**: Shrinkage Measurement, Process Loss, Liquor Ratio,
+  Dye Recipe, Chemical Dosing, Chemical Add-on, Wet Pickup, GSM Change
+- **গার্মেন্টস/কোয়ালিটি**: 4 Point Inspection, DHU Calculator, RFT
+  Calculator, AQL Sampling, Seam Efficiency, Cutting Wastage, SAM/SMV,
+  Hourly Target, Line Efficiency, Marker Efficiency, Marker Consumption
+- **কস্টিং**: CM Costing, Profit/Markup, Costing Sheet, Cutting Sheet,
+  Carton/CBM
+- **কনভার্টার**: Stripe Size Converter, Twisting Measurement, Moisture %,
+  Length Unit Converter, Small Measurement Converter
 
-- **Home Screen**: বাম পাশে ৩-লাইন (☰) আইকন — ট্যাপ করলে সাইড মেনু খোলে,
-  আবার ট্যাপ করলে বন্ধ হয়। মেনুতে About, Share, Rate Me, More Apps,
-  Privacy Policy, Exit আছে (এখন প্লেসহোল্ডার ডায়ালগ দেখায়, নিচে দেখুন কীভাবে
-  আসল লিংক বসাবেন)।
-- Home গ্রিডে ৭টি ক্যালকুলেটর + Exit (মোট ৮টি বক্স-টাইপ কার্ড)। নতুন
-  ক্যালকুলেটর যোগ করতে চাইলে `lib/screens/home_screen.dart`-এর `_items`
-  লিস্টে একটা এন্ট্রি বাড়ালেই হবে।
-- **৭টি ক্যালকুলেটর স্ক্রিন** (মূল হিসাবের সূত্র হুবহু আপনার HTML থেকে নেওয়া):
-  - 4 Point Fabric Inspection
-  - Fabric Calculator (Length/Width/GSM/Weight — যেকোনো ৩টি দিলে ৪র্থটি বের হয়)
-  - Shrinkage Measurement (Length%, Width%, Spirality%)
-  - Stripe Size Converter (mm/cm/inch/feeder + CPI গাইড)
-  - Yarn Requirement (Wastage % সহ)
-  - Yarn Count Converter (Ne/Denier/Tex/Nm)
-  - Fabric Consumption (Per Dozen)
-- প্রতিটি ক্যালকুলেটর স্ক্রিনে `assets/images/bg_frame.png` (আপনার দেওয়া
-  green-wave ডিজাইন) ব্যাকগ্রাউন্ড হিসেবে বসানো আছে। **Home Screen-এ এই
-  ব্যাকগ্রাউন্ড নেই** — আপনি যেমন বলেছিলেন সেভাবেই আলাদা ডিজাইন করা হয়েছে।
-- কিপ্যাড, ইনপুট কার্ড, বাটন সব আগের চেয়ে বড় ও টাচ-ফ্রেন্ডলি সাইজে বানানো
-  হয়েছে যেন মোবাইলে দ্রুত ও আরামে ব্যবহার করা যায়।
+সম্পূর্ণ লিস্ট ও প্রতিটি আইকনের পাথ `lib/data/calc_menu_items.dart`-এ।
 
-> **নোট:** FlutLab-এর মতো অনলাইন বিল্ড টুল Flutter প্রজেক্ট চিনতে `android/`
-> এবং `ios/` — দুটো নেটিভ ফোল্ডারই খোঁজে, তাই দুটোই এই প্রজেক্টে যোগ করা
-> আছে। আপনি যেহেতু শুধু Android অ্যাপ বানাচ্ছেন, `ios/` ফোল্ডারটা শুধু
-> আপলোড ভ্যালিডেশন পাশ করার জন্য দরকার — এটার ভেতরের কিছু নিয়ে মাথা
-> ঘামানোর দরকার নেই, শুধু build/upload-এর সময় ফোল্ডারটা রেখে দিন।
+### ২. রেফারেন্স লাইব্রেরি (AI-সাপোর্টেড সার্চ সহ)
+- **Machine Library** — টেক্সটাইল মেশিনের ছবি, ফাংশন, ব্যাখ্যা
+- **Chemical Library** — ডাইং/ফিনিশিং কেমিক্যালের ডেটাবেজ, ক্যাটাগরি ফিল্টার
+- **Lab Test** — ফেব্রিক/গার্মেন্টস ল্যাব টেস্টের স্ট্যান্ডার্ড মেথড, রেজাল্ট
+  ইভ্যালুয়েশন ইত্যাদি
+- **Fabric Fault** ও **Fabric Type** — ফল্ট/ফেব্রিক টাইপ আইডেন্টিফিকেশন
 
-## ফোল্ডার স্ট্রাকচার
+এই লাইব্রেরিগুলোতে **ফাজি সার্চ** (`lib/utils/fuzzy_search.dart`) কাজ করে, আর
+সার্চে কিছু না মিললে ইউজারের নিজের **Gemini API Key** দিয়ে AI-এর কাছে জিজ্ঞেস
+করার অপশন আছে (`lib/services/gemini_service.dart`)।
+
+### ৩. AI ফিচার (Gemini)
+সাইড মেনু → **AI Settings**-এ গিয়ে ইউজার নিজের ফ্রি Gemini API Key বসাতে
+পারে (ডিভাইসেই সেভ থাকে, কোথাও পাঠানো হয় না)। এরপর Fabric Fault, Fabric
+Type, Machine Library, Chemical Library-এ AI-বেসড রেজাল্ট পাওয়া যায়।
+
+### ৪. Export
+রেজাল্ট **Excel, PDF, ও Image** হিসেবে এক্সপোর্ট/শেয়ার করা যায়
+(`lib/services/export_service.dart` — প্যাকেজ: `excel`, `pdf`, `printing`,
+`share_plus`)।
+
+### ৫. Favorites
+প্রিয় ক্যালকুলেটরগুলো Favorites-এ পিন করে হোম স্ক্রিনের উপরে রাখা যায়
+(`lib/services/favorites_service.dart`, `favorites_settings_screen.dart`)।
+
+### ৬. Home Screen ও Side Menu
+- হ্যামবার্গার আইকন ট্যাপ বা সোয়াইপ করে সাইড মেনু খোলে/বন্ধ হয়
+- About, Share, Rate Me, More Apps, Privacy Policy, AI Settings, Exit
+- প্রতিটি ক্যালকুলেটর স্ক্রিনের নিচে AdMob ব্যানার (adaptive size)
+
+---
+
+## 📁 ফোল্ডার স্ট্রাকচার
 
 ```
 lib/
-  main.dart
-  theme/app_colors.dart          -> সব কালার/গ্রেডিয়েন্ট একজায়গায়
-  models/keypad_controller.dart  -> কমন কিপ্যাড লজিক (active field, digit, backspace...)
-  widgets/
-    calc_scaffold.dart   -> হেডার + ব্যাকগ্রাউন্ড + রিসেট বাটন + কিপ্যাড স্লট
-    input_card.dart      -> ইনপুট রো (আইকন + লেবেল + ভ্যালু + ইউনিট)
-    result_box.dart      -> রেজাল্ট বক্স
-    numeric_keypad.dart  -> কাস্টম নিউমেরিক কিপ্যাড
-  screens/
-    home_screen.dart
-    four_point_screen.dart
-    fabric_calculator_screen.dart
-    shrinkage_screen.dart
-    stripe_converter_screen.dart
-    yarn_requirement_screen.dart
-    yarn_count_converter_screen.dart
-    fabric_consumption_screen.dart
+  main.dart                  -> App entry point, AdMob init
+  theme/app_colors.dart      -> সব কালার/গ্রেডিয়েন্ট একজায়গায়
+  models/keypad_controller.dart
+  data/
+    calc_menu_items.dart     -> হোম গ্রিডের সব ক্যালকুলেটরের মাস্টার লিস্ট
+    department.dart          -> ডিপার্টমেন্ট (Spinning/Knitting/... ) লিস্ট
+    chemical_data.dart, fabric_fault_data.dart, fabric_type_data.dart,
+    lab_test_data.dart, machine_library_data.dart
+  services/
+    gemini_service.dart      -> Gemini API কল, key সেভ/লোড
+    export_service.dart      -> Excel/PDF/Image export
+    favorites_service.dart   -> Favorites সেভ/লোড
+  utils/fuzzy_search.dart
+  widgets/                   -> CalcScaffold, InputCard, ResultBox,
+                                 NumericKeypad, AdBannerWidget, ইত্যাদি
+  screens/                   -> ৬৯টি স্ক্রিন (প্রতিটি ক্যালকুলেটর/লাইব্রেরির
+                                 নিজের ফাইল)
 assets/
-  images/bg_frame.png   -> আপনার আপলোড করা green-wave ব্যাকগ্রাউন্ড
-  icon/app_icon.png     -> আপনার অ্যাপ আইকন (লঞ্চার আইকন বসাতে ব্যবহার করুন)
+  homeicon/        -> হোম গ্রিডের আইকন
+  images/           -> ব্যাকগ্রাউন্ড, AI আইকন ইত্যাদি
+  images/Lab/       -> Lab Test-এর ছবি
+  images/fabrics/, images/machines/
+  icon/             -> app_icon (launcher icon সোর্স)
+  Fabric_fault_image/, Ready_garments_fault_image/
 ```
 
-## কীভাবে রান করবেন (ধাপে ধাপে)
+নতুন ক্যালকুলেটর যোগ করতে:
+1. `lib/screens/`-এ বিদ্যমান কোনো একটা স্ক্রিন কপি করে ফর্মুলা বদলান
+   (`CalcScaffold`, `InputCard`, `ResultBox`, `NumericKeypad`,
+   `KeypadFieldController` রেডি আছে)।
+2. `lib/data/calc_menu_items.dart`-এ import + `CalcItem` এন্ট্রি যোগ করুন।
 
-আমার sandbox-এ Flutter SDK ইনস্টল করা নেই, তাই আমি সরাসরি `flutter run` করে
-টেস্ট করতে পারিনি। তাই নিচের ধাপগুলো আপনার নিজের কম্পিউটারে করুন:
+---
 
-1. আপনার কম্পিউটারে Flutter ইনস্টল থাকতে হবে (না থাকলে flutter.dev থেকে ইনস্টল করুন)।
-2. একটি নতুন প্রজেক্ট বানান (এটা android/ios ফোল্ডার তৈরি করে দেবে):
-   ```
-   flutter create texhelp
-   ```
-3. নতুন তৈরি হওয়া `texhelp` ফোল্ডারের ভেতরের `lib/`, `pubspec.yaml`, `assets/`
-   — এই তিনটা এই zip-এর ভার্সন দিয়ে রিপ্লেস করে দিন।
-4. তারপর:
-   ```
-   cd texhelp
-   flutter pub get
-   flutter run
-   ```
-5. Android APK বানাতে:
-   ```
-   flutter build apk --release
-   ```
+## 🚀 রান করার নিয়ম
 
-## অ্যাপ আইকন বসানো (আপনার দেওয়া ছবি দিয়ে)
-
-`assets/icon/app_icon.png` ফাইলটা আপনার দেওয়া আইকন। লঞ্চার আইকন হিসেবে
-বসাতে `flutter_launcher_icons` প্যাকেজ ব্যবহার করুন:
-
-1. `pubspec.yaml`-এ `dev_dependencies`-এ যোগ করুন:
-   ```yaml
-   flutter_launcher_icons: ^0.13.1
-   ```
-   এবং নিচে (yaml-এর একদম শেষে) যোগ করুন:
-   ```yaml
-   flutter_launcher_icons:
-     android: true
-     ios: true
-     image_path: "assets/icon/app_icon.png"
-   ```
-2. তারপর রান করুন:
-   ```
-   flutter pub get
-   flutter pub run flutter_launcher_icons
-   ```
-
-## About / Share / Rate Me / More Apps / Privacy Policy বাস্তবে কাজ করানো
-
-এখন এগুলো একটা তথ্যমূলক ডায়ালগ দেখায় (placeholder), যাতে আপনি বুঝতে পারেন কোথায়
-বসবে। বাস্তব লিংক/অ্যাকশন যোগ করতে `pubspec.yaml`-এ কমেন্ট করা প্যাকেজ দুটো
-আনকমেন্ট করুন:
-
-```yaml
-url_launcher: ^6.2.5
-share_plus: ^7.2.1
+```bash
+flutter pub get
+flutter run
 ```
 
-এরপর `lib/screens/home_screen.dart`-এ `_showInfo(...)` কলগুলোর জায়গায়:
+Release APK/App Bundle বানাতে:
 
-- **Share**: `Share.share('আমার অ্যাপটি দেখুন: <Play Store লিংক>')`
-- **Rate Me**: `launchUrl(Uri.parse('<Play Store লিংক>'))`
-- **More Apps**: `launchUrl(Uri.parse('<আপনার ডেভেলপার পেজ লিংক>'))`
-- **Privacy Policy**: `launchUrl(Uri.parse('<আপনার প্রাইভেসি পলিসি লিংক>'))`
-- **About**: শুধু টেক্সট ডায়ালগ রাখলেই চলবে, এখনকার মতোই।
-- **Exit**: `SystemNavigator.pop()` (Android-এ অ্যাপ বন্ধ করার জন্য, `import 'package:flutter/services.dart';`)
+```bash
+flutter build apk --release
+# অথবা Play Store-এর জন্য:
+flutter build appbundle --release
+```
 
-## নতুন ক্যালকুলেটর যোগ করবেন কীভাবে
+> `android/` ও `ios/` — দুটো নেটিভ ফোল্ডারই প্রজেক্টে আছে। শুধু Android
+> টার্গেট করলে `ios/` নিয়ে মাথা ঘামানোর দরকার নেই, কিছু বিল্ড টুল
+> (যেমন FlutLab) validation-এর জন্য এটা চায়, তাই রেখে দেওয়া হয়েছে।
 
-1. `lib/screens/` এ নতুন একটা screen ফাইল বানান, বিদ্যমান যেকোনো একটা
-   (যেমন `yarn_requirement_screen.dart`) কপি করে edit করুন — `CalcScaffold`,
-   `InputCard`, `ResultBox`, `NumericKeypad` এবং `KeypadFieldController`
-   এমনিই রেডি আছে, শুধু আপনার হিসাবের সূত্র বসিয়ে দিন।
-2. `home_screen.dart`-এর `_items` লিস্টে একটা `_CalcItem` যোগ করুন।
+---
 
-এতে প্রতিটা নতুন ক্যালকুলেটরের জন্য মাত্র একটা ফাইল লিখলেই হবে — ডিজাইন,
-কিপ্যাড, কালার সবকিছু অটোমেটিক্যালি একই থাকবে।
+## ✅ Play Store-এ পাবলিশ করার আগে চেকলিস্ট
+
+কোড রিভিউ করে যা যা এখনও **করা বাকি** পাওয়া গেছে, প্রকাশ করার আগে এগুলো
+সারিয়ে নিন:
+
+- [ ] **AdMob real ID বসান** — `lib/widgets/ad_banner.dart`-এর
+      `_androidTestUnitId` / `_iosTestUnitId` এবং
+      `android/app/src/main/AndroidManifest.xml`-এর
+      `com.google.android.gms.ads.APPLICATION_ID` — এখনও Google-এর
+      **টেস্ট আইডি** বসানো আছে, নিজের AdMob অ্যাকাউন্টের আসল আইডি দিয়ে
+      পরিবর্তন করুন।
+- [ ] **অ্যাড প্লেসহোল্ডার বন্ধ করুন** — `ad_banner.dart`-এর
+      `build()`-এ এখনও হলুদ "AD BANNER PLACEHOLDER" `Container` অ্যাক্টিভ
+      আছে; নিচে কমেন্ট করা `return const SizedBox.shrink();` অংশটা
+      আনকমেন্ট করে আসল প্লেসহোল্ডার-বক্সটা মুছে দিন।
+- [ ] **ভাঙা ছবি ঠিক করুন** — `assets/images/Lab/zipper_strength - Copy.webp`
+      ফাইলটার নাম বদলে `zipper_strength.webp` করুন (অথবা
+      `lib/data/lab_test_data.dart`-এ পাথ আপডেট করুন), নাহলে Zipper
+      Strength টেস্টে ব্রোকেন ইমেজ দেখাবে।
+- [ ] **অব্যবহৃত Camera পারমিশন সরান** — `pubspec.yaml`-এ `camera` ও
+      `google_mlkit_text_recognition` প্যাকেজ এবং
+      `AndroidManifest.xml`-এ CAMERA পারমিশন আছে, কিন্তু কোথাও কোনো
+      ক্যামেরা/OCR ফিচার লেখা হয়নি। GSM Scanner ফিচার বানানোর প্ল্যান
+      না থাকলে দুটো প্যাকেজ + পারমিশন সরিয়ে ফেলুন (App সাইজ কমবে, Play
+      Store রিভিউতেও ঝামেলা কম হবে)।
+- [ ] **`mounted` চেক যোগ করুন** — `fabric_fault_screen.dart`,
+      `fabric_type_screen.dart`, `machine_library_screen.dart`,
+      `favorites_settings_screen.dart`-এ Gemini AI কলের পর `setState()`
+      করার আগে `if (!mounted) return;` যোগ করুন, নাহলে ইউজার রেসপন্স
+      আসার আগে স্ক্রিন থেকে বেরিয়ে গেলে অ্যাপ ক্র্যাশ করতে পারে।
+- [ ] **রুট ফোল্ডারের এতিম ফাইল মুছুন** — `ad_banner.dart` ও
+      `chemical_screen.dart` (এগুলো `lib/`-এর বাইরে, বিল্ডে ব্যবহার হয় না,
+      কিন্তু পুরনো/ভিন্ন কোড রয়ে গেছে বলে কনফিউশন তৈরি করতে পারে)।
+- [ ] **About / Share / Rate Me / More Apps / Privacy Policy** এখনও
+      placeholder ডায়ালগ দেখায়। বাস্তব লিংক বসাতে
+      `lib/screens/home_screen.dart`-এ:
+      - **Share**: `Share.share('আমার অ্যাপটি দেখুন: <Play Store লিংক>')`
+      - **Rate Me / More Apps / Privacy Policy**:
+        `launchUrl(Uri.parse('<লিংক>'))`
+      - **Exit**: `SystemNavigator.pop()`
+        (`import 'package:flutter/services.dart';`)
+
+---
+
+## 📦 মূল Dependency
+
+| প্যাকেজ | কাজ |
+|---|---|
+| `google_mobile_ads` | AdMob ব্যানার বিজ্ঞাপন |
+| `http` + `shared_preferences` | Gemini AI কল + API key সেভ |
+| `excel`, `pdf`, `printing`, `share_plus` | রেজাল্ট এক্সপোর্ট/শেয়ার |
+| `url_launcher` | About/Rate/More Apps লিংক ওপেন |
+| `camera`, `google_mlkit_text_recognition` | *(যোগ করা আছে, বর্তমানে অব্যবহৃত — উপরের চেকলিস্ট দেখুন)* |
