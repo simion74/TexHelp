@@ -134,27 +134,13 @@ class _AdBannerWidgetState extends State<AdBannerWidget> {
       );
     }
 
-    // ২. ডিজাইন ও এডিটের সুবিধার্থে এড লোড না হলেও এই প্লেসহোল্ডার কন্টেইনারটি শো করবে
-    return Container(
+    // ২. অ্যাড লোড না হওয়া পর্যন্ত (বা লোড fail করলে) এই খালি জায়গাটা দেখাবে —
+    // height রিজার্ভ করে রাখা হয় যাতে অ্যাড লোড হওয়ার সময় লে-আউট হঠাৎ
+    // লাফিয়ে না ওঠে, কিন্তু প্রোডাকশনে দৃশ্যমান কোনো ডিবাগ বক্স/টেক্সট
+    // দেখানো হয় না।
+    return SizedBox(
       height: _placeholderHeight,
       width: double.infinity,
-      color: Colors.amber.shade300, // সহজে চেনার জন্য উজ্জ্বল হলুদ রং
-      alignment: Alignment.center,
-      child: const Text(
-        'AD BANNER PLACEHOLDER (Adaptive)',
-        style: TextStyle(
-          color: Colors.black87,
-          fontSize: 12,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
     );
-
-    /* 
-    *** প্রোডাকশনে বা আসল অ্যাপ রিলিজের সময় ওপরের প্লেসহোল্ডার Container-টি মুছে 
-    নিচের অংশটুকু আনকমেন্ট করে দেবেন:
-    
-    return const SizedBox.shrink(); 
-    */
   }
 }
