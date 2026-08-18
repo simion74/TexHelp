@@ -73,16 +73,21 @@ closest matching real textile fault.
 
     try {
       final data = await GeminiService.generateJson(prompt);
+      // 🛡️ ইউজার রেসপন্স আসার আগেই স্ক্রিন থেকে বেরিয়ে গেলে (widget dispose
+      // হয়ে গেলে) setState() কল করলে ক্র্যাশ হয় — তাই আগে mounted চেক।
+      if (!mounted) return;
       setState(() {
         _aiFault = data;
         _aiLoading = false;
       });
     } on AiException catch (e) {
+      if (!mounted) return;
       setState(() {
         _aiError = e.message;
         _aiLoading = false;
       });
     } catch (_) {
+      if (!mounted) return;
       setState(() {
         _aiError = 'তথ্য খুঁজে পাওয়া যায়নি। আবার চেষ্টা করুন।';
         _aiLoading = false;

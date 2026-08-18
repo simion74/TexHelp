@@ -82,16 +82,21 @@ based on the closest matching real textile/garments machine.
 
     try {
       final data = await GeminiService.generateJson(prompt);
+      // 🛡️ ইউজার রেসপন্স আসার আগেই স্ক্রিন থেকে বেরিয়ে গেলে (widget dispose
+      // হয়ে গেলে) setState() কল করলে ক্র্যাশ হয় — তাই আগে mounted চেক।
+      if (!mounted) return;
       setState(() {
         _aiMachine = data;
         _aiLoading = false;
       });
     } on AiException catch (e) {
+      if (!mounted) return;
       setState(() {
         _aiError = e.message;
         _aiLoading = false;
       });
     } catch (_) {
+      if (!mounted) return;
       setState(() {
         _aiError = 'মেশিনটি সম্পর্কে তথ্য পাওয়া যায়নি। আবার চেষ্টা করুন।';
         _aiLoading = false;
